@@ -1,4 +1,4 @@
-package br.com.leucotron.livr;
+package br.com.leucotron.livre;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -26,6 +26,7 @@
 		<modelmapper.version>1.1.0</modelmapper.version>
 		<typetools.version>0.5.0</typetools.version>
 		<swagger.version>2.7.0</swagger.version>
+		<flyway.version>5.0.7</flyway.version>
 	</properties>
 
 	<!-- SPRING -->
@@ -109,6 +110,12 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
+			<version>${flyway.version}</version>
+		</dependency>
 		
 	</dependencies>
 
@@ -117,6 +124,23 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
+				<version>${flyway.version}</version>
+				<configuration>
+					<url>jdbc:mariadb://localhost:3306/livre</url>
+					<user>root</user>
+					<password>livradmin</password>
+					<schemas>
+						<schema>livre</schema>
+					</schemas>
+					<locations>
+						<location>classpath:db/migration</location>
+					</locations>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
