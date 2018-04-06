@@ -25,6 +25,7 @@
 		<jwt.version>0.7.0</jwt.version>
 		<modelmapper.version>1.1.0</modelmapper.version>
 		<typetools.version>0.5.0</typetools.version>
+		<swagger.version>2.7.0</swagger.version>
 	</properties>
 
 	<!-- SPRING -->
@@ -64,6 +65,18 @@
             <artifactId>jjwt</artifactId>
             <version>${jwt.version}</version>
         </dependency>
+
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>${swagger.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>${swagger.version}</version>
+		</dependency>
         
         <!-- UTILS -->
         <dependency>
