@@ -1,0 +1,12 @@
+/target/
+.idea
+.project
+.settings
+.idea/*
+*.iml
+.vscode/*
+Thumbs.db
+Desktop.ini
+.DS_Store
+/.DS_Store
+dist/*
