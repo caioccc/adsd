@@ -25,6 +25,7 @@
 		<jwt.version>0.7.0</jwt.version>
 		<modelmapper.version>1.1.0</modelmapper.version>
 		<typetools.version>0.5.0</typetools.version>
+		<flyway.version>5.0.7</flyway.version>
 	</properties>
 
 	<!-- SPRING -->
@@ -100,7 +101,7 @@
 		<dependency>
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-core</artifactId>
-			<version>5.0.7</version>
+			<version>${flyway.version}</version>
 		</dependency>
 		
 	</dependencies>
@@ -115,7 +116,7 @@
 			<plugin>
 				<groupId>org.flywaydb</groupId>
 				<artifactId>flyway-maven-plugin</artifactId>
-				<version>5.0.7</version>
+				<version>${flyway.version}</version>
 				<configuration>
 					<url>jdbc:mariadb://localhost:3306/livre</url>
 					<user>root</user>
