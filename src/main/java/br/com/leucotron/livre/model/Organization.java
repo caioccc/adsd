@@ -1,6 +1,7 @@
 package br.com.leucotron.livre.model;
 
 import br.com.leucotron.livre.core.model.Model;
+import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 
@@ -17,12 +18,14 @@ public class Organization extends Model<Integer> {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @ApiModelProperty(notes = "The database generated product ID.")
     @Column(name = "idorganization")
     private Integer idOrganization;
 
     /**
      * Name.
      */
+    @ApiModelProperty(notes = "An organization's fancy name.")
     @Column(name = "name")
     private String name;
 
@@ -30,18 +33,21 @@ public class Organization extends Model<Integer> {
     /**
      * Status.
      */
+    @ApiModelProperty(notes = "Indicates the current status of the company in the system.")
     @Column(name = "status")
     private boolean status;
 
     /**
      * Tags.
      */
+    @ApiModelProperty(notes = "Indicates the tags that define the organization in the system.")
     @Column(name = "tags")
     private String tags;
 
     /**
      * Access Key.
      */
+    @ApiModelProperty(notes = "Indicates the organization's access key. The access key is a hash function of size 16 (0 to 15), which can be generated again after the registration.")
     @Column(name = "accesskey")
     private String accesskey;
 
