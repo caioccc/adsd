@@ -11,7 +11,7 @@ import br.com.leucotron.livre.core.security.LoginFilter;
 
 /**
  * Security Configuration.
- * 
+ *
  * @author Virtus
  */
 @EnableWebSecurity
@@ -26,7 +26,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.cors().disable().csrf().disable().authorizeRequests()
 			.antMatchers(HttpMethod.POST, "/login").permitAll()
 	        .antMatchers(HttpMethod.POST, "/refresh-access").permitAll()
-	        .anyRequest().authenticated()
+            .antMatchers(HttpMethod.GET, "/v2/api-docs").permitAll()
+            .antMatchers(HttpMethod.GET, "/configuration/ui/**").permitAll()
+            .antMatchers(HttpMethod.GET, "/swagger-resources/**").permitAll()
+            .antMatchers(HttpMethod.GET, "/configuration/security/**").permitAll()
+            .antMatchers(HttpMethod.GET, "/webjars/**").permitAll()
+            .antMatchers(HttpMethod.GET, "/swagger-ui.html/**").permitAll()
+            .anyRequest().authenticated()
 	        .and()
 	        .addFilterBefore(new LoginFilter("/login"), UsernamePasswordAuthenticationFilter.class)
 ////            .addFilterBefore(new JJWTRefreshAuthenticationFilter("/refresh-access"), UsernamePasswordAuthenticationFilter.class)
