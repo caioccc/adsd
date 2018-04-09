@@ -14,3 +14,11 @@ CREATE TABLE `USUARIO` (
   PRIMARY KEY (`IDUSUARIO`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
+
+CREATE TABLE `organization` (
+  `idorganization` integer NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `status` bool NOT NULL,
+  `tags` text NOT NULL,
+  `accesskey` varchar(100) NOT NULL
+)ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8;
