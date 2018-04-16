@@ -37,27 +37,12 @@ public class UserService extends CrudService<User, Integer> {
 	 * @see br.com.leucotron.livre.core.service.CrudService#insert(br.com.leucotron.livre.core.model.Model)
 	 */
 	@Override
-	public void insert(User user) throws BusinessException {
+	public User insert(User user) throws BusinessException {
 		user.setPassword(CryptoUtil.encrypt(user.getPassword()));
 		
-		super.insert(user);
+		return super.insert(user);
 	}
 	
-	/**
-	 * (non-Javadoc)
-	 * @see br.com.leucotron.livre.core.service.CrudService#update(java.io.Serializable, br.com.leucotron.livre.core.model.Model)
-	 */
-	@Override
-	public void update(Integer id, User user) throws BusinessException {
-		User dbUser = this.getOne(id);
-		
-		dbUser.setName(user.getName());
-		dbUser.setLogin(user.getLogin());
-		dbUser.setSector(user.getSector());
-		
-		super.update(id, dbUser);
-	}
-
 	/**
 	 * Login the user.
 	 * 
