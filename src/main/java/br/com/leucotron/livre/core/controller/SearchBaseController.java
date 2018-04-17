@@ -7,9 +7,7 @@ import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import br.com.leucotron.livre.core.dto.ModelDTO;
 import br.com.leucotron.livre.core.dto.ResponseListDTO;
@@ -46,7 +44,23 @@ public abstract class SearchBaseController<M extends Model<T>, T extends Seriali
 	 * @return Model search service.
 	 */
 	protected abstract SearchService<M, T> getService();
-	
+
+	/**
+	 * Searchs the model with the filter.
+	 *
+	 * @return DTO with list of model founded and filtered.
+	 */
+    @RequestMapping(method = RequestMethod.GET)
+	public ResponseListDTO search() {
+		SearchFilterDTO filter = new SearchFilterDTO();
+		filter.setCurrentPage(1);
+		filter.setPageSize(10);
+		ResponseListDTO response = getService().search(filter);
+		response.setItems(toListDTO(response.getItems()));
+
+		return response;
+	}
+
 	/**
 	 * Searchs the model with the filter.
 	 * 
@@ -54,7 +68,7 @@ public abstract class SearchBaseController<M extends Model<T>, T extends Seriali
 	 * 		Filter as JSon text.
 	 * @return DTO with list of model founded and filtered.
 	 */
-	@GetMapping
+    @RequestMapping(method = RequestMethod.GET, params = {"filter"})
 	public ResponseListDTO search(@RequestParam("filter") String filterJSon) {
 		SearchFilterDTO filter = JSonUtil.fromJSon(filterJSon, SearchFilterDTO.class);
 		
