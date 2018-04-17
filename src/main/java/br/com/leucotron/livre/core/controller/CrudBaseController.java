@@ -2,6 +2,8 @@ package br.com.leucotron.livre.core.controller;
 
 import java.io.Serializable;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,7 +12,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import br.com.leucotron.livre.core.dto.ModelDTO;
-import br.com.leucotron.livre.core.dto.ResponseListDTO;
 import br.com.leucotron.livre.core.model.Model;
 import br.com.leucotron.livre.core.service.CrudService;
 import br.com.leucotron.livre.util.NullAwareBeanUtils;
@@ -46,10 +47,10 @@ public abstract class CrudBaseController<M extends Model<T>, T extends Serializa
 	 * @throws Exception
 	 */
 	@PostMapping
-	public ResponseListDTO insert(@RequestBody D modelDTO) throws Exception {
-		getService().insert(toModel(modelDTO));
+	public ResponseEntity<D> insert(@RequestBody D modelDTO) throws Exception {
+		M model = getService().insert(toModel(modelDTO));
 		
-		return success();
+		return created(toDTO(model));
 	}
 	
 	/**
@@ -63,10 +64,10 @@ public abstract class CrudBaseController<M extends Model<T>, T extends Serializa
 	 * @throws Exception
 	 */
 	@PutMapping("/{id}")
-	public ResponseListDTO update(@PathVariable T id, @RequestBody D modelDTO) throws Exception {
+	public ResponseEntity<D> update(@PathVariable T id, @RequestBody D modelDTO) throws Exception {
 		getService().update(id, toModel(modelDTO));
 		
-		return success();
+		return ok(modelDTO);
 	}
 	
 	/**
@@ -80,7 +81,7 @@ public abstract class CrudBaseController<M extends Model<T>, T extends Serializa
 	 * @throws Exception
 	 */
 	@PatchMapping("/{id}")
-	public ResponseListDTO updatePartial(@PathVariable T id, @RequestBody D modelDTO) throws Exception {
+	public ResponseEntity<D> updatePartial(@PathVariable T id, @RequestBody D modelDTO) throws Exception {
 		M model = toModel(modelDTO);
 		M dbModel = getService().getOne(id);
 		
@@ -88,7 +89,7 @@ public abstract class CrudBaseController<M extends Model<T>, T extends Serializa
 		
 		getService().update(id, dbModel);
 		
-		return success();
+		return ok(modelDTO);
 	}
 	
 	/**
@@ -100,9 +101,20 @@ public abstract class CrudBaseController<M extends Model<T>, T extends Serializa
 	 * @throws Exception
 	 */
 	@DeleteMapping("/{id}")
-	public ResponseListDTO delete(@PathVariable T id) throws Exception {
+	public ResponseEntity<?> delete(@PathVariable T id) throws Exception {
 		getService().delete(id);
 		
 		return success();
+	}
+	
+	/**
+	 * Response CREATED (201) for the REST requests.
+	 * 
+	 * @param dto
+	 * 		DTO.
+	 * @return CREATED (201).
+	 */
+	protected ResponseEntity<D> created(D dto) {
+		return new ResponseEntity<D>(dto, HttpStatus.CREATED);
 	}
 }

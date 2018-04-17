@@ -50,10 +50,10 @@ public abstract class CrudService<M extends Model<T>, T extends Serializable> ex
 	 * 		If some rule is not acceptable.
 	 */
 	@Transactional
-	public void insert(M model) throws BusinessException {
+	public M insert(M model) throws BusinessException {
 		validateInsert(model);
 		
-		getRepository().save(model);
+		return getRepository().save(model);
 	}
 
 	/**

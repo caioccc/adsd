@@ -2,8 +2,8 @@ package br.com.leucotron.livre.core.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import br.com.leucotron.livre.core.dto.ResponseListDTO;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 /**
  * The 'BaseController' class provides the common API for all controllers.
@@ -24,7 +24,7 @@ public abstract class BaseController {
 	 * 
 	 * @return Success response.
 	 */
-	protected ResponseListDTO success() {
-		return new ResponseListDTO();
+	protected ResponseEntity<?> success() {
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }

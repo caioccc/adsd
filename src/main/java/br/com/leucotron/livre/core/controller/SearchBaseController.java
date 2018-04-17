@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -120,5 +122,29 @@ public abstract class SearchBaseController<M extends Model<T>, T extends Seriali
 			});
 		}
 		return dtos;
+	}
+	
+	/**
+	 * Response for the REST requests.
+	 * 
+	 * @param dto
+	 * 		DTO.
+	 * @param status
+	 * 		Http Status.
+	 * @return Response.
+	 */
+	protected ResponseEntity<D> responseEntity(D dto, HttpStatus status) {
+		return new ResponseEntity<D>(dto, status);
+	}
+	
+	/**
+	 * Response OK (200) for the REST requests.
+	 * 
+	 * @param dto
+	 * 		DTO.
+	 * @return OK (200).
+	 */
+	protected ResponseEntity<D> ok(D dto) {
+		return new ResponseEntity<D>(dto, HttpStatus.OK);
 	}
 }

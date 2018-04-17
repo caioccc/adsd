@@ -7,7 +7,9 @@ import br.com.leucotron.livre.model.User;
 import io.restassured.RestAssured;
 import io.restassured.http.Header;
 import io.restassured.specification.RequestSpecification;
+import org.flywaydb.core.Flyway;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,6 +17,8 @@ import org.springframework.context.ApplicationContext;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class FunctionalTest {
+
+    public static final String JDBC_URL = "jdbc:h2:mem:LIVRE";
 
     @Autowired
     private ApplicationContext context;
@@ -24,7 +28,10 @@ public class FunctionalTest {
 
     @Before
     public void setUp() {
-
+        Flyway flyway = new Flyway();
+        flyway.setDataSource(JDBC_URL, "root", "livradmin");
+        flyway.setLocations("classpath:db/migration");
+        flyway.migrate();
         AppContext.loadApplicationContext(this.context);
         RestAssured.port = this.port;
     }
