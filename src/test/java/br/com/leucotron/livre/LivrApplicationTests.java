@@ -14,11 +14,6 @@ import static io.restassured.RestAssured.given;
 public class LivrApplicationTests extends FunctionalTest {
 
     @Test
-    public void applicationContextLoaded() {
-
-    }
-
-    @Test
     public void loginReturn200() throws JSONException {
 
         final String USERNAME = "username";
