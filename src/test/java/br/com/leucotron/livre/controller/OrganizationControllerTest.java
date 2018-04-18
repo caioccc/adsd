@@ -200,7 +200,6 @@ public class OrganizationControllerTest extends FunctionalTest {
                 .statusCode(200);
     }
 
-
     @Test
     public void filterOrganization() {
         ExtractableResponse<Response> response = getObjectCreatedOrganization();
@@ -213,7 +212,6 @@ public class OrganizationControllerTest extends FunctionalTest {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        System.out.println(jsonObj.toString());
         this.getAuthRestAssured().param(FILTER, jsonObj.toString())
                 .contentType(ContentType.JSON)
                 .when()

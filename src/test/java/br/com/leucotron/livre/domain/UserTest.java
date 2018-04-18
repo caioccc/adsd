@@ -1,12 +1,11 @@
 package br.com.leucotron.livre.domain;
 
-import br.com.leucotron.livre.model.Organization;
 import br.com.leucotron.livre.model.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Teste para classe de domínio de parâmetro.

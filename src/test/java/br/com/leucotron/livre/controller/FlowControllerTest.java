@@ -37,7 +37,6 @@ public class FlowControllerTest extends FunctionalTest {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        System.out.println(jsonObj.toString());
         this.getAuthRestAssured().param(FILTER, jsonObj.toString())
                 .contentType(ContentType.JSON)
                 .when()
@@ -45,6 +44,5 @@ public class FlowControllerTest extends FunctionalTest {
                 .then()
                 .statusCode(200);
     }
-
 
 }
