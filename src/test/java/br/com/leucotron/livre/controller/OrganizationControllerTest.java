@@ -1,6 +1,7 @@
 package br.com.leucotron.livre.controller;
 
 import br.com.leucotron.livre.LivreApplication;
+import br.com.leucotron.livre.core.exception.BusinessException;
 import br.com.leucotron.livre.util.FunctionalTest;
 import br.com.leucotron.livre.util.RandomString;
 import io.restassured.http.ContentType;
@@ -34,25 +35,6 @@ public class OrganizationControllerTest extends FunctionalTest {
     public static final String FILTER = "filter";
     private static String URL = "/organizations";
     private static RandomString GENERATOR = new RandomString(8, ThreadLocalRandom.current());
-
-//    private String getIdCreatedOrganization() {
-//        JSONObject jsonObj = null;
-//        try {
-//            jsonObj = new JSONObject()
-//                    .put(ACCESSKEY, GENERATOR.nextString())
-//                    .put(NAME, ORG_NAME + GENERATOR.nextString())
-//                    .put(STATUS, ORG_STATUS_TRUE)
-//                    .put(TAGS, ORG_TAGS);
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//        return String.valueOf(this.getAuthRestAssured()
-//                .contentType(ContentType.JSON)
-//                .body(jsonObj.toString())
-//                .when()
-//                .post(URL).then().contentType(ContentType.JSON).extract().path("id").toString());
-//    }
-
 
     private ExtractableResponse<Response> getObjectCreatedOrganization() {
         JSONObject jsonObj = null;
@@ -239,6 +221,5 @@ public class OrganizationControllerTest extends FunctionalTest {
                 .then()
                 .statusCode(200);
     }
-
 
 }
