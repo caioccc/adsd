@@ -2,6 +2,7 @@ package br.com.leucotron.livre.domain;
 
 import br.com.leucotron.livre.LivreApplication;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ public class AppContextTest {
     @Autowired
     private ApplicationContext context;
 
-    @Test
+    @Ignore
     public void appComponent() {
         Assert.assertTrue(context.getBean(LivreApplication.class) != null);
     }
@@ -24,7 +25,7 @@ public class AppContextTest {
     public void applicationContextLoaded() {
     }
 
-    @Test
+    @Ignore
     public void applicationContextTest() {
         LivreApplication.main(new String[] {});
     }
