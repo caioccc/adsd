@@ -15,6 +15,8 @@ import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 
+import static io.restassured.RestAssured.given;
+
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class FunctionalTest {
 
@@ -37,7 +39,7 @@ public class FunctionalTest {
     }
 
     protected RequestSpecification getAuthRestAssured() {
-        return RestAssured.given().header(
+        return given().header(
                 new Header(TokenAuthenticationService.HEADER, TokenAuthenticationService.generateToken("admin@leucotron.com")));
     }
 }

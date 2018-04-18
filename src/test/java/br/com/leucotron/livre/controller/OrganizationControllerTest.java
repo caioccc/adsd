@@ -15,9 +15,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-//TODO: Blocked Tests
-//@RunWith(SpringJUnit4ClassRunner.class)
-//@ContextConfiguration(classes = LivreApplication.class)
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = LivreApplication.class)
 public class OrganizationControllerTest extends FunctionalTest {
 
     private static final String ACCESSKEY = "accesskey";
@@ -42,21 +41,19 @@ public class OrganizationControllerTest extends FunctionalTest {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return this.getAuthRestAssured()
+        return String.valueOf(this.getAuthRestAssured()
                 .contentType(ContentType.JSON)
                 .body(jsonObj.toString())
                 .when()
-                .post(URL).then().contentType(ContentType.JSON).extract().path("id");
+                .post(URL).then().contentType(ContentType.JSON).extract().path("id").toString());
     }
 
-    //    TODO: The test fails because the GET request for "organizations" requires a filter parameter as required.
-    @Ignore
+    @Test
     public void statusVerification() {
         this.getAuthRestAssured().when().get(URL).then().statusCode(HttpStatus.SC_OK);
     }
 
-    //    TODO: The test fails because the POST request return 200 instead of 201.
-    @Ignore
+    @Test
     public void createOrganization() {
         JSONObject jsonObj = null;
         try {
@@ -77,8 +74,7 @@ public class OrganizationControllerTest extends FunctionalTest {
                 .statusCode(201);
     }
 
-    //TODO: The test fails because the POST request return a wrong response in create Organization.
-    @Ignore
+    @Test
     public void patchAccessKeyOrganization() {
         String id = getIdCreatedOrganization();
         JSONObject patchObj = null;
@@ -97,8 +93,7 @@ public class OrganizationControllerTest extends FunctionalTest {
                 .statusCode(200);
     }
 
-    //TODO: The test fails because the POST request return a wrong response in create Organization.
-    @Ignore
+    @Test
     public void patchNameOrganization() {
         String id = getIdCreatedOrganization();
         JSONObject patchObj = null;
@@ -118,7 +113,7 @@ public class OrganizationControllerTest extends FunctionalTest {
     }
 
     //    TODO: The test fails because the POST request return a wrong response in create Organization.
-    @Ignore
+    @Test
     public void patchStatusOrganization() {
         String id = getIdCreatedOrganization();
         JSONObject patchObj = null;
@@ -138,7 +133,7 @@ public class OrganizationControllerTest extends FunctionalTest {
     }
 
     //    TODO: The test fails because the POST request return a wrong response in create Organization.
-    @Ignore
+    @Test
     public void patchTagsOrganization() {
         String id = getIdCreatedOrganization();
         JSONObject patchObj = null;
@@ -157,8 +152,7 @@ public class OrganizationControllerTest extends FunctionalTest {
                 .statusCode(200);
     }
 
-    //    TODO: The test fails because the POST request return a wrong response in create Organization.
-    @Ignore
+    @Test
     public void putOrganization() {
         String id = getIdCreatedOrganization();
         JSONObject putObj = null;
@@ -180,8 +174,7 @@ public class OrganizationControllerTest extends FunctionalTest {
                 .statusCode(200);
     }
 
-    //    TODO: The test fails because the POST request return a wrong response in create Organization.
-    @Ignore
+    @Test
     public void deleteOrganization() {
         String id = getIdCreatedOrganization();
         JSONObject putObj = null;
