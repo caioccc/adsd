@@ -49,7 +49,7 @@ public abstract class CrudBaseController<M extends Model<T>, T extends Serializa
 	@PostMapping
 	public ResponseEntity<D> insert(@RequestBody D modelDTO) throws Exception {
 		M model = getService().insert(toModel(modelDTO));
-		
+
 		return created(toDTO(model));
 	}
 	
@@ -75,8 +75,6 @@ public abstract class CrudBaseController<M extends Model<T>, T extends Serializa
 	 * 
 	 * @param id
 	 * 		ID of instance.
-	 * @param model
-	 * 		Model.
 	 * @return Response.
 	 * @throws Exception
 	 */

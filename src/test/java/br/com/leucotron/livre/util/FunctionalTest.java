@@ -42,4 +42,5 @@ public class FunctionalTest {
         return given().header(
                 new Header(TokenAuthenticationService.HEADER, TokenAuthenticationService.generateToken("admin@leucotron.com")));
     }
+
 }

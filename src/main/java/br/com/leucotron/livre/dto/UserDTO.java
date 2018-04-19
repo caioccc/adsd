@@ -23,13 +23,17 @@ public class UserDTO extends ModelDTO {
     /**
      * Status.
      */
-    private boolean login;
+    private String login;
 
     /**
      * Tags.
      */
     private String tags;
 
+    /**
+     * Password
+     */
+    private String password;
 
     /**
      * Gets the ID.
@@ -85,21 +89,31 @@ public class UserDTO extends ModelDTO {
         this.tags = tags;
     }
 
-    /**
-     * Gets the Login.
-     *
-     * @return login Login.
-     */
-    public boolean isLogin() {
-        return login;
-    }
 
     /**
      * Set the Login.
      *
      * @return login Login.
      */
-    public void setLogin(boolean login) {
+    public void setLogin(String login) {
         this.login = login;
+    }
+
+    /**
+     * Gets the Login.
+     *
+     * @return login Login.
+     */
+    public String getLogin() {
+        return login;
+    }
+
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

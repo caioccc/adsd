@@ -13,7 +13,7 @@ public class UserDTO {
     private String name;
 
     /**
-     * Sector.
+     * Tags.
      */
     private String tags;
 
