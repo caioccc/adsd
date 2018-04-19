@@ -31,8 +31,6 @@ public class LoginFilter extends AbstractAuthenticationProcessingFilter {
      *
      * @param url
      *            URL.
-     * @param authManager
-     *            Authorization Manager.
      */
     public LoginFilter(String url) {
         super(new AntPathRequestMatcher(url));
@@ -90,7 +88,8 @@ public class LoginFilter extends AbstractAuthenticationProcessingFilter {
     	UserDTO userDTO = new UserDTO();
 
         userDTO.setName(user.getName());
-        userDTO.setSector(user.getSector());
+        userDTO.setTags(user.getTags());
+        userDTO.setLogin(user.getLogin());
 
         return userDTO;
     }

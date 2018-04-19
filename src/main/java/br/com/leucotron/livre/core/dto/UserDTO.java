@@ -2,104 +2,123 @@ package br.com.leucotron.livre.core.dto;
 
 /**
  * DTO for User.
- * 
+ *
  * @author Virtus
  */
 public class UserDTO {
 
-	/**
-	 * Name.
-	 */
-	private String name;
-	
-	/**
-	 * Sector.
-	 */
-	private String sector;
+    /**
+     * Name.
+     */
+    private String name;
 
-	/**
-	 * Token.
-	 */
-	private String token;
+    /**
+     * Sector.
+     */
+    private String tags;
 
-	/**
-	 * Refresh token.
-	 */
-	private String refreshToken;
-	
-	/**
-	 * Gets the name.
-	 * 
-	 * @return Name.
-	 */
-	public String getName() {
-		return name;
-	}
+    /**
+     * Login.
+     */
+    private String login;
 
-	/**
-	 * Sets the name.
-	 * 
-	 * @param name
-	 * 		Name.
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
+    /**
+     * Token.
+     */
+    private String token;
 
-	/**
-	 * Gets the sector.
-	 * 
-	 * @return Sector.
-	 */
-	public String getSector() {
-		return sector;
-	}
+    /**
+     * Refresh token.
+     */
+    private String refreshToken;
 
-	/**
-	 * Sets the sector.
-	 * 
-	 * @param sector
-	 * 		Sector.
-	 */
-	public void setSector(String sector) {
-		this.sector = sector;
-	}
+    /**
+     * Gets the name.
+     *
+     * @return Name.
+     */
+    public String getName() {
+        return name;
+    }
 
-	/**
-	 * Gets the token.
-	 * 
-	 * @return Token.
-	 */
-	public String getToken() {
-		return token;
-	}
+    /**
+     * Sets the name.
+     *
+     * @param name Name.
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	/**
-	 * Sets the token.
-	 * 
-	 * @param token
-	 * 		Token.
-	 */
-	public void setToken(String token) {
-		this.token = token;
-	}
+    /**
+     * Gets the sector.
+     *
+     * @return Sector.
+     */
+    public String getTags() {
+        return tags;
+    }
 
-	/**
-	 * Gets the refresh token.
-	 * 
-	 * @return Refresh token.
-	 */
-	public String getRefreshToken() {
-		return refreshToken;
-	}
+    /**
+     * Sets the tags.
+     *
+     * @param tags Tags.
+     */
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
 
-	/**
-	 * Sets the refresh token.
-	 * 
-	 * @param refreshToken
-	 * 		Refresh token.
-	 */
-	public void setRefreshToken(String refreshToken) {
-		this.refreshToken = refreshToken;
-	}
+    /**
+     * Gets the token.
+     *
+     * @return Token.
+     */
+    public String getToken() {
+        return token;
+    }
+
+    /**
+     * Sets the token.
+     *
+     * @param token Token.
+     */
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    /**
+     * Gets the refresh token.
+     *
+     * @return Refresh token.
+     */
+    public String getRefreshToken() {
+        return refreshToken;
+    }
+
+    /**
+     * Sets the refresh token.
+     *
+     * @param refreshToken Refresh token.
+     */
+    public void setRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
+    }
+
+    /**
+     * Gets the login.
+     *
+     * @return login.
+     */
+    public String getLogin() {
+        return login;
+    }
+
+    /**
+     * Sets the Login.
+     *
+     * @param login New Login.
+     */
+    public void setLogin(String login) {
+        this.login = login;
+    }
 }
