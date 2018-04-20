@@ -21,9 +21,9 @@ import java.util.concurrent.ThreadLocalRandom;
 public class UserControllerTest extends FunctionalTest {
 
     private static final String MAIL = "@gmail.com";
-    private static final String LOGIN = "usertest";
+    private static final String LOGIN = "login";
     private static final String NAME = "name";
-    private static final String PASSWORD = "password";
+    private static final String PASSWORD = "newPassword";
     private static final String TAGS = "tags";
     private static final String USER_NAME = "UserTest";
     private static final String USER_LOGIN = "user";

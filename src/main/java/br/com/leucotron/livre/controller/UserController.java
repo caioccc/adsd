@@ -37,4 +37,12 @@ public class UserController extends CrudBaseController<User, Integer, UserDTO> {
     protected UserService getService() {
         return service;
     }
+
+    @Override
+    protected User toModel(UserDTO modelDTO) {
+        User model = super.toModel(modelDTO);
+        model.setPassword(modelDTO.getNewPassword());
+
+        return model;
+    }
 }

@@ -1,9 +1,8 @@
 package br.com.leucotron.livre.repository;
 
-import org.springframework.data.jpa.repository.Query;
-
 import br.com.leucotron.livre.core.repository.CrudBaseRepository;
 import br.com.leucotron.livre.model.User;
+import org.springframework.data.jpa.repository.Query;
 
 /**
  * CRUD Repository for entity: User.
