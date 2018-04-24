@@ -28,6 +28,12 @@ import net.jodah.typetools.TypeResolver;
  * <p>
  * Provides search operations.
  *
+ * If a controller needs to search using a model, this controller MUST extend this class.
+ *
+ * Provides search operations.
+ *
+ * @author Virtus
+ *
  * @param <M> Model type.
  * @param <T> Model ID type.
  * @param <D> Model DTO type.

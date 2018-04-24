@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 /**
- * Teste para classe de domínio de parâmetro.
+ * Test for parameter domain class.
  *
  * @author Virtus
  */
@@ -18,7 +18,7 @@ import org.junit.runners.JUnit4;
 public class OrganizationTest {
 
     /**
-     * Testa se recupera o valor corretamente e já convertido.
+     * Test retrieves the value correctly and already converted.
      */
     @Test
     public void getValue() {

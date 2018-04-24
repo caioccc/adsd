@@ -3,12 +3,12 @@ package br.com.leucotron.livre.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.leucotron.livre.dto.OrganizationDTO;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.leucotron.livre.core.controller.BaseController;
-import br.com.leucotron.livre.dto.FlowGroupDTO;
 
 /**
  * Controller for flow operations.
@@ -25,7 +25,7 @@ public class FlowController extends BaseController {
 	 * @return All groups with its operations.
 	 */
 	@GetMapping("elements")
-	public List<FlowGroupDTO> getFlowGroups() {
+	public List<OrganizationDTO> getFlowGroups() {
 		return new ArrayList<>();
 	}
 }

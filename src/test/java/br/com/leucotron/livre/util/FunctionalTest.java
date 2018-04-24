@@ -1,15 +1,12 @@
 package br.com.leucotron.livre.util;
 
 import br.com.leucotron.livre.core.config.AppContext;
-import br.com.leucotron.livre.core.dto.UserDTO;
 import br.com.leucotron.livre.core.security.TokenAuthenticationService;
-import br.com.leucotron.livre.model.User;
 import io.restassured.RestAssured;
 import io.restassured.http.Header;
 import io.restassured.specification.RequestSpecification;
 import org.flywaydb.core.Flyway;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -37,6 +34,7 @@ public class FunctionalTest {
         AppContext.loadApplicationContext(this.context);
         RestAssured.port = this.port;
     }
+
 
     protected RequestSpecification getAuthRestAssured() {
         return given().header(

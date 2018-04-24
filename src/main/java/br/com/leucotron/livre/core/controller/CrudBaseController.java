@@ -18,6 +18,11 @@ import br.com.leucotron.livre.core.dto.ModelDTO;
 import br.com.leucotron.livre.core.model.Model;
 import br.com.leucotron.livre.core.service.CrudService;
 import br.com.leucotron.livre.util.NullAwareBeanUtils;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.io.Serializable;
 
 /**
  * The 'CrudBaseController' class provides the common API for CRUD controllers.
