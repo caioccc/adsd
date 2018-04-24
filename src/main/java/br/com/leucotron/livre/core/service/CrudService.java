@@ -52,7 +52,7 @@ public abstract class CrudService<M extends Model<T>, T extends Serializable> ex
 	@Transactional
 	public M insert(M model) throws BusinessException {
 		validateInsert(model);
-		
+
 		return getRepository().save(model);
 	}
 

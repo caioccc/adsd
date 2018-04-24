@@ -24,12 +24,12 @@ public class UserDTOTest {
         UserDTO user = new UserDTO();
         user.setName("UserLeucotron");
         user.setRefreshToken("user12345");
-        user.setSector("MANAGER");
+        user.setTags("MANAGER");
         user.setToken("sasda5s6a5s96a");
 
         assertEquals("UserLeucotron", user.getName());
         assertEquals("user12345", user.getRefreshToken());
-        assertEquals("MANAGER", user.getSector());
+        assertEquals("MANAGER", user.getTags());
         assertEquals("sasda5s6a5s96a", user.getToken());
     }
 
