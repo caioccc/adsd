@@ -1,5 +1,19 @@
 package br.com.leucotron.livre.core.controller;
 
+import java.io.Serializable;
+
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 import br.com.leucotron.livre.core.dto.ModelDTO;
 import br.com.leucotron.livre.core.model.Model;
 import br.com.leucotron.livre.core.service.CrudService;
@@ -38,6 +52,13 @@ public abstract class CrudBaseController<M extends Model<T>, T extends Serializa
      * @return Response.
      * @throws Exception
      */
+    @ApiOperation(value = "Add an item")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Successfully created object"),
+            @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
+            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+            @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
+    })
     @PostMapping
     public ResponseEntity<D> insert(@RequestBody D modelDTO) throws Exception {
         M model = getService().insert(toModel(modelDTO));
@@ -53,6 +74,13 @@ public abstract class CrudBaseController<M extends Model<T>, T extends Serializa
      * @return Response.
      * @throws Exception
      */
+    @ApiOperation(value = "Update an item")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully item updated"),
+            @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
+            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+            @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
+    })
     @PutMapping("/{id}")
     public ResponseEntity<D> update(@PathVariable T id, @RequestBody D modelDTO) throws Exception {
         getService().update(id, toModel(modelDTO));
@@ -63,11 +91,17 @@ public abstract class CrudBaseController<M extends Model<T>, T extends Serializa
     /**
      * Updates the model instance partially.
      *
-     * @param id    ID of instance.
-     * @param model Model.
+     * @param id ID of instance.
      * @return Response.
      * @throws Exception
      */
+    @ApiOperation(value = "Update partial of an item")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Item partially changed successfully"),
+            @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
+            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+            @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
+    })
     @PatchMapping("/{id}")
     public ResponseEntity<D> updatePartial(@PathVariable T id, @RequestBody D modelDTO) throws Exception {
         M model = toModel(modelDTO);
@@ -87,6 +121,13 @@ public abstract class CrudBaseController<M extends Model<T>, T extends Serializa
      * @return Response.
      * @throws Exception
      */
+    @ApiOperation(value = "Delete an item")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully deleted object."),
+            @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
+            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+            @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
+    })
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable T id) throws Exception {
         getService().delete(id);
