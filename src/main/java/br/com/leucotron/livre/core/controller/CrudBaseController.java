@@ -135,13 +135,14 @@ public abstract class CrudBaseController<M extends Model<T>, T extends Serializa
         return success();
     }
 
-    /**
-     * Response CREATED (201) for the REST requests.
-     *
-     * @param dto DTO.
-     * @return CREATED (201).
-     */
-    protected ResponseEntity<D> created(D dto) {
-        return new ResponseEntity<D>(dto, HttpStatus.CREATED);
-    }
+	/**
+	 * Response CREATED (201) for the REST requests.
+	 * 
+	 * @param dto
+	 * 		DTO.
+	 * @return CREATED (201).
+	 */
+	protected ResponseEntity<D> created(D dto) {
+		return new ResponseEntity<D>(dto, HttpStatus.CREATED);
+	}
 }
