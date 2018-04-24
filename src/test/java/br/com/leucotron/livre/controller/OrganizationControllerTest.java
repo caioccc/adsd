@@ -1,13 +1,15 @@
 package br.com.leucotron.livre.controller;
 
 import br.com.leucotron.livre.LivreApplication;
+import br.com.leucotron.livre.core.exception.BusinessException;
 import br.com.leucotron.livre.util.FunctionalTest;
 import br.com.leucotron.livre.util.RandomString;
 import io.restassured.http.ContentType;
+import io.restassured.response.ExtractableResponse;
+import io.restassured.response.Response;
 import org.apache.commons.httpclient.HttpStatus;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -27,10 +29,14 @@ public class OrganizationControllerTest extends FunctionalTest {
     private static final boolean ORG_STATUS_TRUE = true;
     private static final boolean ORG_STATUS_FALSE = false;
     private static final String ORG_TAGS = "a,ab,abc";
+    public static final String CURRENT_PAGE = "currentPage";
+    public static final String PAGE_SIZE = "pageSize";
+    public static final String FILTERS = "filters";
+    public static final String FILTER = "filter";
     private static String URL = "/organizations";
     private static RandomString GENERATOR = new RandomString(8, ThreadLocalRandom.current());
 
-    private String getIdCreatedOrganization() {
+    private ExtractableResponse<Response> getObjectCreatedOrganization() {
         JSONObject jsonObj = null;
         try {
             jsonObj = new JSONObject()
@@ -41,11 +47,11 @@ public class OrganizationControllerTest extends FunctionalTest {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return String.valueOf(this.getAuthRestAssured()
+        return this.getAuthRestAssured()
                 .contentType(ContentType.JSON)
                 .body(jsonObj.toString())
                 .when()
-                .post(URL).then().contentType(ContentType.JSON).extract().path("id").toString());
+                .post(URL).then().contentType(ContentType.JSON).extract();
     }
 
     @Test
@@ -76,7 +82,7 @@ public class OrganizationControllerTest extends FunctionalTest {
 
     @Test
     public void patchAccessKeyOrganization() {
-        String id = getIdCreatedOrganization();
+        String id = getObjectCreatedOrganization().path("id").toString();
         JSONObject patchObj = null;
         try {
             patchObj = new JSONObject()
@@ -95,7 +101,7 @@ public class OrganizationControllerTest extends FunctionalTest {
 
     @Test
     public void patchNameOrganization() {
-        String id = getIdCreatedOrganization();
+        String id = getObjectCreatedOrganization().path("id").toString();
         JSONObject patchObj = null;
         try {
             patchObj = new JSONObject()
@@ -112,10 +118,9 @@ public class OrganizationControllerTest extends FunctionalTest {
                 .statusCode(200);
     }
 
-    //    TODO: The test fails because the POST request return a wrong response in create Organization.
     @Test
     public void patchStatusOrganization() {
-        String id = getIdCreatedOrganization();
+        String id = getObjectCreatedOrganization().path("id").toString();
         JSONObject patchObj = null;
         try {
             patchObj = new JSONObject()
@@ -132,10 +137,9 @@ public class OrganizationControllerTest extends FunctionalTest {
                 .statusCode(200);
     }
 
-    //    TODO: The test fails because the POST request return a wrong response in create Organization.
     @Test
     public void patchTagsOrganization() {
-        String id = getIdCreatedOrganization();
+        String id = getObjectCreatedOrganization().path("id").toString();
         JSONObject patchObj = null;
         try {
             patchObj = new JSONObject()
@@ -154,7 +158,7 @@ public class OrganizationControllerTest extends FunctionalTest {
 
     @Test
     public void putOrganization() {
-        String id = getIdCreatedOrganization();
+        String id = getObjectCreatedOrganization().path("id").toString();
         JSONObject putObj = null;
         try {
             putObj = new JSONObject()
@@ -176,12 +180,42 @@ public class OrganizationControllerTest extends FunctionalTest {
 
     @Test
     public void deleteOrganization() {
-        String id = getIdCreatedOrganization();
-        JSONObject putObj = null;
+        String id = getObjectCreatedOrganization().path("id").toString();
         this.getAuthRestAssured()
                 .contentType(ContentType.JSON)
                 .when()
                 .delete(URL + "/" + id)
+                .then()
+                .statusCode(200);
+    }
+
+    @Test
+    public void getOneOrganization() {
+        String id = getObjectCreatedOrganization().path("id").toString();
+        this.getAuthRestAssured()
+                .contentType(ContentType.JSON)
+                .when()
+                .get(URL + "/" + id)
+                .then()
+                .statusCode(200);
+    }
+
+    @Test
+    public void filterOrganization() {
+        ExtractableResponse<Response> response = getObjectCreatedOrganization();
+        JSONObject jsonObj = null;
+        try {
+            jsonObj = new JSONObject()
+                    .put(CURRENT_PAGE, 1)
+                    .put(PAGE_SIZE, 10)
+                    .put(FILTERS, new JSONObject());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        this.getAuthRestAssured().param(FILTER, jsonObj.toString())
+                .contentType(ContentType.JSON)
+                .when()
+                .get(URL)
                 .then()
                 .statusCode(200);
     }

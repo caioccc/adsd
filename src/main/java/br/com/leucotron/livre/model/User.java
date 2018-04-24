@@ -9,11 +9,11 @@ import javax.persistence.Id;
 import br.com.leucotron.livre.core.model.Model;
 
 /**
- * Model for table: USUARIO.
+ * Model for table: User.
  * 
  * @author Virtus
  */
-@Entity(name = "USUARIO")
+@Entity(name = "user")
 public class User extends Model<Integer> {
 
 	/**
@@ -21,59 +21,44 @@ public class User extends Model<Integer> {
 	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "IDUSUARIO")
+	@Column(name = "iduser")
 	private Integer idUser;
 	
 	/**
 	 * Name.
 	 */
-	@Column(name = "NOME")
+	@Column(name = "name")
 	private String name;
 	
 	/**
 	 * Login.
 	 */
-	@Column(name = "LOGIN")
+	@Column(name = "login")
 	private String login;
 	
 	/**
 	 * Password.
 	 */
-	@Column(name = "SENHA")
+	@Column(name = "password")
 	private String password;
 	
 	/**
 	 * Sector.
 	 */
-	@Column(name = "SETOR")
-	private String sector;
+	@Column(name = "tags")
+	private String tags;
 	
 	/**
 	 * Constructor.
 	 */
 	public User() { }
 
-	/**
-	 * Constructor.
-	 * 
-	 * @param idUser
-	 * 		User ID.
-	 * @param name
-	 * 		Name.
-	 * @param login
-	 * 		Login.
-	 * @param password
-	 * 		Password.
-	 * @param sector
-	 * 		Sector.
-	 */
-	public User(Integer idUser, String name, String login, String password, String sector) {
-		super();
-		this.idUser = idUser;
+
+	public User(String name, String login, String password, String tags) {
 		this.name = name;
 		this.login = login;
 		this.password = password;
-		this.sector = sector;
+		this.tags = tags;
 	}
 
 	/**
@@ -152,25 +137,14 @@ public class User extends Model<Integer> {
 		this.password = password;
 	}
 
-	/**
-	 * Gets the sector.
-	 * 
-	 * @return Sector.
-	 */
-	public String getSector() {
-		return sector;
+	public String getTags() {
+		return tags;
 	}
 
-	/**
-	 * Sets the sector.
-	 * 
-	 * @param sector
-	 * 		Sector.
-	 */
-	public void setSector(String sector) {
-		this.sector = sector;
+	public void setTags(String tags) {
+		this.tags = tags;
 	}
-	
+
 	/**
 	 * (non-Javadoc)
 	 * @see br.com.leucotron.livre.core.model.Model#getId()

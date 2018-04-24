@@ -1,10 +1,10 @@
-CREATE TABLE `USUARIO` (
-  `IDUSUARIO` int(11) NOT NULL AUTO_INCREMENT,
-  `NOME` varchar(100) NOT NULL,
-  `LOGIN` varchar(40) NOT NULL,
-  `SENHA` varchar(100) NOT NULL,
-  `SETOR` varchar(100) NOT NULL,
-  PRIMARY KEY (`IDUSUARIO`)
+CREATE TABLE `user` (
+  `iduser` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `login` varchar(40) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `tags` text NOT NULL,
+  PRIMARY KEY (`iduser`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 
