@@ -12,7 +12,7 @@ import java.util.HashMap;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Teste para classe de domínio de parâmetro.
+ * Test for parameter domain class.
  *
  * @author Virtus
  */
@@ -20,7 +20,7 @@ import static org.junit.Assert.assertEquals;
 public class SearchFilterDTOTest {
 
     /**
-     * Testa se recupera o valor corretamente e já convertido.
+     * Test retrieves the value correctly and already converted.
      */
     @Test
     public void setSearchFilterDtoValues() {

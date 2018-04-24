@@ -8,7 +8,7 @@ import org.junit.runners.JUnit4;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Teste para classe de domínio de parâmetro.
+ * Test for Utils Json.
  *
  * @author Virtus
  */

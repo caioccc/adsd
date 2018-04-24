@@ -7,7 +7,7 @@ import org.junit.runners.JUnit4;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Teste para classe de domínio de parâmetro.
+ * Test for Crypto password.
  *
  * @author Virtus
  */
@@ -15,7 +15,7 @@ import static org.junit.Assert.assertTrue;
 public class CryptoUtilTest {
 
     /**
-     * Testa se recupera o valor corretamente e já convertido.
+     * Test retrieves the value correctly and already converted.
      */
     @Test
     public void CryptoPasswordValue() {

@@ -8,7 +8,7 @@ import org.junit.runners.JUnit4;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Teste para classe de domínio de parâmetro.
+ * Test for parameter domain class.
  *
  * @author Virtus
  */
@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
 public class UserTest {
 
     /**
-     * Testa se recupera o valor corretamente e já convertido.
+     * Test retrieves the value correctly and already converted.
      */
     @Test
     public void getValue() {
