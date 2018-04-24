@@ -2,11 +2,18 @@ package br.com.leucotron.livre.dto;
 
 import br.com.leucotron.livre.core.dto.ModelDTO;
 
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.validation.constraints.NotNull;
+
 /**
  * DTO for Model: Organization.
  *
  * @author Virtus
  */
+@Getter
+@Setter
 public class OrganizationDTO extends ModelDTO {
 
     /**
@@ -17,6 +24,7 @@ public class OrganizationDTO extends ModelDTO {
     /**
      * Name.
      */
+    @NotNull
     private String name;
 
 

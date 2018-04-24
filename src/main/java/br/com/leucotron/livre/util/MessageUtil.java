@@ -25,7 +25,24 @@ public final class MessageUtil {
 	 */
 	public static String findMessage(String code) {
 		try{
-			return ResourceBundle.getBundle("i18n/messages", Locale.getDefault()).getString(code);
+			return findMessage(code, Locale.getDefault());
+		} catch (Exception e) {
+		}
+		return code;
+	}
+
+	/**
+	 *
+	 *
+	 * @param code
+	 * 		Message code.
+	 * @param locale
+	 * 		Current locale
+	 * @return
+	 */
+	public static String findMessage(String code, Locale locale) {
+		try{
+			return ResourceBundle.getBundle("messages", locale).getString(code);
 		} catch (Exception e) {
 		}
 		return code;

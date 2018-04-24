@@ -16,6 +16,8 @@ import br.com.leucotron.livre.core.model.Model;
 import br.com.leucotron.livre.core.service.CrudService;
 import br.com.leucotron.livre.util.NullAwareBeanUtils;
 
+import javax.validation.Valid;
+
 /**
  * The 'CrudBaseController' class provides the common API for CRUD controllers.
  * 
@@ -47,7 +49,7 @@ public abstract class CrudBaseController<M extends Model<T>, T extends Serializa
 	 * @throws Exception
 	 */
 	@PostMapping
-	public ResponseEntity<D> insert(@RequestBody D modelDTO) throws Exception {
+	public ResponseEntity<D> insert(@Valid @RequestBody D modelDTO) throws Exception {
 		M model = getService().insert(toModel(modelDTO));
 		
 		return created(toDTO(model));
