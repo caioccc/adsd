@@ -4,6 +4,7 @@ import br.com.leucotron.livre.core.model.Model;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 /**
  * Model for table: ORGANIZATION.
@@ -27,6 +28,7 @@ public class Organization extends Model<Integer> {
      */
     @ApiModelProperty(notes = "An organization's fancy name.")
     @Column(name = "name")
+    @NotNull
     private String name;
 
 

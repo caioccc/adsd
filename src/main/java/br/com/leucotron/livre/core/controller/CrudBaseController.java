@@ -18,11 +18,7 @@ import br.com.leucotron.livre.core.dto.ModelDTO;
 import br.com.leucotron.livre.core.model.Model;
 import br.com.leucotron.livre.core.service.CrudService;
 import br.com.leucotron.livre.util.NullAwareBeanUtils;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.io.Serializable;
+import javax.validation.Valid;
 
 /**
  * The 'CrudBaseController' class provides the common API for CRUD controllers.
@@ -60,7 +56,7 @@ public abstract class CrudBaseController<M extends Model<T>, T extends Serializa
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     })
     @PostMapping
-    public ResponseEntity<D> insert(@RequestBody D modelDTO) throws Exception {
+	public ResponseEntity<D> insert(@Valid @RequestBody D modelDTO) throws Exception {
         M model = getService().insert(toModel(modelDTO));
 
         return created(toDTO(model));
@@ -91,7 +87,8 @@ public abstract class CrudBaseController<M extends Model<T>, T extends Serializa
     /**
      * Updates the model instance partially.
      *
-     * @param id ID of instance.
+     * @param id    ID of instance.
+     * @param modelDTO Model.
      * @return Response.
      * @throws Exception
      */
