@@ -20,29 +20,29 @@ public class UserTest {
      */
     @Test
     public void getValue() {
-        User user = new User(50, "UserLeucotron", "commonUser", "user12345", "MANAGER");
+        User user = new User("UserLeucotron", "commonUser", "user12345", "MANAGER");
 
         assertEquals("UserLeucotron", user.getName());
         assertEquals("commonUser", user.getLogin());
         assertEquals("user12345", user.getPassword());
-        assertEquals("MANAGER", user.getSector());
+        assertEquals("MANAGER", user.getTags());
         assertEquals("50", user.getIdUser().toString());
         assertEquals("50", user.getId().toString());
     }
 
     @Test
     public void setValue() {
-        User user = new User(50, "UserLeucotron", "commonUser", "user12345", "MANAGER");
+        User user = new User("UserLeucotron", "commonUser", "user12345", "MANAGER");
         user.setIdUser(3);
         user.setPassword("Admin123!");
         user.setLogin("adminUser");
-        user.setSector("ADMIN");
+        user.setTags("ADMIN");
         user.setName("Admin");
         user.setIdUser(35);
         assertEquals("Admin", user.getName());
         assertEquals("adminUser", user.getLogin());
         assertEquals("Admin123!", user.getPassword());
-        assertEquals("ADMIN", user.getSector());
+        assertEquals("ADMIN", user.getTags());
         assertEquals("35", user.getIdUser().toString());
         user.setId(30);
         assertEquals("30", user.getId().toString());
