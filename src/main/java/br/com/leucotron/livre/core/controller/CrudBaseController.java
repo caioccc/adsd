@@ -1,24 +1,18 @@
 package br.com.leucotron.livre.core.controller;
 
-import java.io.Serializable;
-
+import br.com.leucotron.livre.core.dto.ModelDTO;
+import br.com.leucotron.livre.core.model.Model;
+import br.com.leucotron.livre.core.service.CrudService;
+import br.com.leucotron.livre.util.NullAwareBeanUtils;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
-import br.com.leucotron.livre.core.dto.ModelDTO;
-import br.com.leucotron.livre.core.model.Model;
-import br.com.leucotron.livre.core.service.CrudService;
-import br.com.leucotron.livre.util.NullAwareBeanUtils;
 import javax.validation.Valid;
+import java.io.Serializable;
 
 /**
  * The 'CrudBaseController' class provides the common API for CRUD controllers.
@@ -55,7 +49,7 @@ public abstract class CrudBaseController<M extends Model<T>, T extends Serializa
             @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     })
-    @PostMapping
+    @PostMapping("/v1.0")
 	public ResponseEntity<D> insert(@Valid @RequestBody D modelDTO) throws Exception {
         M model = getService().insert(toModel(modelDTO));
 
@@ -77,7 +71,7 @@ public abstract class CrudBaseController<M extends Model<T>, T extends Serializa
             @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     })
-    @PutMapping("/{id}")
+    @PutMapping("/v1.0/{id}")
     public ResponseEntity<D> update(@PathVariable T id, @RequestBody D modelDTO) throws Exception {
         getService().update(id, toModel(modelDTO));
 
@@ -99,7 +93,7 @@ public abstract class CrudBaseController<M extends Model<T>, T extends Serializa
             @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     })
-    @PatchMapping("/{id}")
+    @PatchMapping("/v1.0/{id}")
     public ResponseEntity<D> updatePartial(@PathVariable T id, @RequestBody D modelDTO) throws Exception {
         M model = toModel(modelDTO);
         M dbModel = getService().getOne(id);
@@ -125,7 +119,7 @@ public abstract class CrudBaseController<M extends Model<T>, T extends Serializa
             @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     })
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/v1.0/{id}")
     public ResponseEntity<?> delete(@PathVariable T id) throws Exception {
         getService().delete(id);
 

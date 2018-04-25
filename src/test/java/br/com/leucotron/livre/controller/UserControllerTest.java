@@ -29,7 +29,7 @@ public class UserControllerTest extends FunctionalTest {
     private static final String USER_LOGIN = "user";
     private static final String USER_TAGS = "manager; adm";
     private static final String USER_PASSWORD = "admin123";
-    private static String URL = "/users";
+    private static String URL = "/users/v1.0";
     private static RandomString GENERATOR = new RandomString(5, ThreadLocalRandom.current());
 
     private ExtractableResponse<Response> getCreatedUser() {
