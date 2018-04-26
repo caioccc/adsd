@@ -21,7 +21,6 @@ public class UserTest {
     @Test
     public void getValue() {
         User user = new User("UserLeucotron", "commonUser", "user12345", "MANAGER");
-
         assertEquals("UserLeucotron", user.getName());
         assertEquals("commonUser", user.getLogin());
         assertEquals("user12345", user.getPassword());
