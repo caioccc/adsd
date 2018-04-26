@@ -65,7 +65,7 @@ public abstract class SearchBaseController<M extends Model<T>, T extends Seriali
             @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     })
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "/v1.0", method = RequestMethod.GET)
     public ResponseListDTO search() {
         SearchFilterDTO filter = new SearchFilterDTO();
         filter.setCurrentPage(1);
@@ -89,7 +89,7 @@ public abstract class SearchBaseController<M extends Model<T>, T extends Seriali
             @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     })
-    @RequestMapping(method = RequestMethod.GET, params = {"filter"})
+    @RequestMapping(value = "/v1.0", method = RequestMethod.GET, params = {"filter"})
 	public ResponseListDTO search(@RequestParam("filter") String filterJSon) {
 		SearchFilterDTO filter = JSonUtil.fromJSon(filterJSon, SearchFilterDTO.class);
 		ResponseListDTO response = getService().search(filter);
@@ -112,7 +112,7 @@ public abstract class SearchBaseController<M extends Model<T>, T extends Seriali
             @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     })
-    @GetMapping("/{id}")
+    @GetMapping("/v1.0/{id}")
     public D getOne(@PathVariable T id) {
         return toDTO(getService().getOne(id));
     }

@@ -33,7 +33,7 @@ public class OrganizationControllerTest extends FunctionalTest {
     public static final String PAGE_SIZE = "pageSize";
     public static final String FILTERS = "filters";
     public static final String FILTER = "filter";
-    private static String URL = "/organizations";
+    private static String URL = "/organizations/v1.0";
     private static RandomString GENERATOR = new RandomString(8, ThreadLocalRandom.current());
 
     private ExtractableResponse<Response> getObjectCreatedOrganization() {

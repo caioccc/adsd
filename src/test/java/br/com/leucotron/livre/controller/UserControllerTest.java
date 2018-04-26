@@ -29,6 +29,7 @@ public class UserControllerTest extends FunctionalTest {
     private static final String USER_LOGIN = "user";
     private static final String USER_TAGS = "manager; adm";
     private static final String USER_PASSWORD = "admin123";
+    private static String URL = "/users/v1.0";
     public static final String CURRENT_PAGE = "currentPage";
     public static final String PAGE_SIZE = "pageSize";
     public static final String SORT = "sort";
@@ -38,7 +39,7 @@ public class UserControllerTest extends FunctionalTest {
     public static final String ASC = "asc";
     public static final String NAME_COLUMN = "name";
     public static final String DESC = "desc";
-    private static String URL = "/users";
+
     private static RandomString GENERATOR = new RandomString(5, ThreadLocalRandom.current());
 
     private ExtractableResponse<Response> getCreatedUser() {
