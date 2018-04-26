@@ -90,14 +90,14 @@ public abstract class SearchBaseController<M extends Model<T>, T extends Seriali
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     })
     @RequestMapping(method = RequestMethod.GET, params = {"filter"})
-    public ResponseListDTO search(@RequestParam("filter") String filterJSon) {
-        SearchFilterDTO filter = JSonUtil.fromJSon(filterJSon, SearchFilterDTO.class);
+	public ResponseListDTO search(@RequestParam("filter") String filterJSon) {
+		SearchFilterDTO filter = JSonUtil.fromJSon(filterJSon, SearchFilterDTO.class);
+		ResponseListDTO response = getService().search(filter);
+		response.setItems(toListDTO(response.getItems()));
 
-        ResponseListDTO response = getService().search(filter);
-        response.setItems(toListDTO(response.getItems()));
+		return response;
+	}
 
-        return response;
-    }
 
     /**
      * Gets one model by its specific ID.
