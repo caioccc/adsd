@@ -71,7 +71,6 @@ public abstract class SearchBaseController<M extends Model<T>, T extends Seriali
     @RequestMapping(method = RequestMethod.GET, params = {"filter"})
 	public ResponseListDTO search(@RequestParam("filter") String filterJSon) {
 		SearchFilterDTO filter = JSonUtil.fromJSon(filterJSon, SearchFilterDTO.class);
-
 		ResponseListDTO response = getService().search(filter);
 		response.setItems(toListDTO(response.getItems()));
 

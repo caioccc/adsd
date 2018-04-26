@@ -40,4 +40,7 @@ public class UserTest {
         assertEquals("Admin123!", user.getPassword());
         assertEquals("ADMIN", user.getTags());
     }
+
+
+
 }
