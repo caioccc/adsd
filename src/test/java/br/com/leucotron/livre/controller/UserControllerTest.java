@@ -29,6 +29,8 @@ public class UserControllerTest extends FunctionalTest {
     private static final String USER_LOGIN = "user";
     private static final String USER_TAGS = "manager; adm";
     private static final String USER_PASSWORD = "admin123";
+    public static final String SEARCH = "search";
+    public static final String ADMIN_TAG_SEARCH = "ad";
     private static String URL = "/users/v1.0";
     public static final String CURRENT_PAGE = "currentPage";
     public static final String PAGE_SIZE = "pageSize";
@@ -199,6 +201,22 @@ public class UserControllerTest extends FunctionalTest {
                     .put(CURRENT_PAGE, ONE)
                     .put(PAGE_SIZE, TEN)
                     .put(SORT, DESC)
+                    .put(COLUMN, NAME_COLUMN);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        System.out.println(jsonFilter.toString());
+        this.getAuthRestAssured().when().param("filter", jsonFilter).get(URL).then().statusCode(200);
+    }
+
+    public void filterUserAdmin() {
+        JSONObject jsonFilter = null;
+        try {
+            jsonFilter = new JSONObject()
+                    .put(CURRENT_PAGE, ONE)
+                    .put(PAGE_SIZE, TEN)
+                    .put(SORT, DESC)
+                    .put(SEARCH, ADMIN_TAG_SEARCH)
                     .put(COLUMN, NAME_COLUMN);
         } catch (JSONException e) {
             e.printStackTrace();

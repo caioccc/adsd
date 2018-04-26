@@ -1,7 +1,5 @@
 package br.com.leucotron.livre.core.dto;
 
-import org.springframework.data.domain.Sort;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,6 +29,11 @@ public class SearchFilterDTO {
      * Column to sorting.
      */
     private String column = "";
+
+    /**
+     * Value to search in all columns.
+     */
+    private String search = "";
 
     /**
      * Filters.
@@ -111,6 +114,7 @@ public class SearchFilterDTO {
 
     /**
      * Get Column sort.
+     *
      * @return
      */
     public String getColumn() {
@@ -119,9 +123,28 @@ public class SearchFilterDTO {
 
     /**
      * Set Column sort.
+     *
      * @param column
      */
     public void setColumn(String column) {
         this.column = column;
+    }
+
+    /**
+     * Get the search value.
+     *
+     * @return
+     */
+    public String getSearch() {
+        return search;
+    }
+
+    /**
+     * Set the search value.
+     *
+     * @param search
+     */
+    public void setSearch(String search) {
+        this.search = search;
     }
 }
