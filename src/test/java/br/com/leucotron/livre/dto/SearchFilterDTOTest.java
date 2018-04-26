@@ -28,9 +28,13 @@ public class SearchFilterDTOTest {
         searchFilter.setPageSize(5);
         searchFilter.setCurrentPage(1);
         searchFilter.setFilters(new HashMap<>());
+        searchFilter.setColumn("name");
+        searchFilter.setSort("asc");
         assertEquals(searchFilter.getCurrentPage().intValue(), 1);
         assertEquals(searchFilter.getPageSize().intValue(), 5);
         assertEquals(searchFilter.getFilters().size(), 0);
+        assertEquals(searchFilter.getColumn(), "name");
+        assertEquals(searchFilter.getSort(), "asc");
     }
 
 }

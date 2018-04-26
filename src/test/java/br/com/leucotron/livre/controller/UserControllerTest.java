@@ -30,6 +30,16 @@ public class UserControllerTest extends FunctionalTest {
     private static final String USER_TAGS = "manager; adm";
     private static final String USER_PASSWORD = "admin123";
     private static String URL = "/users/v1.0";
+    public static final String CURRENT_PAGE = "currentPage";
+    public static final String PAGE_SIZE = "pageSize";
+    public static final String SORT = "sort";
+    public static final String COLUMN = "column";
+    public static final String ONE = "1";
+    public static final String TEN = "10";
+    public static final String ASC = "asc";
+    public static final String NAME_COLUMN = "name";
+    public static final String DESC = "desc";
+
     private static RandomString GENERATOR = new RandomString(5, ThreadLocalRandom.current());
 
     private ExtractableResponse<Response> getCreatedUser() {
@@ -165,6 +175,36 @@ public class UserControllerTest extends FunctionalTest {
                 .delete(URL + "/" + id)
                 .then()
                 .statusCode(200);
+    }
+
+    public void filterUserAsc() {
+        JSONObject jsonFilter = null;
+        try {
+            jsonFilter = new JSONObject()
+                    .put(CURRENT_PAGE, ONE)
+                    .put(PAGE_SIZE, TEN)
+                    .put(SORT, ASC)
+                    .put(COLUMN, NAME_COLUMN);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        System.out.println(jsonFilter.toString());
+        this.getAuthRestAssured().when().param("filter", jsonFilter).get(URL).then().statusCode(200);
+    }
+
+    public void filterUserDesc() {
+        JSONObject jsonFilter = null;
+        try {
+            jsonFilter = new JSONObject()
+                    .put(CURRENT_PAGE, ONE)
+                    .put(PAGE_SIZE, TEN)
+                    .put(SORT, DESC)
+                    .put(COLUMN, NAME_COLUMN);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        System.out.println(jsonFilter.toString());
+        this.getAuthRestAssured().when().param("filter", jsonFilter).get(URL).then().statusCode(200);
     }
 
 }
