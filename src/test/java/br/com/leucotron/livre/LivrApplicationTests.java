@@ -44,10 +44,4 @@ public class LivrApplicationTests extends FunctionalTest {
                 .then()
                 .statusCode(401);
     }
-
-    @Test
-    public void contextLoads() {
-    }
-
-
 }
