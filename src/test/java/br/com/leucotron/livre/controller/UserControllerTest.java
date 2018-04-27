@@ -190,7 +190,6 @@ public class UserControllerTest extends FunctionalTest {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        System.out.println(jsonFilter.toString());
         this.getAuthRestAssured().when().param("filter", jsonFilter).get(URL).then().statusCode(200);
     }
 
@@ -205,7 +204,6 @@ public class UserControllerTest extends FunctionalTest {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        System.out.println(jsonFilter.toString());
         this.getAuthRestAssured().when().param("filter", jsonFilter).get(URL).then().statusCode(200);
     }
 
@@ -221,19 +219,7 @@ public class UserControllerTest extends FunctionalTest {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        System.out.println(jsonFilter.toString());
         this.getAuthRestAssured().when().param("filter", jsonFilter).get(URL).then().statusCode(200);
     }
-
-    @Test
-    public void deleteUserError() {
-        String id = getCreatedUser().path("id").toString();
-        System.out.println(this.getAuthRestAssured()
-                .contentType(ContentType.JSON)
-                .when()
-                .delete(URL + "/" + 9999999)
-                .then().extract().body().toString());
-    }
-
 
 }
