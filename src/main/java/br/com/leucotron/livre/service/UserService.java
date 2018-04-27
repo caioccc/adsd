@@ -1,5 +1,6 @@
 package br.com.leucotron.livre.service;
 
+import br.com.leucotron.livre.core.dto.SearchFilterDTO;
 import br.com.leucotron.livre.core.exception.BusinessException;
 import br.com.leucotron.livre.core.service.CrudService;
 import br.com.leucotron.livre.model.User;
@@ -53,5 +54,29 @@ public class UserService extends CrudService<User, Integer> {
      */
     public User login(String username, String password) {
         return getRepository().login(username, CryptoUtil.encrypt(password));
+    }
+
+    @Override
+    public void validateInsert(User model) throws BusinessException {
+        if (model.getLogin().equals("") || model.getLogin().isEmpty()) {
+            throw new BusinessException("NotNull.userDTO.login");
+        }
+        User user = getRepository().findByLogin(model.getLogin());
+        if (user != null) {
+            throw new BusinessException("NotValid.userDTO.login");
+        }
+        super.validateInsert(model);
+    }
+
+    @Override
+    public void validateUpdate(User model) throws BusinessException {
+        if (model.getLogin().equals("") || model.getLogin().isEmpty()) {
+            throw new BusinessException("NotNull.userDTO.login");
+        }
+        User user = getRepository().findByLogin(model.getLogin());
+        if (user != null && (!user.getId().equals(model.getId()))) {
+            throw new BusinessException("NotValid.userDTO.login");
+        }
+        super.validateUpdate(model);
     }
 }

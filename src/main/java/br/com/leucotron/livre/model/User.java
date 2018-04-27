@@ -10,7 +10,7 @@ import br.com.leucotron.livre.core.model.Model;
 
 /**
  * Model for table: User.
- * 
+ *
  * @author Virtus
  */
 @Entity(name = "user")
@@ -23,31 +23,31 @@ public class User extends Model<Integer> {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "iduser")
 	private Integer idUser;
-	
+
 	/**
 	 * Name.
 	 */
 	@Column(name = "name")
 	private String name;
-	
+
 	/**
 	 * Login.
 	 */
 	@Column(name = "login")
 	private String login;
-	
+
 	/**
 	 * Password.
 	 */
 	@Column(name = "password")
 	private String password;
-	
+
 	/**
 	 * Sector.
 	 */
 	@Column(name = "tags")
 	private String tags;
-	
+
 	/**
 	 * Constructor.
 	 */
@@ -63,7 +63,7 @@ public class User extends Model<Integer> {
 
 	/**
 	 * Gets the User ID.
-	 * 
+	 *
 	 * @return User ID.
 	 */
 	public Integer getIdUser() {
@@ -72,7 +72,7 @@ public class User extends Model<Integer> {
 
 	/**
 	 * Sets the User ID.
-	 * 
+	 *
 	 * @param idUser
 	 * 		User ID.
 	 */
@@ -82,7 +82,7 @@ public class User extends Model<Integer> {
 
 	/**
 	 * Gets the name.
-	 * 
+	 *
 	 * @return Name.
 	 */
 	public String getName() {
@@ -91,7 +91,7 @@ public class User extends Model<Integer> {
 
 	/**
 	 * Sets the name.
-	 * 
+	 *
 	 * @param name
 	 * 		Name.
 	 */
@@ -101,7 +101,7 @@ public class User extends Model<Integer> {
 
 	/**
 	 * Get the login.
-	 * 
+	 *
 	 * @return Login.
 	 */
 	public String getLogin() {
@@ -110,7 +110,7 @@ public class User extends Model<Integer> {
 
 	/**
 	 * Sets the login.
-	 * 
+	 *
 	 * @param login
 	 * 		Login.
 	 */
@@ -120,7 +120,7 @@ public class User extends Model<Integer> {
 
 	/**
 	 * Gets the password.
-	 * 
+	 *
 	 * @return Password.
 	 */
 	public String getPassword() {
@@ -129,7 +129,7 @@ public class User extends Model<Integer> {
 
 	/**
 	 * Sets the password.
-	 * 
+	 *
 	 * @param password
 	 * 		Password.
 	 */

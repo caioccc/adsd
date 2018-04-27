@@ -1,18 +1,23 @@
 package br.com.leucotron.livre.core.controller;
 
 import br.com.leucotron.livre.core.dto.ModelDTO;
+import br.com.leucotron.livre.core.exception.RestException;
 import br.com.leucotron.livre.core.model.Model;
 import br.com.leucotron.livre.core.service.CrudService;
+import br.com.leucotron.livre.util.MessageUtil;
 import br.com.leucotron.livre.util.NullAwareBeanUtils;
+import br.com.leucotron.livre.util.RestMessage;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.io.Serializable;
+import java.util.Locale;
 
 /**
  * The 'CrudBaseController' class provides the common API for CRUD controllers.
@@ -50,10 +55,13 @@ public abstract class CrudBaseController<M extends Model<T>, T extends Serializa
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     })
     @PostMapping("/v1.0")
-	public ResponseEntity<D> insert(@Valid @RequestBody D modelDTO) throws Exception {
-        M model = getService().insert(toModel(modelDTO));
-
-        return created(toDTO(model));
+    public ResponseEntity<D> insert(@Valid @RequestBody D modelDTO, @RequestHeader("Accept-Language") Locale locale) {
+        try {
+            M model = getService().insert(toModel(modelDTO));
+            return created(toDTO(model));
+        } catch (Exception e) {
+            return notAcceptable(locale, e);
+        }
     }
 
     /**
@@ -72,16 +80,20 @@ public abstract class CrudBaseController<M extends Model<T>, T extends Serializa
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     })
     @PutMapping("/v1.0/{id}")
-    public ResponseEntity<D> update(@PathVariable T id, @RequestBody D modelDTO) throws Exception {
-        getService().update(id, toModel(modelDTO));
+    public ResponseEntity<D> update(@PathVariable T id, @RequestBody D modelDTO, @RequestHeader("Accept-Language") Locale locale) {
+        try {
+            getService().update(id, toModel(modelDTO));
+            return ok(modelDTO);
+        } catch (Exception e) {
+            return notAcceptable(locale, e);
+        }
 
-        return ok(modelDTO);
     }
 
     /**
      * Updates the model instance partially.
      *
-     * @param id    ID of instance.
+     * @param id       ID of instance.
      * @param modelDTO Model.
      * @return Response.
      * @throws Exception
@@ -94,16 +106,19 @@ public abstract class CrudBaseController<M extends Model<T>, T extends Serializa
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     })
     @PatchMapping("/v1.0/{id}")
-    public ResponseEntity<D> updatePartial(@PathVariable T id, @RequestBody D modelDTO) throws Exception {
-        M model = toModel(modelDTO);
-        M dbModel = getService().getOne(id);
+    public ResponseEntity<D> updatePartial(@PathVariable T id, @RequestBody D modelDTO, @RequestHeader("Accept-Language") Locale locale) {
+        try {
+            M model = toModel(modelDTO);
+            M dbModel = getService().getOne(id);
+            NullAwareBeanUtils.getInstance().copyProperties(dbModel, model);
+            getService().update(id, dbModel);
+            return ok(modelDTO);
+        } catch (Exception e) {
+            return notAcceptable(locale, e);
+        }
 
-        NullAwareBeanUtils.getInstance().copyProperties(dbModel, model);
-
-        getService().update(id, dbModel);
-
-        return ok(modelDTO);
     }
+
 
     /**
      * Deletes the model instance.
@@ -126,14 +141,23 @@ public abstract class CrudBaseController<M extends Model<T>, T extends Serializa
         return success();
     }
 
-	/**
-	 * Response CREATED (201) for the REST requests.
-	 * 
-	 * @param dto
-	 * 		DTO.
-	 * @return CREATED (201).
-	 */
-	protected ResponseEntity<D> created(D dto) {
-		return new ResponseEntity<D>(dto, HttpStatus.CREATED);
-	}
+    /**
+     * Response CREATED (201) for the REST requests.
+     *
+     * @param dto DTO.
+     * @return CREATED (201).
+     */
+    protected ResponseEntity<D> created(D dto) {
+        return new ResponseEntity<D>(dto, HttpStatus.CREATED);
+    }
+
+    /**
+     * Response Not Acceptable(406) for the REST requests.
+     * @param locale locale param.
+     * @param e Throw Exception e.
+     * @return a Response.
+     */
+    protected ResponseEntity<D> notAcceptable(@RequestHeader("Accept-Language") Locale locale, Exception e) {
+        return new ResponseEntity<D>((D) new RestMessage(MessageUtil.findMessage(e.getMessage(), locale)), HttpStatus.NOT_ACCEPTABLE);
+    }
 }

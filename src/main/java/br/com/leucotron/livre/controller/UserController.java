@@ -45,4 +45,6 @@ public class UserController extends CrudBaseController<User, Integer, UserDTO> {
 
         return model;
     }
+
+
 }
