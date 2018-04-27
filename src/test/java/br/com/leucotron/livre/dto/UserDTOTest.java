@@ -26,11 +26,13 @@ public class UserDTOTest {
         user.setRefreshToken("user12345");
         user.setTags("MANAGER");
         user.setToken("sasda5s6a5s96a");
+        user.setLogin("newLogin@gmail.com");
 
         assertEquals("UserLeucotron", user.getName());
         assertEquals("user12345", user.getRefreshToken());
         assertEquals("MANAGER", user.getTags());
         assertEquals("sasda5s6a5s96a", user.getToken());
+        assertEquals("newLogin@gmail.com", user.getLogin());
     }
 
 }

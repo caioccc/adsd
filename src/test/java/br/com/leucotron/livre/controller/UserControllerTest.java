@@ -190,7 +190,6 @@ public class UserControllerTest extends FunctionalTest {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        
         this.getAuthRestAssured().when().param("filter", jsonFilter).get(URL).then().statusCode(200);
     }
 
@@ -205,7 +204,6 @@ public class UserControllerTest extends FunctionalTest {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        
         this.getAuthRestAssured().when().param("filter", jsonFilter).get(URL).then().statusCode(200);
     }
 
@@ -221,7 +219,6 @@ public class UserControllerTest extends FunctionalTest {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        
         this.getAuthRestAssured().when().param("filter", jsonFilter).get(URL).then().statusCode(200);
     }
 

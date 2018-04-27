@@ -22,4 +22,10 @@ public class CryptoUtilTest {
         String passCrypto = CryptoUtil.encrypt("password");
         assertTrue(passCrypto != null);
     }
+
+    @Test(expected = RuntimeException.class)
+    public void CryptoPasswordValueNull() {
+        String passCrypto = CryptoUtil.encrypt(null);
+        assertTrue(passCrypto != null);
+    }
 }

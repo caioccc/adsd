@@ -29,4 +29,19 @@ public class LivrApplicationTests extends FunctionalTest {
             .statusCode(200);
     }
 
+    @Test
+    public void loginReturn401() throws JSONException {
+
+        final String USERNAME = "username";
+        final String PASSWORD = "password";
+
+        JSONObject jsonObj = new JSONObject().put(USERNAME, "adm@leucotron.com").put(PASSWORD, "12345");
+        given()
+                .contentType(ContentType.JSON)
+                .body(jsonObj.toString())
+                .when()
+                .post("/login")
+                .then()
+                .statusCode(401);
+    }
 }
