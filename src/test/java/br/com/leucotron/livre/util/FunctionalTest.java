@@ -38,7 +38,8 @@ public class FunctionalTest {
 
     protected RequestSpecification getAuthRestAssured() {
         return given().header(
-                new Header(TokenAuthenticationService.HEADER, TokenAuthenticationService.generateToken("admin@leucotron.com")));
+                new Header(TokenAuthenticationService.HEADER, TokenAuthenticationService.generateToken("admin@leucotron.com")))
+                .header(new Header("Accept-Language", "pt"));
     }
 
 }
