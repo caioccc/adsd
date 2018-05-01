@@ -1,7 +1,9 @@
 package br.com.leucotron.livre.service;
 
+import br.com.leucotron.livre.core.exception.BusinessException;
 import br.com.leucotron.livre.core.service.CrudService;
 import br.com.leucotron.livre.model.Organization;
+import br.com.leucotron.livre.model.User;
 import br.com.leucotron.livre.repository.OrganizationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,5 +30,30 @@ public class OrganizationService extends CrudService<Organization, Integer> {
     @Override
     protected OrganizationRepository getRepository() {
         return repository;
+    }
+
+
+    @Override
+    public void validateInsert(Organization model) throws BusinessException {
+        if (model.getName().equals("") || model.getName().isEmpty()) {
+            throw new BusinessException("NotNull.organizationDTO.name");
+        }
+        Organization organization = getRepository().findByName(model.getName());
+        if (organization != null) {
+            throw new BusinessException("NotValid.organizationDTO.name");
+        }
+        super.validateInsert(model);
+    }
+
+    @Override
+    public void validateUpdate(Organization model) throws BusinessException {
+        if (model.getName().equals("") || model.getName().isEmpty()) {
+            throw new BusinessException("NotNull.organizationDTO.name");
+        }
+        Organization organization = getRepository().findByName(model.getName());
+        if (organization != null && (!organization.getId().equals(model.getId()))) {
+            throw new BusinessException("NotValid.organizationDTO.name");
+        }
+        super.validateUpdate(model);
     }
 }

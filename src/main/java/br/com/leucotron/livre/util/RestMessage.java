@@ -1,11 +1,12 @@
 package br.com.leucotron.livre.util;
 
+import br.com.leucotron.livre.core.dto.ModelDTO;
 import lombok.Getter;
 
 import java.util.List;
 
 @Getter
-public class RestMessage {
+public class RestMessage extends ModelDTO{
 
     private String message;
     private List<String> messages;

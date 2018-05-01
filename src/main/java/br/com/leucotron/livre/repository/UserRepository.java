@@ -4,6 +4,8 @@ import br.com.leucotron.livre.core.repository.CrudBaseRepository;
 import br.com.leucotron.livre.model.User;
 import org.springframework.data.jpa.repository.Query;
 
+import java.io.Serializable;
+
 /**
  * CRUD Repository for entity: User.
  * 
@@ -22,4 +24,7 @@ public interface UserRepository extends CrudBaseRepository<User, Integer> {
 	 */
 	@Query(value = "SELECT * FROM user U WHERE UPPER(U.login) = UPPER(?1) AND password = ?2", nativeQuery = true)
 	User login(String username, String encryptedPassword);
+
+
+	User findByLogin(Serializable serializable);
 }
