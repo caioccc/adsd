@@ -5,6 +5,7 @@ import br.com.leucotron.livre.model.User;
 import org.springframework.data.jpa.repository.Query;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * CRUD Repository for entity: User.
@@ -26,5 +27,5 @@ public interface UserRepository extends CrudBaseRepository<User, Integer> {
 	User login(String username, String encryptedPassword);
 
 
-	User findByLogin(Serializable serializable);
+	List<User> findByLogin(Serializable serializable);
 }

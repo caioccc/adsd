@@ -8,6 +8,8 @@ import br.com.leucotron.livre.repository.OrganizationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * CRUD service of the model: Organization.
  *
@@ -38,8 +40,8 @@ public class OrganizationService extends CrudService<Organization, Integer> {
         if (model.getName().equals("") || model.getName().isEmpty()) {
             throw new BusinessException("NotNull.organizationDTO.name");
         }
-        Organization organization = getRepository().findByName(model.getName());
-        if (organization != null) {
+        List<Organization> organizations = getRepository().findByName(model.getName());
+        if (!organizations.isEmpty()) {
             throw new BusinessException("NotValid.organizationDTO.name");
         }
         super.validateInsert(model);
@@ -50,9 +52,11 @@ public class OrganizationService extends CrudService<Organization, Integer> {
         if (model.getName().equals("") || model.getName().isEmpty()) {
             throw new BusinessException("NotNull.organizationDTO.name");
         }
-        Organization organization = getRepository().findByName(model.getName());
-        if (organization != null && (!organization.getId().equals(model.getId()))) {
-            throw new BusinessException("NotValid.organizationDTO.name");
+        List<Organization> organizations = getRepository().findByName(model.getName());
+        for (Organization org: organizations) {
+            if((!org.getId().equals(model.getId()))){
+                throw new BusinessException("NotValid.organizationDTO.name");
+            }
         }
         super.validateUpdate(model);
     }
