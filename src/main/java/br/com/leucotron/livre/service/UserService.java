@@ -9,6 +9,8 @@ import br.com.leucotron.livre.util.CryptoUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Crud Service for model: User.
  *
@@ -61,8 +63,8 @@ public class UserService extends CrudService<User, Integer> {
         if (model.getLogin().equals("") || model.getLogin().isEmpty()) {
             throw new BusinessException("NotNull.userDTO.login");
         }
-        User user = getRepository().findByLogin(model.getLogin());
-        if (user != null) {
+        List<User> users = getRepository().findByLogin(model.getLogin());
+        if (!users.isEmpty()) {
             throw new BusinessException("NotValid.userDTO.login");
         }
         super.validateInsert(model);
@@ -73,9 +75,11 @@ public class UserService extends CrudService<User, Integer> {
         if (model.getLogin().equals("") || model.getLogin().isEmpty()) {
             throw new BusinessException("NotNull.userDTO.login");
         }
-        User user = getRepository().findByLogin(model.getLogin());
-        if (user != null && (!user.getId().equals(model.getId()))) {
-            throw new BusinessException("NotValid.userDTO.login");
+        List<User> users = getRepository().findByLogin(model.getLogin());
+        for (User user: users) {
+            if((!user.getId().equals(model.getId()))){
+                throw new BusinessException("NotValid.userDTO.login");
+            }
         }
         super.validateUpdate(model);
     }

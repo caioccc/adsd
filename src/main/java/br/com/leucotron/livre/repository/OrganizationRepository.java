@@ -4,6 +4,7 @@ import br.com.leucotron.livre.core.repository.CrudBaseRepository;
 import br.com.leucotron.livre.model.Organization;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Repository for entity: Organization.
@@ -12,5 +13,5 @@ import java.io.Serializable;
  */
 public interface OrganizationRepository extends CrudBaseRepository<Organization, Integer> {
 
-    Organization findByName(Serializable serializable);
+    List<Organization> findByName(Serializable serializable);
 }
