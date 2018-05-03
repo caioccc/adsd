@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 public class RoleService extends CrudService<Role, Integer> {
 
     /**
-     * Organization repository.
+     * Role repository.
      */
     @Autowired
     private RoleRepository repository;

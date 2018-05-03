@@ -7,7 +7,7 @@ import lombok.Setter;
 import javax.validation.constraints.NotNull;
 
 /**
- * DTO for Model: Organization.
+ * DTO for Model: Role.
  *
  * @author Virtus
  */
@@ -21,7 +21,7 @@ public class RoleDTO extends ModelDTO {
     private Integer id;
 
     /**
-     * Name.
+     * Role.
      */
     @NotNull
     private String role;

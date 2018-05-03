@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class RoleController extends CrudBaseController<Role, Integer, RoleDTO> {
 
     /**
-     * Organization service.
+     * Role service.
      */
     @Autowired
     private RoleService service;

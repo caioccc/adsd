@@ -24,7 +24,7 @@ public class Role extends Model<Integer> {
     private Integer idRole;
 
     /**
-     * Name.
+     * Role.
      */
     @ApiModelProperty(notes = "The Role name.")
     @Column(name = "role")
