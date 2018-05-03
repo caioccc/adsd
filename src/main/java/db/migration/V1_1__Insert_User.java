@@ -9,7 +9,13 @@ import org.springframework.jdbc.core.JdbcTemplate;
 public class V1_1__Insert_User implements SpringJdbcMigration {
     public void migrate(JdbcTemplate jdbcTemplate) throws Exception {
         jdbcTemplate.execute("\n" +
-                "INSERT INTO livre.user (name,login,password,tags) VALUES\n" +
-                "\t('Administrador','admin@leucotron.com','����ՔK0�#}v���f','Admin');");
+                "INSERT INTO livre.user (name,login,password,tags,role) VALUES\n" +
+                "\t('Administrador','admin@leucotron.com.br','��uEjn��R �����','', 'super_usuario');");
+        jdbcTemplate.execute("\n" +
+                "INSERT INTO livre.role (role) VALUES\n" +
+                "\t('super_usuario');");
+        jdbcTemplate.execute("\n" +
+                "INSERT INTO livre.role (role) VALUES\n" +
+                "\t('usuario');");
     }
 }
