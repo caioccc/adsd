@@ -58,8 +58,8 @@ public class User extends Model<Integer> {
     /**
      * flag.
      */
-    @Column(name = "superuser")
-    private boolean superuser;
+    @Column(name = "master")
+    private boolean master;
 
     /**
      * Constructor.
@@ -68,13 +68,13 @@ public class User extends Model<Integer> {
     }
 
 
-    public User(String name, String login, String password, String tags, String role, boolean superuser) {
+    public User(String name, String login, String password, String tags, String role, boolean master) {
         this.name = name;
         this.login = login;
         this.password = password;
         this.tags = tags;
         this.role = role;
-        this.superuser = superuser;
+        this.master = master;
     }
 
     /**
@@ -165,12 +165,12 @@ public class User extends Model<Integer> {
         this.role = role;
     }
 
-    public boolean isSuperuser() {
-        return superuser;
+    public boolean isMaster() {
+        return master;
     }
 
-    public void setSuperuser(boolean superuser) {
-        this.superuser = superuser;
+    public void setMaster(boolean master) {
+        this.master = master;
     }
 
     /**

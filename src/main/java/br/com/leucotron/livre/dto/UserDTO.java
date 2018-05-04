@@ -32,7 +32,7 @@ public class UserDTO extends ModelDTO {
 
     private String role;
 
-    private boolean superuser;
+    private boolean master;
 
     /**
      * Password
@@ -128,11 +128,11 @@ public class UserDTO extends ModelDTO {
         this.role = role;
     }
 
-    public boolean isSuperuser() {
-        return superuser;
+    public boolean isMaster() {
+        return master;
     }
 
-    public void setSuperuser(boolean superuser) {
-        this.superuser = superuser;
+    public void setMaster(boolean master) {
+        this.master = master;
     }
 }

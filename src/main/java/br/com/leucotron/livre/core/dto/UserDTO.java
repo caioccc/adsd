@@ -34,7 +34,7 @@ public class UserDTO {
      */
     private String refreshToken;
 
-    private boolean superuser;
+    private boolean master;
 
     /**
      * Gets the name.
@@ -134,11 +134,11 @@ public class UserDTO {
         this.role = role;
     }
 
-    public boolean isSuperuser() {
-        return superuser;
+    public boolean isMaster() {
+        return master;
     }
 
-    public void setSuperuser(boolean superuser) {
-        this.superuser = superuser;
+    public void setMaster(boolean master) {
+        this.master = master;
     }
 }

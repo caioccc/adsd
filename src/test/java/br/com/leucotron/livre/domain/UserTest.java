@@ -26,7 +26,7 @@ public class UserTest {
         assertEquals("user12345", user.getPassword());
         assertEquals("MANAGER", user.getTags());
         assertEquals("usuario", user.getRole());
-        assertEquals(false, user.isSuperuser());
+        assertEquals(false, user.isMaster());
     }
 
     @Test
@@ -36,13 +36,13 @@ public class UserTest {
         user.setLogin("adminUser");
         user.setTags("ADMIN");
         user.setName("Admin");
-        user.setSuperuser(true);
+        user.setMaster(true);
         assertEquals("Admin", user.getName());
         assertEquals("adminUser", user.getLogin());
         assertEquals("Admin123!", user.getPassword());
         assertEquals("ADMIN", user.getTags());
         assertEquals("usuario", user.getRole());
-        assertEquals(true, user.isSuperuser());
+        assertEquals(true, user.isMaster());
     }
 
 
