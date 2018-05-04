@@ -34,7 +34,7 @@ public class UserDTO {
      */
     private String refreshToken;
 
-    private boolean flag;
+    private boolean superuser;
 
     /**
      * Gets the name.
@@ -134,11 +134,11 @@ public class UserDTO {
         this.role = role;
     }
 
-    public boolean getFlag() {
-        return flag;
+    public boolean isSuperuser() {
+        return superuser;
     }
 
-    public void setFlag(boolean flag) {
-        this.flag = flag;
+    public void setSuperuser(boolean superuser) {
+        this.superuser = superuser;
     }
 }
