@@ -43,10 +43,17 @@ public class User extends Model<Integer> {
 	private String password;
 
 	/**
-	 * Sector.
+	 * Tags.
 	 */
 	@Column(name = "tags")
 	private String tags;
+
+
+	/**
+	 * Role.
+	 */
+	@Column(name = "role")
+	private String role;
 
 	/**
 	 * Constructor.
@@ -54,11 +61,12 @@ public class User extends Model<Integer> {
 	public User() { }
 
 
-	public User(String name, String login, String password, String tags) {
+	public User(String name, String login, String password, String tags, String role) {
 		this.name = name;
 		this.login = login;
 		this.password = password;
 		this.tags = tags;
+		this.role = role;
 	}
 
 	/**
@@ -143,6 +151,14 @@ public class User extends Model<Integer> {
 
 	public void setTags(String tags) {
 		this.tags = tags;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 	/**

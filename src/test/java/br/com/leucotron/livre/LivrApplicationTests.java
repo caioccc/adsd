@@ -19,7 +19,7 @@ public class LivrApplicationTests extends FunctionalTest {
         final String USERNAME = "username";
         final String PASSWORD = "password";
 
-        JSONObject jsonObj = new JSONObject().put(USERNAME, "admin@leucotron.com").put(PASSWORD, "1234");
+        JSONObject jsonObj = new JSONObject().put(USERNAME, "admin@leucotron.com.br").put(PASSWORD, "master");
         given()
             .contentType(ContentType.JSON)
             .body(jsonObj.toString())
@@ -35,7 +35,7 @@ public class LivrApplicationTests extends FunctionalTest {
         final String USERNAME = "username";
         final String PASSWORD = "password";
 
-        JSONObject jsonObj = new JSONObject().put(USERNAME, "adm@leucotron.com").put(PASSWORD, "12345");
+        JSONObject jsonObj = new JSONObject().put(USERNAME, "adm@leucotron.com.br").put(PASSWORD, "master");
         given()
                 .contentType(ContentType.JSON)
                 .body(jsonObj.toString())
