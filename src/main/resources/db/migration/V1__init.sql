@@ -19,6 +19,6 @@ CREATE TABLE `organization` (
 
 
 CREATE TABLE `role` (
-  `idRole` integer NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `idrole` integer NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `role` varchar(255) NOT NULL
 )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

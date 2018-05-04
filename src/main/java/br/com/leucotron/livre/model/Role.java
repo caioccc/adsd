@@ -20,7 +20,7 @@ public class Role extends Model<Integer> {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @ApiModelProperty(notes = "The database generated product ID.")
-    @Column(name = "id")
+    @Column(name = "idrole")
     private Integer idRole;
 
     /**
