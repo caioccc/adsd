@@ -42,7 +42,7 @@ public class UserController extends CrudBaseController<User, Integer, UserDTO> {
     protected User toModel(UserDTO modelDTO) {
         User model = super.toModel(modelDTO);
         model.setPassword(modelDTO.getNewPassword());
-
+        model.setMaster(false);
         return model;
     }
 

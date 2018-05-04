@@ -41,6 +41,8 @@ public class UserControllerTest extends FunctionalTest {
     public static final String ASC = "asc";
     public static final String NAME_COLUMN = "name";
     public static final String DESC = "desc";
+    public static final String ROLE = "role";
+    public static final String USER_ROLE = "usuario";
 
     private static RandomString GENERATOR = new RandomString(5, ThreadLocalRandom.current());
 
@@ -75,6 +77,7 @@ public class UserControllerTest extends FunctionalTest {
                     .put(LOGIN, USER_LOGIN + GENERATOR.nextString() + MAIL)
                     .put(NAME, USER_NAME + GENERATOR.nextString())
                     .put(PASSWORD, USER_PASSWORD)
+                    .put(ROLE, USER_ROLE)
                     .put(TAGS, USER_TAGS);
         } catch (JSONException e) {
             e.printStackTrace();

@@ -16,167 +16,181 @@ import br.com.leucotron.livre.core.model.Model;
 @Entity(name = "user")
 public class User extends Model<Integer> {
 
-	/**
-	 * User ID.
-	 */
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "iduser")
-	private Integer idUser;
+    /**
+     * User ID.
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "iduser")
+    private Integer idUser;
 
-	/**
-	 * Name.
-	 */
-	@Column(name = "name")
-	private String name;
+    /**
+     * Name.
+     */
+    @Column(name = "name")
+    private String name;
 
-	/**
-	 * Login.
-	 */
-	@Column(name = "login")
-	private String login;
+    /**
+     * Login.
+     */
+    @Column(name = "login")
+    private String login;
 
-	/**
-	 * Password.
-	 */
-	@Column(name = "password")
-	private String password;
+    /**
+     * Password.
+     */
+    @Column(name = "password")
+    private String password;
 
-	/**
-	 * Tags.
-	 */
-	@Column(name = "tags")
-	private String tags;
-
-
-	/**
-	 * Role.
-	 */
-	@Column(name = "role")
-	private String role;
-
-	/**
-	 * Constructor.
-	 */
-	public User() { }
+    /**
+     * Tags.
+     */
+    @Column(name = "tags")
+    private String tags;
 
 
-	public User(String name, String login, String password, String tags, String role) {
-		this.name = name;
-		this.login = login;
-		this.password = password;
-		this.tags = tags;
-		this.role = role;
-	}
+    /**
+     * Role.
+     */
+    @Column(name = "role")
+    private String role;
 
-	/**
-	 * Gets the User ID.
-	 *
-	 * @return User ID.
-	 */
-	public Integer getIdUser() {
-		return idUser;
-	}
+    /**
+     * flag.
+     */
+    @Column(name = "master")
+    private boolean master;
 
-	/**
-	 * Sets the User ID.
-	 *
-	 * @param idUser
-	 * 		User ID.
-	 */
-	public void setIdUser(Integer idUser) {
-		this.idUser = idUser;
-	}
+    /**
+     * Constructor.
+     */
+    public User() {
+    }
 
-	/**
-	 * Gets the name.
-	 *
-	 * @return Name.
-	 */
-	public String getName() {
-		return name;
-	}
 
-	/**
-	 * Sets the name.
-	 *
-	 * @param name
-	 * 		Name.
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
+    public User(String name, String login, String password, String tags, String role, boolean master) {
+        this.name = name;
+        this.login = login;
+        this.password = password;
+        this.tags = tags;
+        this.role = role;
+        this.master = master;
+    }
 
-	/**
-	 * Get the login.
-	 *
-	 * @return Login.
-	 */
-	public String getLogin() {
-		return login;
-	}
+    /**
+     * Gets the User ID.
+     *
+     * @return User ID.
+     */
+    public Integer getIdUser() {
+        return idUser;
+    }
 
-	/**
-	 * Sets the login.
-	 *
-	 * @param login
-	 * 		Login.
-	 */
-	public void setLogin(String login) {
-		this.login = login;
-	}
+    /**
+     * Sets the User ID.
+     *
+     * @param idUser User ID.
+     */
+    public void setIdUser(Integer idUser) {
+        this.idUser = idUser;
+    }
 
-	/**
-	 * Gets the password.
-	 *
-	 * @return Password.
-	 */
-	public String getPassword() {
-		return password;
-	}
+    /**
+     * Gets the name.
+     *
+     * @return Name.
+     */
+    public String getName() {
+        return name;
+    }
 
-	/**
-	 * Sets the password.
-	 *
-	 * @param password
-	 * 		Password.
-	 */
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    /**
+     * Sets the name.
+     *
+     * @param name Name.
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getTags() {
-		return tags;
-	}
+    /**
+     * Get the login.
+     *
+     * @return Login.
+     */
+    public String getLogin() {
+        return login;
+    }
 
-	public void setTags(String tags) {
-		this.tags = tags;
-	}
+    /**
+     * Sets the login.
+     *
+     * @param login Login.
+     */
+    public void setLogin(String login) {
+        this.login = login;
+    }
 
-	public String getRole() {
-		return role;
-	}
+    /**
+     * Gets the password.
+     *
+     * @return Password.
+     */
+    public String getPassword() {
+        return password;
+    }
 
-	public void setRole(String role) {
-		this.role = role;
-	}
+    /**
+     * Sets the password.
+     *
+     * @param password Password.
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	/**
-	 * (non-Javadoc)
-	 * @see br.com.leucotron.livre.core.model.Model#getId()
-	 */
-	@Override
-	public Integer getId() {
-		return this.getIdUser();
-	}
+    public String getTags() {
+        return tags;
+    }
 
-	/**
-	 * (non-Javadoc)
-	 * @see br.com.leucotron.livre.core.model.Model#setId(java.io.Serializable)
-	 */
-	@Override
-	public void setId(Integer id) {
-		this.setIdUser(id);
-	}
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public boolean isMaster() {
+        return master;
+    }
+
+    public void setMaster(boolean master) {
+        this.master = master;
+    }
+
+    /**
+     * (non-Javadoc)
+     *
+     * @see br.com.leucotron.livre.core.model.Model#getId()
+     */
+    @Override
+    public Integer getId() {
+        return this.getIdUser();
+    }
+
+    /**
+     * (non-Javadoc)
+     *
+     * @see br.com.leucotron.livre.core.model.Model#setId(java.io.Serializable)
+     */
+    @Override
+    public void setId(Integer id) {
+        this.setIdUser(id);
+    }
 
 }
