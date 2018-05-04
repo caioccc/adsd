@@ -43,14 +43,14 @@ public class User extends Model<Integer> {
 	private String password;
 
 	/**
-	 * Sector.
+	 * Tags.
 	 */
 	@Column(name = "tags")
 	private String tags;
 
 
 	/**
-	 * Sector.
+	 * Role.
 	 */
 	@Column(name = "role")
 	private String role;
