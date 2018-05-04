@@ -34,6 +34,8 @@ public class UserDTO {
      */
     private String refreshToken;
 
+    private boolean flag;
+
     /**
      * Gets the name.
      *
@@ -130,5 +132,13 @@ public class UserDTO {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public boolean getFlag() {
+        return flag;
+    }
+
+    public void setFlag(boolean flag) {
+        this.flag = flag;
     }
 }

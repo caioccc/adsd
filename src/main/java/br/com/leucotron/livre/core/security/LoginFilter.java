@@ -91,6 +91,7 @@ public class LoginFilter extends AbstractAuthenticationProcessingFilter {
         userDTO.setTags(user.getTags());
         userDTO.setLogin(user.getLogin());
         userDTO.setRole(user.getRole());
+        userDTO.setFlag(user.getFlag());
 
         return userDTO;
     }

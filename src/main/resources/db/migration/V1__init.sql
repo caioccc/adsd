@@ -5,6 +5,7 @@ CREATE TABLE `user` (
   `password` varchar(100) NOT NULL,
   `tags` text,
   `role` varchar(255) NOT NULL,
+  `flag` BOOLEAN DEFAULT FALSE,
   PRIMARY KEY (`iduser`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 

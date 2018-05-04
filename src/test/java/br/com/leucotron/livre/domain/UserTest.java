@@ -20,26 +20,29 @@ public class UserTest {
      */
     @Test
     public void getValue() {
-        User user = new User("UserLeucotron", "commonUser", "user12345", "MANAGER", "usuario");
+        User user = new User("UserLeucotron", "commonUser", "user12345", "MANAGER", "usuario", false);
         assertEquals("UserLeucotron", user.getName());
         assertEquals("commonUser", user.getLogin());
         assertEquals("user12345", user.getPassword());
         assertEquals("MANAGER", user.getTags());
         assertEquals("usuario", user.getRole());
+        assertEquals(false, user.getFlag());
     }
 
     @Test
     public void setValue() {
-        User user = new User("UserLeucotron", "commonUser", "user12345", "MANAGER", "usuario");
+        User user = new User("UserLeucotron", "commonUser", "user12345", "MANAGER", "usuario", false);
         user.setPassword("Admin123!");
         user.setLogin("adminUser");
         user.setTags("ADMIN");
         user.setName("Admin");
+        user.setFlag(true);
         assertEquals("Admin", user.getName());
         assertEquals("adminUser", user.getLogin());
         assertEquals("Admin123!", user.getPassword());
         assertEquals("ADMIN", user.getTags());
         assertEquals("usuario", user.getRole());
+        assertEquals(true, user.getFlag());
     }
 
 

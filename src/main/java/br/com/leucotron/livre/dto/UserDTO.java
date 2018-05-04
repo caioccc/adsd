@@ -32,6 +32,8 @@ public class UserDTO extends ModelDTO {
 
     private String role;
 
+    private boolean flag;
+
     /**
      * Password
      */
@@ -124,5 +126,13 @@ public class UserDTO extends ModelDTO {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public boolean isFlag() {
+        return flag;
+    }
+
+    public void setFlag(boolean flag) {
+        this.flag = flag;
     }
 }
