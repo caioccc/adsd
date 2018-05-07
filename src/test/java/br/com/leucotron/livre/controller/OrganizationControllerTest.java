@@ -8,6 +8,7 @@ import io.restassured.http.ContentType;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import org.apache.commons.httpclient.HttpStatus;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Test;
@@ -208,7 +209,7 @@ public class OrganizationControllerTest extends FunctionalTest {
             jsonObj = new JSONObject()
                     .put(CURRENT_PAGE, 1)
                     .put(PAGE_SIZE, 10)
-                    .put(FILTERS, new JSONObject());
+                    .put(FILTERS, new JSONArray());
         } catch (JSONException e) {
             e.printStackTrace();
         }
