@@ -1,6 +1,8 @@
 package br.com.leucotron.livre.core.dto;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -38,7 +40,7 @@ public class SearchFilterDTO {
     /**
      * Filters.
      */
-    private Map<String, Object> filters = new HashMap<>();
+    private List<FilterDTO> filters = new ArrayList<>();
 
     /**
      * Gets the current page.
@@ -81,7 +83,7 @@ public class SearchFilterDTO {
      *
      * @return Filters.
      */
-    public Map<String, Object> getFilters() {
+    public List<FilterDTO> getFilters() {
         return filters;
     }
 
@@ -90,7 +92,7 @@ public class SearchFilterDTO {
      *
      * @param filters Filters.
      */
-    public void setFilters(Map<String, Object> filters) {
+    public void setFilters(List<FilterDTO> filters) {
         this.filters = filters;
     }
 
@@ -147,4 +149,6 @@ public class SearchFilterDTO {
     public void setSearch(String search) {
         this.search = search;
     }
+
+
 }
