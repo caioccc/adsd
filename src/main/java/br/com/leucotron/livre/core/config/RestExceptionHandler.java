@@ -2,8 +2,10 @@ package br.com.leucotron.livre.core.config;
 
 import br.com.leucotron.livre.core.exception.RestException;
 import br.com.leucotron.livre.util.RestMessage;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -47,5 +49,19 @@ public class RestExceptionHandler {
         String errorMessage = messageSource.getMessage(UNEXPECTED_ERROR, null, locale);
         ex.printStackTrace();
         return new ResponseEntity<>(new RestMessage(errorMessage), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(value = ConstraintViolationException.class)
+    public ResponseEntity<RestMessage> handleExceptions(ConstraintViolationException ex, Locale locale) {
+        String errorMessage = messageSource.getMessage(UNEXPECTED_ERROR, null, locale);
+        ex.printStackTrace();
+        return new ResponseEntity<>(new RestMessage(errorMessage), HttpStatus.NOT_ACCEPTABLE);
+    }
+
+    @ExceptionHandler(value = DataIntegrityViolationException.class)
+    public ResponseEntity<RestMessage> handleExceptions(DataIntegrityViolationException ex, Locale locale) {
+        String errorMessage = messageSource.getMessage(UNEXPECTED_ERROR, null, locale);
+        ex.printStackTrace();
+        return new ResponseEntity<>(new RestMessage(errorMessage), HttpStatus.NOT_ACCEPTABLE);
     }
 }

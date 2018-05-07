@@ -1,7 +1,7 @@
 CREATE TABLE `user` (
   `iduser` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
-  `login` varchar(255) NOT NULL,
+  `login` varchar(255) NOT NULL UNIQUE ,
   `password` varchar(100) NOT NULL,
   `tags` text,
   `role` varchar(255) NOT NULL,
@@ -12,7 +12,7 @@ CREATE TABLE `user` (
 
 CREATE TABLE `organization` (
   `idorganization` integer NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL UNIQUE ,
   `status` bool NOT NULL,
   `tags` text,
   `accesskey` varchar(255) NOT NULL
