@@ -120,7 +120,7 @@ public interface SearchBaseRepository<M extends Model<T>, T extends Serializable
 
             private Predicate buildPredicate(Condition condition, Root<M> root, CriteriaQuery criteriaQuery, CriteriaBuilder criteriaBuilder) {
                 try {
-                    switch (condition.comparison) {
+                    switch (condition.getComparison()) {
                         case EQ:
                             return buildEqualsPredicateToCriteria(condition, root, criteriaQuery, criteriaBuilder);
                         case LIKE:
@@ -136,19 +136,19 @@ public interface SearchBaseRepository<M extends Model<T>, T extends Serializable
             }
 
             private Predicate buildEqualsPredicateToCriteria(Condition condition, Root<M> root, CriteriaQuery criteriaQuery, CriteriaBuilder criteriaBuilder) {
-                return criteriaBuilder.equal(root.get(condition.field), condition.value);
+                return criteriaBuilder.equal(root.get(condition.getField()), condition.getValue());
             }
 
             private Predicate buildContainsPredicateToCriteria(Condition condition, Root<M> root, CriteriaQuery criteriaQuery, CriteriaBuilder criteriaBuilder) {
-                return criteriaBuilder.like(root.get(condition.field), "%" + condition.value + "%");
+                return criteriaBuilder.like(root.get(condition.getField()), "%" + condition.getValue() + "%");
             }
 
             private Predicate buildAndPredicateToCriteria(Condition condition, Root<M> root, CriteriaQuery criteriaQuery, CriteriaBuilder criteriaBuilder) {
                 List<Predicate> predicates = new ArrayList<>();
 
-                String conditionValue = (String) condition.value;
+                String conditionValue = (String) condition.getValue();
                 for (String value : conditionValue.split(",")) {
-                    condition.value = value;
+                    condition.setValue(value);
                     predicates.add(buildContainsPredicateToCriteria(condition, root, criteriaQuery, criteriaBuilder));
                 }
 

@@ -30,10 +30,12 @@ public class OrganizationControllerTest extends FunctionalTest {
     private static final boolean ORG_STATUS_TRUE = true;
     private static final boolean ORG_STATUS_FALSE = false;
     private static final String ORG_TAGS = "a,ab,abc";
-    public static final String CURRENT_PAGE = "currentPage";
-    public static final String PAGE_SIZE = "pageSize";
-    public static final String FILTERS = "filters";
-    public static final String FILTER = "filter";
+    private static final String CURRENT_PAGE = "currentPage";
+    private static final String PAGE_SIZE = "pageSize";
+    private static final String FILTERS = "filters";
+    private static final String FILTER = "filter";
+    private static final String COLUMN = "column";
+    private static final String SORT = "sort";
     private static String URL = "/organizations/v1.0";
     private static RandomString GENERATOR = new RandomString(8, ThreadLocalRandom.current());
 
@@ -210,6 +212,171 @@ public class OrganizationControllerTest extends FunctionalTest {
                     .put(CURRENT_PAGE, 1)
                     .put(PAGE_SIZE, 10)
                     .put(FILTERS, new JSONArray());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        this.getAuthRestAssured().param(FILTER, jsonObj.toString())
+                .contentType(ContentType.JSON)
+                .when()
+                .get(URL)
+                .then()
+                .statusCode(200);
+    }
+
+    @Test
+    public void filterOrganizationSort() {
+        ExtractableResponse<Response> response = getObjectCreatedOrganization();
+        JSONObject jsonObj = null;
+        try {
+            jsonObj = new JSONObject()
+                    .put(CURRENT_PAGE, 1)
+                    .put(PAGE_SIZE, 10)
+                    .put(COLUMN, "name")
+                    .put(SORT, "asc")
+                    .put(FILTERS, new JSONArray());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        this.getAuthRestAssured().param(FILTER, jsonObj.toString())
+                .contentType(ContentType.JSON)
+                .when()
+                .get(URL)
+                .then()
+                .statusCode(200);
+    }
+
+
+    @Test
+    public void filterOrganizationByName() {
+        ExtractableResponse<Response> response = getObjectCreatedOrganization();
+        JSONObject jsonObj = null;
+        try {
+            jsonObj = new JSONObject()
+                    .put(CURRENT_PAGE, 1)
+                    .put(PAGE_SIZE, 10)
+                    .put(FILTERS, new JSONArray("[{\"field\":\"name\",\"value\":\"name\",\"comparison\":\"LIKE\"}]"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        this.getAuthRestAssured().param(FILTER, jsonObj.toString())
+                .contentType(ContentType.JSON)
+                .when()
+                .get(URL)
+                .then()
+                .statusCode(200);
+    }
+
+    @Test
+    public void filterOrganizationByAccesskey() {
+        ExtractableResponse<Response> response = getObjectCreatedOrganization();
+        JSONObject jsonObj = null;
+        try {
+            jsonObj = new JSONObject()
+                    .put(CURRENT_PAGE, 1)
+                    .put(PAGE_SIZE, 10)
+                    .put(FILTERS, new JSONArray("[{\"field\":\"accesskey\",\"value\":\"z\",\"comparison\":\"LIKE\"}]"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        this.getAuthRestAssured().param(FILTER, jsonObj.toString())
+                .contentType(ContentType.JSON)
+                .when()
+                .get(URL)
+                .then()
+                .statusCode(200);
+    }
+
+    @Test
+    public void filterOrganizationByMultiTags() {
+        ExtractableResponse<Response> response = getObjectCreatedOrganization();
+        JSONObject jsonObj = null;
+        try {
+            jsonObj = new JSONObject()
+                    .put(CURRENT_PAGE, 1)
+                    .put(PAGE_SIZE, 10)
+                    .put(FILTERS, new JSONArray("[{\"field\":\"tags\",\"value\":\"aa,bb\",\"comparison\":\"IN\"}]"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        this.getAuthRestAssured().param(FILTER, jsonObj.toString())
+                .contentType(ContentType.JSON)
+                .when()
+                .get(URL)
+                .then()
+                .statusCode(200);
+    }
+
+    @Test
+    public void filterOrganizationByTagsAndStatus() {
+        ExtractableResponse<Response> response = getObjectCreatedOrganization();
+        JSONObject jsonObj = null;
+        try {
+            jsonObj = new JSONObject()
+                    .put(CURRENT_PAGE, 1)
+                    .put(PAGE_SIZE, 10)
+                    .put(FILTERS, new JSONArray("[{\"field\":\"status\",\"value\":false,\"comparison\":\"EQ\"},{\"field\":\"tags\",\"value\":\"bb\",\"comparison\":\"IN\"}]"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        this.getAuthRestAssured().param(FILTER, jsonObj.toString())
+                .contentType(ContentType.JSON)
+                .when()
+                .get(URL)
+                .then()
+                .statusCode(200);
+    }
+
+    @Test
+    public void filterOrganizationByNotImplementComparison() {
+        ExtractableResponse<Response> response = getObjectCreatedOrganization();
+        JSONObject jsonObj = null;
+        try {
+            jsonObj = new JSONObject()
+                    .put(CURRENT_PAGE, 1)
+                    .put(PAGE_SIZE, 10)
+                    .put(FILTERS, new JSONArray("[{\"field\":\"name\",\"value\":\"name\",\"comparison\":\"NE\"}]"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        this.getAuthRestAssured().param(FILTER, jsonObj.toString())
+                .contentType(ContentType.JSON)
+                .when()
+                .get(URL)
+                .then()
+                .statusCode(200);
+    }
+
+    @Test
+    public void filterOrganizationByNotExistComparison() {
+        ExtractableResponse<Response> response = getObjectCreatedOrganization();
+        JSONObject jsonObj = null;
+        try {
+            jsonObj = new JSONObject()
+                    .put(CURRENT_PAGE, 1)
+                    .put(PAGE_SIZE, 10)
+                    .put(FILTERS, new JSONArray("[{\"field\":\"name\",\"value\":\"name\",\"comparison\":\"OR\"}]"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        this.getAuthRestAssured().param(FILTER, jsonObj.toString())
+                .contentType(ContentType.JSON)
+                .when()
+                .get(URL)
+                .then()
+                .statusCode(200);
+    }
+
+    @Test
+    public void filterOrganizationByNameAndSort() {
+        ExtractableResponse<Response> response = getObjectCreatedOrganization();
+        JSONObject jsonObj = null;
+        try {
+            jsonObj = new JSONObject()
+                    .put(CURRENT_PAGE, 1)
+                    .put(PAGE_SIZE, 10)
+                    .put(COLUMN, "name")
+                    .put(SORT, "asc")
+                    .put(FILTERS, new JSONArray("[{\"field\":\"name\",\"value\":\"name\",\"comparison\":\"OR\"}]"));
         } catch (JSONException e) {
             e.printStackTrace();
         }

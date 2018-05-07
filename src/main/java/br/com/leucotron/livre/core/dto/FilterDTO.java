@@ -4,9 +4,9 @@ import br.com.leucotron.livre.util.Comparison;
 
 public class FilterDTO {
 
-    String field;
-    Object value;
-    Comparison comparison;
+    private String field;
+    private Object value;
+    private Comparison comparison;
 
     public FilterDTO(String key, Object value, Comparison comparison) {
         this.field = key;
