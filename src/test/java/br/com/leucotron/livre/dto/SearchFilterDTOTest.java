@@ -27,7 +27,7 @@ public class SearchFilterDTOTest {
         SearchFilterDTO searchFilter = new SearchFilterDTO();
         searchFilter.setPageSize(5);
         searchFilter.setCurrentPage(1);
-        searchFilter.setFilters(new HashMap<>());
+        searchFilter.setFilters(new ArrayList<>());
         searchFilter.setColumn("name");
         searchFilter.setSort("asc");
         searchFilter.setSearch("value");
