@@ -30,6 +30,10 @@ public class UserDTO extends ModelDTO {
      */
     private String tags;
 
+    private String role;
+
+    private boolean master;
+
     /**
      * Password
      */
@@ -114,5 +118,21 @@ public class UserDTO extends ModelDTO {
 
     public void setNewPassword(String newPassword) {
         this.newPassword = newPassword;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public boolean isMaster() {
+        return master;
+    }
+
+    public void setMaster(boolean master) {
+        this.master = master;
     }
 }

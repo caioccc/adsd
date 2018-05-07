@@ -17,6 +17,8 @@ public class UserDTO {
      */
     private String tags;
 
+    private String role;
+
     /**
      * Login.
      */
@@ -31,6 +33,8 @@ public class UserDTO {
      * Refresh token.
      */
     private String refreshToken;
+
+    private boolean master;
 
     /**
      * Gets the name.
@@ -120,5 +124,21 @@ public class UserDTO {
      */
     public void setLogin(String login) {
         this.login = login;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public boolean isMaster() {
+        return master;
+    }
+
+    public void setMaster(boolean master) {
+        this.master = master;
     }
 }
