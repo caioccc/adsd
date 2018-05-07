@@ -160,4 +160,8 @@ public abstract class CrudBaseController<M extends Model<T>, T extends Serializa
     protected ResponseEntity<D> notAcceptable(@RequestHeader("Accept-Language") Locale locale, Exception e) {
         return new ResponseEntity<D>((D) new RestMessage(MessageUtil.findMessage(e.getMessage(), locale)), HttpStatus.NOT_ACCEPTABLE);
     }
+
+    protected ResponseEntity<D> notAcceptable(@RequestHeader("Accept-Language") Locale locale, String message) {
+        return new ResponseEntity<D>((D) new RestMessage(MessageUtil.findMessage(message, locale)), HttpStatus.NOT_ACCEPTABLE);
+    }
 }
