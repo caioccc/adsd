@@ -1,16 +1,15 @@
 package br.com.leucotron.livre.core.controller;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
-import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.leucotron.livre.core.dto.ModelDTO;
 import br.com.leucotron.livre.core.dto.ResponseListDTO;
@@ -18,6 +17,9 @@ import br.com.leucotron.livre.core.dto.SearchFilterDTO;
 import br.com.leucotron.livre.core.model.Model;
 import br.com.leucotron.livre.core.service.SearchService;
 import br.com.leucotron.livre.util.JSonUtil;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import net.jodah.typetools.TypeResolver;
 
 /**
@@ -41,11 +43,16 @@ import net.jodah.typetools.TypeResolver;
  */
 public abstract class SearchBaseController<M extends Model<T>, T extends Serializable, D extends ModelDTO> extends BaseController {
 
-    /**
-     * Model mapper.
-     */
-    protected static final ModelMapper MODEL_MAPPER = new ModelMapper();
-
+	/**
+	 * Index order of the Model class in generics declaration. 
+	 */
+	protected static final Integer MODEL_INDEX_ORDER = 0;
+	
+	/**
+	 * Index order of the DTO class in generics declaration. 
+	 */
+	protected static final Integer DTO_INDEX_ORDER = 2;
+	
     /**
      * The model search service.
      *
@@ -98,12 +105,11 @@ public abstract class SearchBaseController<M extends Model<T>, T extends Seriali
 		return response;
 	}
 
-
     /**
-     * Gets one model by its specific ID.
+     * Gets one model by its specific ID as DTO.
      *
      * @param id ID of instance.
-     * @return Model instance founded.
+     * @return DTO of Model instance founded.
      */
     @ApiOperation(value = "Get a item with an ID")
     @ApiResponses(value = {
@@ -114,7 +120,17 @@ public abstract class SearchBaseController<M extends Model<T>, T extends Seriali
     })
     @GetMapping("/v1.0/{id}")
     public D getOne(@PathVariable T id) {
-        return toDTO(getService().getOne(id));
+        return toDTO(getOneModel(id));
+    }
+    
+    /**
+     * Gets one model by its specific ID as DTO.
+     *
+     * @param id ID of instance.
+     * @return Model instance founded.
+     */
+    protected M getOneModel(T id) {
+    	return getService().getOne(id);
     }
 
     /**
@@ -123,11 +139,8 @@ public abstract class SearchBaseController<M extends Model<T>, T extends Seriali
      * @param modelDTO Model DTO.
      * @return Model.
      */
-    @SuppressWarnings("unchecked")
     protected M toModel(D modelDTO) {
-        Class<?>[] typeArg = TypeResolver.resolveRawArguments(SearchBaseController.class, getClass());
-
-        return MODEL_MAPPER.map(modelDTO, (Class<M>) typeArg[0]);
+        return mapTo(modelDTO, getModelClass());
     }
 
     /**
@@ -136,11 +149,8 @@ public abstract class SearchBaseController<M extends Model<T>, T extends Seriali
      * @param model Model.
      * @return Model DTO.
      */
-    @SuppressWarnings("unchecked")
     protected D toDTO(M model) {
-        Class<?>[] typeArg = TypeResolver.resolveRawArguments(SearchBaseController.class, getClass());
-
-        return MODEL_MAPPER.map(model, (Class<D>) typeArg[2]);
+        return mapTo(model, getDTOClass());
     }
 
     /**
@@ -149,17 +159,8 @@ public abstract class SearchBaseController<M extends Model<T>, T extends Seriali
      * @param items Model items.
      * @return DTOs.
      */
-    @SuppressWarnings("unchecked")
     protected List<D> toListDTO(List<?> items) {
-        List<D> dtos = new ArrayList<>();
-        List<M> models = (List<M>) items;
-
-        if (items != null) {
-            models.forEach(model -> {
-                dtos.add(toDTO(model));
-            });
-        }
-        return dtos;
+        return toList(items, getDTOClass());
     }
 
     /**
@@ -181,5 +182,34 @@ public abstract class SearchBaseController<M extends Model<T>, T extends Seriali
      */
     protected ResponseEntity<D> ok(D dto) {
         return new ResponseEntity<D>(dto, HttpStatus.OK);
+    }
+    
+    /**
+     * Gets the Model class.
+     * 
+     * @return Model class.
+     */
+    @SuppressWarnings("unchecked")
+	protected Class<M> getModelClass() {
+    	return (Class<M>) getTypeArg()[MODEL_INDEX_ORDER];
+    }
+    
+    /**
+     * Gets the DTO class.
+     * 
+     * @return DTO class.
+     */
+    @SuppressWarnings("unchecked")
+	protected Class<D> getDTOClass() {
+    	return (Class<D>) getTypeArg()[DTO_INDEX_ORDER];
+    }
+    
+    /**
+     * Gets the type args of the class.
+     * 
+     * @return Type args.
+     */
+    protected Class<?>[] getTypeArg() {
+    	return TypeResolver.resolveRawArguments(SearchBaseController.class, getClass());
     }
 }
