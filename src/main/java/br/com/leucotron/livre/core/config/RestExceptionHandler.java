@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
@@ -48,4 +49,5 @@ public class RestExceptionHandler {
         ex.printStackTrace();
         return new ResponseEntity<>(new RestMessage(errorMessage), HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
 }
