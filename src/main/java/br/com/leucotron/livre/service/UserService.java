@@ -1,6 +1,5 @@
 package br.com.leucotron.livre.service;
 
-import br.com.leucotron.livre.core.dto.SearchFilterDTO;
 import br.com.leucotron.livre.core.exception.BusinessException;
 import br.com.leucotron.livre.core.service.CrudService;
 import br.com.leucotron.livre.model.User;
@@ -56,6 +55,10 @@ public class UserService extends CrudService<User, Integer> {
      */
     public User login(String username, String password) {
         return getRepository().login(username, CryptoUtil.encrypt(password));
+    }
+
+    public List<User> getAllUsersWithChecked(Integer id){
+        return getRepository().getAllUsersWithChecked(id);
     }
 
     @Override

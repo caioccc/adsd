@@ -14,4 +14,5 @@ import java.util.List;
 public interface OrganizationRepository extends CrudBaseRepository<Organization, Integer> {
 
     List<Organization> findByName(Serializable serializable);
+
 }

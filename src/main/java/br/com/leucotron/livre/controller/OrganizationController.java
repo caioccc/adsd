@@ -1,12 +1,15 @@
 package br.com.leucotron.livre.controller;
 
 import br.com.leucotron.livre.core.controller.CrudBaseController;
+import br.com.leucotron.livre.core.dto.ResponseListDTO;
+import br.com.leucotron.livre.core.dto.SearchFilterDTO;
 import br.com.leucotron.livre.core.exception.BusinessException;
 import br.com.leucotron.livre.dto.CompleteOrganizationDTO;
 import br.com.leucotron.livre.dto.OrganizationDTO;
 import br.com.leucotron.livre.dto.UserDTO;
 import br.com.leucotron.livre.model.Organization;
 import br.com.leucotron.livre.service.OrganizationService;
+import br.com.leucotron.livre.util.JSonUtil;
 import br.com.leucotron.livre.util.NullAwareBeanUtils;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;

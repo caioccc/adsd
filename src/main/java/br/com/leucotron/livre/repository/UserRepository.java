@@ -26,6 +26,20 @@ public interface UserRepository extends CrudBaseRepository<User, Integer> {
 	@Query(value = "SELECT * FROM user U WHERE UPPER(U.login) = UPPER(?1) AND password = ?2", nativeQuery = true)
 	User login(String username, String encryptedPassword);
 
-
 	List<User> findByLogin(Serializable serializable);
+
+	@Query(value = "SELECT *,\n" +
+			"\n" +
+			"  (SELECT\n" +
+			"     CASE\n" +
+			"     WHEN COUNT(US_ORG.iduser) = 1 THEN TRUE\n" +
+			"     ELSE FALSE\n" +
+			"     END\n" +
+			"   FROM livre.user_organization AS US_ORG WHERE US_ORG.iduser = user.iduser  AND US_ORG.idorganization = ?1) AS associated\n" +
+			"FROM livre.user;\n" +
+			"\n" +
+			"\n" +
+			"\n", nativeQuery = true)
+	List<User> getAllUsersWithChecked(Integer idOrganization);
+
 }

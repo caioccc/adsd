@@ -1,13 +1,17 @@
 package br.com.leucotron.livre.controller;
 
 import br.com.leucotron.livre.core.controller.CrudBaseController;
+import br.com.leucotron.livre.core.dto.ResponseListDTO;
+import br.com.leucotron.livre.core.dto.SearchFilterDTO;
 import br.com.leucotron.livre.core.exception.BusinessException;
+import br.com.leucotron.livre.dto.AssociatedUserDTO;
 import br.com.leucotron.livre.dto.OrganizationDTO;
 import br.com.leucotron.livre.dto.UserDTO;
 import br.com.leucotron.livre.model.Organization;
 import br.com.leucotron.livre.model.User;
 import br.com.leucotron.livre.service.OrganizationService;
 import br.com.leucotron.livre.service.UserService;
+import br.com.leucotron.livre.util.JSonUtil;
 import br.com.leucotron.livre.util.NullAwareBeanUtils;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -71,5 +76,13 @@ public class UserController extends CrudBaseController<User, Integer, UserDTO> {
         } catch (InvocationTargetException e) {
             return notAcceptable(locale, e);
         }
+    }
+
+    @RequestMapping(value = "/organizations/v1.0/{id}", method = RequestMethod.GET)
+    public List<AssociatedUserDTO> associatedUsersToOrgs(@PathVariable Integer id) {
+        List<AssociatedUserDTO> associatedUserDTOS = toList(getService().getAllUsersWithChecked(id), AssociatedUserDTO.class);
+
+        return associatedUserDTOS;
+
     }
 }
