@@ -26,10 +26,9 @@ CREATE TABLE `role` (
 
 
 CREATE TABLE `user_organization` (
-  `iduser` int(11),
-  `idorganization` int(11),
+  `iduser` integer,
+  `idorganization` integer,
   PRIMARY KEY (`iduser`,`idorganization`),
-  KEY `idorganization` (`idorganization`),
   CONSTRAINT `user_organization_ibfk_1`
   FOREIGN KEY (`iduser`) REFERENCES `user` (`iduser`),
   CONSTRAINT `user_organization_ibfk_2`
