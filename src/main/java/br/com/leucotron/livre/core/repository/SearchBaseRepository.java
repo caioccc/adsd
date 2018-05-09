@@ -148,7 +148,7 @@ public interface SearchBaseRepository<M extends Model<T>, T extends Serializable
 
                 String conditionValue = (String) condition.getValue();
                 for (String value : conditionValue.split(",")) {
-                    condition.setValue(value);
+                    condition.setValue(","+value+",");
                     predicates.add(buildContainsPredicateToCriteria(condition, root, criteriaQuery, criteriaBuilder));
                 }
 
