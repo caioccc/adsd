@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * Model for table: ORGANIZATION.
@@ -52,6 +53,10 @@ public class Organization extends Model<Integer> {
     @ApiModelProperty(notes = "Indicates the organization's access key. The access key is a hash function of size 16 (0 to 15), which can be generated again after the registration.")
     @Column(name = "accesskey")
     private String accesskey;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name = "user_organization", joinColumns = @JoinColumn(name = "idorganization", referencedColumnName = "idorganization"), inverseJoinColumns = @JoinColumn(name = "iduser", referencedColumnName = "iduser"))
+    private List<User> users;
 
 
     public Organization() {
@@ -102,6 +107,14 @@ public class Organization extends Model<Integer> {
 
     public void setAccesskey(String accesskey) {
         this.accesskey = accesskey;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 
     /**

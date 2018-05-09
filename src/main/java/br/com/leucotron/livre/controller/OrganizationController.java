@@ -2,7 +2,9 @@ package br.com.leucotron.livre.controller;
 
 import br.com.leucotron.livre.core.controller.CrudBaseController;
 import br.com.leucotron.livre.core.exception.BusinessException;
+import br.com.leucotron.livre.dto.CompleteOrganizationDTO;
 import br.com.leucotron.livre.dto.OrganizationDTO;
+import br.com.leucotron.livre.dto.UserDTO;
 import br.com.leucotron.livre.model.Organization;
 import br.com.leucotron.livre.service.OrganizationService;
 import br.com.leucotron.livre.util.NullAwareBeanUtils;
@@ -59,6 +61,16 @@ public class OrganizationController extends CrudBaseController<Organization, Int
         } catch (InvocationTargetException e) {
             return notAcceptable(locale, e);
         }
+    }
+
+    @Override
+    public OrganizationDTO getOne(@PathVariable Integer id) {
+        Organization model = super.getOneModel(id);
+
+        CompleteOrganizationDTO dto = mapTo(model, CompleteOrganizationDTO.class);
+        dto.setUsers(toList(model.getUsers(), UserDTO.class));
+
+        return dto;
     }
 
 }

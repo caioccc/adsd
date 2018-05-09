@@ -1,12 +1,10 @@
 package br.com.leucotron.livre.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import br.com.leucotron.livre.core.model.Model;
+
+import java.util.Set;
 
 /**
  * Model for table: User.
@@ -60,6 +58,10 @@ public class User extends Model<Integer> {
      */
     @Column(name = "master")
     private boolean master;
+
+
+    @ManyToMany(mappedBy = "users")
+    private Set<Organization> organizations;
 
     /**
      * Constructor.
@@ -171,6 +173,14 @@ public class User extends Model<Integer> {
 
     public void setMaster(boolean master) {
         this.master = master;
+    }
+
+    public Set<Organization> getOrganizations() {
+        return organizations;
+    }
+
+    public void setOrganizations(Set<Organization> organizations) {
+        this.organizations = organizations;
     }
 
     /**
