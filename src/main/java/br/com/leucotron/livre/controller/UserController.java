@@ -16,6 +16,7 @@ import br.com.leucotron.livre.util.NullAwareBeanUtils;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -87,13 +88,32 @@ public class UserController extends CrudBaseController<User, Integer, UserDTO> {
 
         List<AssociatedUserDTO> associatedUserDTOS = new ArrayList<>();
 
-        for (Object[] o: obs){
+        for (Object[] o : obs) {
             BigInteger value = (BigInteger) o[4];
-            associatedUserDTOS.add(new AssociatedUserDTO((String) o[1], value.intValue() == 1));
+            associatedUserDTOS.add(new AssociatedUserDTO((Integer) o[0], (String) o[1], value.intValue() == 1));
 
         }
 
         return associatedUserDTOS;
+    }
 
+    @RequestMapping(value = "/organizations/v1.0/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<List<AssociatedUserDTO>> putAssociatedUsersToOrgs(@PathVariable Integer id, @RequestBody List<AssociatedUserDTO> list, @RequestHeader("Accept-Language") Locale locale) {
+//        list.forEach(item -> {
+//            User model = toModel(item);
+//            User dbModel = getService().getOne(item.getId());
+//            try {
+//                NullAwareBeanUtils.getInstance().copyProperties(dbModel, model);
+//                getService().update(item.getId(), dbModel);
+//            } catch (IllegalAccessException e) {
+//                e.printStackTrace();
+//            } catch (InvocationTargetException e) {
+//                e.printStackTrace();
+//            } catch (BusinessException e) {
+//                e.printStackTrace();
+//            }
+//
+//        });
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
 }
