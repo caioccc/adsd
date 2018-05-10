@@ -12,6 +12,12 @@ public class AssociatedUserDTO extends UserDTO {
 
     private boolean associated;
 
+
+    public AssociatedUserDTO(String name, boolean associated) {
+        this.associated = associated;
+        super.setName(name);
+    }
+
     public boolean isAssociated() {
         return associated;
     }

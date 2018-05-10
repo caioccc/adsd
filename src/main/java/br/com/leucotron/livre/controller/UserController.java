@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
+import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -80,7 +82,16 @@ public class UserController extends CrudBaseController<User, Integer, UserDTO> {
 
     @RequestMapping(value = "/organizations/v1.0/{id}", method = RequestMethod.GET)
     public List<AssociatedUserDTO> associatedUsersToOrgs(@PathVariable Integer id) {
-        List<AssociatedUserDTO> associatedUserDTOS = toList(getService().getAllUsersWithChecked(id), AssociatedUserDTO.class);
+
+        List<Object[]> obs = getService().getAllUsersWithChecked(id);
+
+        List<AssociatedUserDTO> associatedUserDTOS = new ArrayList<>();
+
+        for (Object[] o: obs){
+            BigInteger value = (BigInteger) o[4];
+            associatedUserDTOS.add(new AssociatedUserDTO((String) o[1], value.intValue() == 1));
+
+        }
 
         return associatedUserDTOS;
 

@@ -57,7 +57,7 @@ public class UserService extends CrudService<User, Integer> {
         return getRepository().login(username, CryptoUtil.encrypt(password));
     }
 
-    public List<User> getAllUsersWithChecked(Integer id){
+    public List<Object[]> getAllUsersWithChecked(Integer id){
         return getRepository().getAllUsersWithChecked(id);
     }
 
