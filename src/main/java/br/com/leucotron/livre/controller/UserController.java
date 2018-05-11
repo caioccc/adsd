@@ -88,9 +88,22 @@ public class UserController extends CrudBaseController<User, Integer, UserDTO> {
         }
     }
 
+    @RequestMapping(value = "/v1.0/organizations/{id}", method = RequestMethod.GET, params = {"filter"})
+    public ResponseListDTO associatedUsersToOrgs(@PathVariable Integer id, @RequestParam("filter") String filterJSon, @RequestHeader("Accept-Language") Locale locale) {
+        SearchFilterDTO filter = JSonUtil.fromJSon(filterJSon, SearchFilterDTO.class);
+        ResponseListDTO response = getService().getAllUsersWithAssociated(id, filter);
+        response.setItems(toList(response.getItems(), AssociatedUserDTO.class));
+        return response;
+    }
+
     @RequestMapping(value = "/v1.0/organizations/{id}", method = RequestMethod.GET)
-    public List<AssociatedUserDTO> associatedUsersToOrgs(@PathVariable Integer id) {
-        return getService().getAllUsersWithChecked(id);
+    public ResponseListDTO associatedUsersToOrgsFull(@PathVariable Integer id, @RequestHeader("Accept-Language") Locale locale) {
+        SearchFilterDTO filter = new SearchFilterDTO();
+        filter.setCurrentPage(1);
+        filter.setPageSize(1000);
+        ResponseListDTO response = getService().getAllUsersWithAssociated(id, filter);
+        response.setItems(toList(response.getItems(), AssociatedUserDTO.class));
+        return response;
     }
 
     @RequestMapping(value = "/v1.0/organizations/{id}", method = RequestMethod.PUT)

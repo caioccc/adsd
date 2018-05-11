@@ -1,5 +1,7 @@
 package br.com.leucotron.livre.service;
 
+import br.com.leucotron.livre.core.dto.ResponseListDTO;
+import br.com.leucotron.livre.core.dto.SearchFilterDTO;
 import br.com.leucotron.livre.core.exception.BusinessException;
 import br.com.leucotron.livre.core.service.CrudService;
 import br.com.leucotron.livre.dto.AssociatedUserDTO;
@@ -7,6 +9,9 @@ import br.com.leucotron.livre.model.User;
 import br.com.leucotron.livre.repository.UserRepository;
 import br.com.leucotron.livre.util.CryptoUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
@@ -60,16 +65,8 @@ public class UserService extends CrudService<User, Integer> {
         return getRepository().login(username, CryptoUtil.encrypt(password));
     }
 
-    public List<AssociatedUserDTO> getAllUsersWithChecked(Integer id){
-        List<Object[]> obs = getRepository().getAllUsersWithChecked(id);
-        List<AssociatedUserDTO> associatedUserDTOS = new ArrayList<>();
-
-        for (Object[] o : obs) {
-            BigInteger value = (BigInteger) o[4];
-            associatedUserDTOS.add(new AssociatedUserDTO((Integer) o[0], (String) o[1], value.intValue() == 1));
-        }
-
-        return associatedUserDTOS;
+    public ResponseListDTO getAllUsersWithAssociated(Integer id, SearchFilterDTO filterDTO){
+        return getRepository().getAllUsersWithAssociated(id, filterDTO);
     }
 
     @Override
