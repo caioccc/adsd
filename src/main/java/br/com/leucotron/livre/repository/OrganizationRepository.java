@@ -2,9 +2,9 @@ package br.com.leucotron.livre.repository;
 
 import br.com.leucotron.livre.core.repository.CrudBaseRepository;
 import br.com.leucotron.livre.model.Organization;
+import org.springframework.data.jpa.repository.Query;
 
-import java.io.Serializable;
-import java.util.List;
+import java.math.BigInteger;
 
 /**
  * Repository for entity: Organization.
@@ -12,7 +12,5 @@ import java.util.List;
  * @author Virtus
  */
 public interface OrganizationRepository extends CrudBaseRepository<Organization, Integer> {
-
-    List<Organization> findByName(Serializable serializable);
 
 }

@@ -17,6 +17,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Locale;
 
@@ -47,6 +48,31 @@ public class OrganizationController extends CrudBaseController<Organization, Int
         return service;
     }
 
+
+    @Override
+    public ResponseEntity<OrganizationDTO> insert(@Valid @RequestBody OrganizationDTO modelDTO, @RequestHeader("Accept-Language") Locale locale) {
+        try {
+            Organization model = getService().insert(toModel(modelDTO));
+            return created(toDTO(model));
+        } catch (DataIntegrityViolationException e) {
+            return notAcceptable(locale, NOT_VALID_ORGANIZATION_DTO_NAME);
+        } catch (Exception e) {
+            return notAcceptable(locale, e);
+        }
+    }
+
+    @Override
+    public ResponseEntity<OrganizationDTO> update(@PathVariable Integer id, @RequestBody OrganizationDTO modelDTO, @RequestHeader("Accept-Language") Locale locale) {
+        try {
+            getService().update(id, toModel(modelDTO));
+            return ok(modelDTO);
+        } catch (DataIntegrityViolationException e) {
+            return notAcceptable(locale, NOT_VALID_ORGANIZATION_DTO_NAME);
+        } catch (Exception e) {
+            return notAcceptable(locale, e);
+        }
+    }
+
     @Override
     public ResponseEntity<OrganizationDTO> updatePartial(@PathVariable Integer id,@RequestBody OrganizationDTO modelDTO,@RequestHeader("Accept-Language") Locale locale) {
         try {
@@ -66,8 +92,8 @@ public class OrganizationController extends CrudBaseController<Organization, Int
         }
     }
 
-    @Override
-    public OrganizationDTO getOne(@PathVariable Integer id) {
+    @GetMapping("/v1.0/{id}/users")
+    public OrganizationDTO getOrganizationComplete(@PathVariable Integer id) {
         Organization model = super.getOneModel(id);
 
         CompleteOrganizationDTO dto = mapTo(model, CompleteOrganizationDTO.class);

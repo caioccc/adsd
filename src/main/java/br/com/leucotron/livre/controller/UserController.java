@@ -12,7 +12,9 @@ import br.com.leucotron.livre.model.User;
 import br.com.leucotron.livre.service.OrganizationService;
 import br.com.leucotron.livre.service.UserService;
 import br.com.leucotron.livre.util.JSonUtil;
+import br.com.leucotron.livre.util.MessageUtil;
 import br.com.leucotron.livre.util.NullAwareBeanUtils;
+import br.com.leucotron.livre.util.RestMessage;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -43,6 +45,11 @@ public class UserController extends CrudBaseController<User, Integer, UserDTO> {
      */
     @Autowired
     private UserService service;
+
+    @Autowired
+    private OrganizationService organizationService;
+
+
 
     /**
      * (non-Javadoc)
@@ -81,39 +88,41 @@ public class UserController extends CrudBaseController<User, Integer, UserDTO> {
         }
     }
 
-    @RequestMapping(value = "/organizations/v1.0/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/v1.0/organizations/{id}", method = RequestMethod.GET)
     public List<AssociatedUserDTO> associatedUsersToOrgs(@PathVariable Integer id) {
-
-        List<Object[]> obs = getService().getAllUsersWithChecked(id);
-
-        List<AssociatedUserDTO> associatedUserDTOS = new ArrayList<>();
-
-        for (Object[] o : obs) {
-            BigInteger value = (BigInteger) o[4];
-            associatedUserDTOS.add(new AssociatedUserDTO((Integer) o[0], (String) o[1], value.intValue() == 1));
-
-        }
-
-        return associatedUserDTOS;
+        return getService().getAllUsersWithChecked(id);
     }
 
-    @RequestMapping(value = "/organizations/v1.0/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/v1.0/organizations/{id}", method = RequestMethod.PUT)
     public ResponseEntity<List<AssociatedUserDTO>> putAssociatedUsersToOrgs(@PathVariable Integer id, @RequestBody List<AssociatedUserDTO> list, @RequestHeader("Accept-Language") Locale locale) {
-//        list.forEach(item -> {
-//            User model = toModel(item);
-//            User dbModel = getService().getOne(item.getId());
-//            try {
-//                NullAwareBeanUtils.getInstance().copyProperties(dbModel, model);
-//                getService().update(item.getId(), dbModel);
-//            } catch (IllegalAccessException e) {
-//                e.printStackTrace();
-//            } catch (InvocationTargetException e) {
-//                e.printStackTrace();
-//            } catch (BusinessException e) {
-//                e.printStackTrace();
-//            }
-//
-//        });
+        Organization dbOrg = organizationService.getOne(id);
+        List<AssociatedUserDTO> associatedUserDTOS = toList(list, AssociatedUserDTO.class);
+
+        associatedUserDTOS.forEach(associatedUserDTO -> {
+            if(containsById(dbOrg.getUsers(), associatedUserDTO.getId())){
+                if(!associatedUserDTO.isAssociated()){
+                    dbOrg.getUsers().removeIf(obj -> obj.getIdUser() == associatedUserDTO.getId());
+                }
+            }else if(associatedUserDTO.isAssociated()){
+                User user = mapTo(associatedUserDTO, User.class);
+                dbOrg.getUsers().add(user);
+            }
+        });
+        try {
+            organizationService.update(id, dbOrg);
+        } catch (BusinessException e) {
+            return new ResponseEntity<>((List<AssociatedUserDTO>) new RestMessage(MessageUtil.findMessage(e.getMessage(), locale)), HttpStatus.NOT_ACCEPTABLE);
+        }
         return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+
+    public static boolean containsById(List<User> list, Integer id) {
+        for (User user : list) {
+            if (user.getIdUser() == id) {
+                return true;
+            }
+        }
+        return false;
     }
 }

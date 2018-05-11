@@ -7,16 +7,37 @@ import br.com.leucotron.livre.core.dto.ModelDTO;
  *
  * @author Virtus
  */
-public class AssociatedUserDTO extends UserDTO {
+public class AssociatedUserDTO extends ModelDTO{
 
+    private Integer id;
+
+    private String name;
 
     private boolean associated;
 
+    public AssociatedUserDTO() {
+    }
 
     public AssociatedUserDTO(Integer id, String name, boolean associated) {
-        super.setId(id);
+        this.id = id;
+        this.name = name;
         this.associated = associated;
-        super.setName(name);
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public boolean isAssociated() {

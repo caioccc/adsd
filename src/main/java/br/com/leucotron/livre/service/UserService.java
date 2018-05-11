@@ -2,12 +2,15 @@ package br.com.leucotron.livre.service;
 
 import br.com.leucotron.livre.core.exception.BusinessException;
 import br.com.leucotron.livre.core.service.CrudService;
+import br.com.leucotron.livre.dto.AssociatedUserDTO;
 import br.com.leucotron.livre.model.User;
 import br.com.leucotron.livre.repository.UserRepository;
 import br.com.leucotron.livre.util.CryptoUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -57,8 +60,16 @@ public class UserService extends CrudService<User, Integer> {
         return getRepository().login(username, CryptoUtil.encrypt(password));
     }
 
-    public List<Object[]> getAllUsersWithChecked(Integer id){
-        return getRepository().getAllUsersWithChecked(id);
+    public List<AssociatedUserDTO> getAllUsersWithChecked(Integer id){
+        List<Object[]> obs = getRepository().getAllUsersWithChecked(id);
+        List<AssociatedUserDTO> associatedUserDTOS = new ArrayList<>();
+
+        for (Object[] o : obs) {
+            BigInteger value = (BigInteger) o[4];
+            associatedUserDTOS.add(new AssociatedUserDTO((Integer) o[0], (String) o[1], value.intValue() == 1));
+        }
+
+        return associatedUserDTOS;
     }
 
     @Override

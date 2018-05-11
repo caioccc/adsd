@@ -54,7 +54,7 @@ public class Organization extends Model<Integer> {
     @Column(name = "accesskey")
     private String accesskey;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinTable(name = "user_organization", joinColumns = @JoinColumn(name = "idorganization", referencedColumnName = "idorganization"), inverseJoinColumns = @JoinColumn(name = "iduser", referencedColumnName = "iduser"))
     private List<User> users;
 
