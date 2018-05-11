@@ -16,6 +16,9 @@ import br.com.leucotron.livre.util.MessageUtil;
 import br.com.leucotron.livre.util.NullAwareBeanUtils;
 import br.com.leucotron.livre.util.RestMessage;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -96,6 +99,14 @@ public class UserController extends CrudBaseController<User, Integer, UserDTO> {
         return response;
     }
 
+    @ApiOperation(value = "Get users with associated attribute")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully created object"),
+            @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
+            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+            @ApiResponse(code = 404, message = "The resource you were trying to reach is not found"),
+            @ApiResponse(code = 406, message = "The client error response code indicates that a response matching the list of acceptable values defined in Accept-Charset and Accept-Language cannot be served.")
+    })
     @RequestMapping(value = "/v1.0/organizations/{id}", method = RequestMethod.GET)
     public ResponseListDTO associatedUsersToOrgsFull(@PathVariable Integer id, @RequestHeader("Accept-Language") Locale locale) {
         SearchFilterDTO filter = new SearchFilterDTO();
@@ -106,6 +117,14 @@ public class UserController extends CrudBaseController<User, Integer, UserDTO> {
         return response;
     }
 
+    @ApiOperation(value = "Put users with associated attribute")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully created object"),
+            @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
+            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+            @ApiResponse(code = 404, message = "The resource you were trying to reach is not found"),
+            @ApiResponse(code = 406, message = "The client error response code indicates that a response matching the list of acceptable values defined in Accept-Charset and Accept-Language cannot be served.")
+    })
     @RequestMapping(value = "/v1.0/organizations/{id}", method = RequestMethod.PUT)
     public ResponseEntity<List<AssociatedUserDTO>> putAssociatedUsersToOrgs(@PathVariable Integer id, @RequestBody List<AssociatedUserDTO> list, @RequestHeader("Accept-Language") Locale locale) {
         Organization dbOrg = organizationService.getOne(id);
