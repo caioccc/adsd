@@ -4,6 +4,7 @@ import br.com.leucotron.livre.core.dto.ResponseListDTO;
 import br.com.leucotron.livre.core.dto.SearchFilterDTO;
 import br.com.leucotron.livre.core.exception.BusinessException;
 import br.com.leucotron.livre.core.service.CrudService;
+import br.com.leucotron.livre.dto.AssociatedSearchFilterDTO;
 import br.com.leucotron.livre.dto.AssociatedUserDTO;
 import br.com.leucotron.livre.model.User;
 import br.com.leucotron.livre.repository.UserRepository;
@@ -65,7 +66,7 @@ public class UserService extends CrudService<User, Integer> {
         return getRepository().login(username, CryptoUtil.encrypt(password));
     }
 
-    public ResponseListDTO getAllUsersWithAssociated(Integer id, SearchFilterDTO filterDTO){
+    public ResponseListDTO getAllUsersWithAssociated(Integer id, AssociatedSearchFilterDTO filterDTO){
         return getRepository().getAllUsersWithAssociated(id, filterDTO);
     }
 

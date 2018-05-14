@@ -4,6 +4,7 @@ import br.com.leucotron.livre.core.controller.CrudBaseController;
 import br.com.leucotron.livre.core.dto.ResponseListDTO;
 import br.com.leucotron.livre.core.dto.SearchFilterDTO;
 import br.com.leucotron.livre.core.exception.BusinessException;
+import br.com.leucotron.livre.dto.AssociatedSearchFilterDTO;
 import br.com.leucotron.livre.dto.AssociatedUserDTO;
 import br.com.leucotron.livre.dto.OrganizationDTO;
 import br.com.leucotron.livre.dto.UserDTO;
@@ -91,14 +92,6 @@ public class UserController extends CrudBaseController<User, Integer, UserDTO> {
         }
     }
 
-    @RequestMapping(value = "/v1.0/organizations/{id}", method = RequestMethod.GET, params = {"filter"})
-    public ResponseListDTO associatedUsersToOrgs(@PathVariable Integer id, @RequestParam("filter") String filterJSon, @RequestHeader("Accept-Language") Locale locale) {
-        SearchFilterDTO filter = JSonUtil.fromJSon(filterJSon, SearchFilterDTO.class);
-        ResponseListDTO response = getService().getAllUsersWithAssociated(id, filter);
-        response.setItems(toList(response.getItems(), AssociatedUserDTO.class));
-        return response;
-    }
-
     @ApiOperation(value = "Get users with associated attribute")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully created object"),
@@ -107,15 +100,24 @@ public class UserController extends CrudBaseController<User, Integer, UserDTO> {
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found"),
             @ApiResponse(code = 406, message = "The client error response code indicates that a response matching the list of acceptable values defined in Accept-Charset and Accept-Language cannot be served.")
     })
-    @RequestMapping(value = "/v1.0/organizations/{id}", method = RequestMethod.GET)
-    public ResponseListDTO associatedUsersToOrgsFull(@PathVariable Integer id, @RequestHeader("Accept-Language") Locale locale) {
-        SearchFilterDTO filter = new SearchFilterDTO();
-        filter.setCurrentPage(1);
-        filter.setPageSize(1000);
+    @RequestMapping(value = "/v1.0/organizations/{id}", method = RequestMethod.GET, params = {"filter"})
+    public ResponseListDTO associatedUsersToOrgs(@PathVariable Integer id, @RequestParam("filter") String filterJSon, @RequestHeader("Accept-Language") Locale locale) {
+        AssociatedSearchFilterDTO filter = JSonUtil.fromJSon(filterJSon, AssociatedSearchFilterDTO.class);
         ResponseListDTO response = getService().getAllUsersWithAssociated(id, filter);
         response.setItems(toList(response.getItems(), AssociatedUserDTO.class));
         return response;
     }
+
+
+//    @RequestMapping(value = "/v1.0/organizations/{id}", method = RequestMethod.GET)
+//    public ResponseListDTO associatedUsersToOrgsFull(@PathVariable Integer id, @RequestHeader("Accept-Language") Locale locale) {
+//        SearchFilterDTO filter = new SearchFilterDTO();
+//        filter.setCurrentPage(1);
+//        filter.setPageSize(1000);
+//        ResponseListDTO response = getService().getAllUsersWithAssociated(id, filter);
+//        response.setItems(toList(response.getItems(), AssociatedUserDTO.class));
+//        return response;
+//    }
 
     @ApiOperation(value = "Put users with associated attribute")
     @ApiResponses(value = {
