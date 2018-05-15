@@ -1,14 +1,22 @@
 package br.com.leucotron.livre.service;
 
+import br.com.leucotron.livre.core.dto.ResponseListDTO;
 import br.com.leucotron.livre.core.dto.SearchFilterDTO;
 import br.com.leucotron.livre.core.exception.BusinessException;
 import br.com.leucotron.livre.core.service.CrudService;
+import br.com.leucotron.livre.dto.AssociatedSearchFilterDTO;
+import br.com.leucotron.livre.dto.AssociatedUserDTO;
 import br.com.leucotron.livre.model.User;
 import br.com.leucotron.livre.repository.UserRepository;
 import br.com.leucotron.livre.util.CryptoUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -56,6 +64,10 @@ public class UserService extends CrudService<User, Integer> {
      */
     public User login(String username, String password) {
         return getRepository().login(username, CryptoUtil.encrypt(password));
+    }
+
+    public ResponseListDTO getAllUsersWithAssociated(Integer id, AssociatedSearchFilterDTO filterDTO){
+        return getRepository().getAllUsersWithAssociated(id, filterDTO);
     }
 
     @Override
