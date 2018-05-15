@@ -46,7 +46,7 @@ public interface UserRepository extends CrudBaseRepository<User, Integer> {
             "(SELECT user.iduser, user.name AS name, user.login, user.role, " +
             "(SELECT COUNT(user_organization.iduser) FROM livre.user_organization WHERE user_organization.iduser = user.iduser " +
             "AND user_organization.idorganization= ?1) AS associated FROM livre.user) AS FILTER " +
-            "WHERE (FILTER.associated = ?2 OR FILTER.associated = ?3) AND FILTER.name LIKE ?4 \n#pageable\n",
+            "WHERE (FILTER.associated = ?2 OR FILTER.associated = ?3) AND FILTER.name LIKE ?4 \n-- #pageable\n",
             countQuery = "SELECT COUNT(*) FROM (SELECT * FROM (SELECT user.iduser, user.name, user.login, user.role, " +
                     "(SELECT COUNT(US_ORG.iduser) FROM livre.user_organization AS US_ORG " +
                     "WHERE US_ORG.iduser = user.iduser AND US_ORG.idorganization= ?1) AS associated FROM livre.user) " +
