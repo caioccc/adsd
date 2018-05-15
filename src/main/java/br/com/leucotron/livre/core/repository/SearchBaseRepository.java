@@ -81,6 +81,7 @@ public interface SearchBaseRepository<M extends Model<T>, T extends Serializable
     }
 
     default Specification<M> getSpecification(String text) {
+        text = text.trim();
         if (!text.contains("%")) {
             text = "%" + text + "%";
         }
