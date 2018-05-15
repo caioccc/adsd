@@ -60,15 +60,10 @@ public interface UserRepository extends CrudBaseRepository<User, Integer> {
 
         Integer associated1 = 1;
         Integer associated2 = 0;
-        Boolean associated = searchFilter.getAssociated();
+        Integer associated = searchFilter.getIntegerValue();
         if (associated != null) {
-            if (!associated) {
-                associated1 = 0;
-                associated2 = 0;
-            } else if (associated) {
-                associated1 = 1;
-                associated2 = 1;
-            }
+            associated1 = associated;
+            associated2 = associated;
         }
 
         if (!searchFilter.getColumn().isEmpty()) {
@@ -85,27 +80,5 @@ public interface UserRepository extends CrudBaseRepository<User, Integer> {
         });
 
         return new ResponseListDTO(result.getTotalPages(), associatedUserDTOS);
-    }
-
-
-    default Specification<User> getSpecification(String text) {
-        if (!text.contains("%")) {
-            text = "%" + text + "%";
-        }
-        final String finalText = text;
-        return new Specification<User>() {
-            @Override
-            public Predicate toPredicate(Root<User> root, CriteriaQuery<?> cq, CriteriaBuilder builder) {
-                return builder.or(root.getModel().getDeclaredSingularAttributes().stream().filter(a -> {
-                            if (a.getJavaType().getSimpleName().equalsIgnoreCase("string")) {
-                                return true;
-                            } else {
-                                return false;
-                            }
-                        }).map(a -> builder.like(root.get(a.getName()), finalText)
-                        ).toArray(Predicate[]::new)
-                );
-            }
-        };
     }
 }
