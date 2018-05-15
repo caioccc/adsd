@@ -10,7 +10,7 @@ import br.com.leucotron.livre.core.dto.SearchFilterDTO;
 public class AssociatedSearchFilterDTO extends SearchFilterDTO {
 
     /**
-     * Current page.
+     * associated param.
      */
     private Boolean associated;
 

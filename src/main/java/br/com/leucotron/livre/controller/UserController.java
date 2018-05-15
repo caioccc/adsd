@@ -109,16 +109,6 @@ public class UserController extends CrudBaseController<User, Integer, UserDTO> {
     }
 
 
-//    @RequestMapping(value = "/v1.0/organizations/{id}", method = RequestMethod.GET)
-//    public ResponseListDTO associatedUsersToOrgsFull(@PathVariable Integer id, @RequestHeader("Accept-Language") Locale locale) {
-//        SearchFilterDTO filter = new SearchFilterDTO();
-//        filter.setCurrentPage(1);
-//        filter.setPageSize(1000);
-//        ResponseListDTO response = getService().getAllUsersWithAssociated(id, filter);
-//        response.setItems(toList(response.getItems(), AssociatedUserDTO.class));
-//        return response;
-//    }
-
     @ApiOperation(value = "Put users with associated attribute")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully created object"),
