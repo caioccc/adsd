@@ -21,4 +21,15 @@ public class AssociatedSearchFilterDTO extends SearchFilterDTO {
     public void setAssociated(Boolean associated) {
         this.associated = associated;
     }
+
+    public Integer getIntegerValue() {
+        if (this.associated != null) {
+            if (!associated) {
+                return 0;
+            } else if (this.associated) {
+                return 1;
+            }
+        }
+        return null;
+    }
 }
