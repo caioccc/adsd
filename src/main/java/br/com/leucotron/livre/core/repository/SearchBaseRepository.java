@@ -141,13 +141,16 @@ public interface SearchBaseRepository<M extends Model<T>, T extends Serializable
             }
 
             private Predicate buildContainsPredicateToCriteria(Condition condition, Root<M> root, CriteriaQuery criteriaQuery, CriteriaBuilder criteriaBuilder) {
-                return criteriaBuilder.like(root.get(condition.getField()), "%" + condition.getValue() + "%");
+                String conditionValue = (String) condition.getValue();
+                conditionValue = conditionValue.trim();
+                return criteriaBuilder.like(root.get(condition.getField()), "%" + conditionValue + "%");
             }
 
             private Predicate buildAndPredicateToCriteria(Condition condition, Root<M> root, CriteriaQuery criteriaQuery, CriteriaBuilder criteriaBuilder) {
                 List<Predicate> predicates = new ArrayList<>();
 
                 String conditionValue = (String) condition.getValue();
+                conditionValue = conditionValue.trim();
                 for (String value : conditionValue.split(",")) {
                     condition.setValue(","+value+",");
                     predicates.add(buildContainsPredicateToCriteria(condition, root, criteriaQuery, criteriaBuilder));
