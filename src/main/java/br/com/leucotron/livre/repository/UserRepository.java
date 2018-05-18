@@ -1,7 +1,6 @@
 package br.com.leucotron.livre.repository;
 
 import br.com.leucotron.livre.core.dto.ResponseListDTO;
-import br.com.leucotron.livre.core.dto.SearchFilterDTO;
 import br.com.leucotron.livre.core.repository.CrudBaseRepository;
 import br.com.leucotron.livre.dto.AssociatedSearchFilterDTO;
 import br.com.leucotron.livre.dto.AssociatedUserDTO;
@@ -10,14 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.ArrayList;

@@ -203,4 +203,8 @@ public class User extends Model<Integer> {
         this.setIdUser(id);
     }
 
+    @Override
+    public String toString() {
+        return name;
+    }
 }

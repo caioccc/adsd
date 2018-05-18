@@ -3,12 +3,9 @@ package br.com.leucotron.livre.service;
 import br.com.leucotron.livre.core.exception.BusinessException;
 import br.com.leucotron.livre.core.service.CrudService;
 import br.com.leucotron.livre.model.Organization;
-import br.com.leucotron.livre.model.User;
 import br.com.leucotron.livre.repository.OrganizationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * CRUD service of the model: Organization.

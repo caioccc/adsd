@@ -34,3 +34,15 @@ CREATE TABLE `user_organization` (
   CONSTRAINT `user_organization_ibfk_2`
   FOREIGN KEY (`idorganization`) REFERENCES `organization` (`idorganization`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `project` (
+  `idproject` integer NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `iduser` integer NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `dateupdate` datetime NOT NULL,
+  `status` bool NOT NULL,
+  `tags` text,
+  FOREIGN KEY (`iduser`) REFERENCES `user` (`iduser`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
