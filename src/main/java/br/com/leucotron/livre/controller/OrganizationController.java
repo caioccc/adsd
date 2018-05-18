@@ -54,7 +54,7 @@ public class OrganizationController extends CrudBaseController<Organization, Int
     
     @ApiOperation(value = "View a list of organization active in user current")
     @RequestMapping(value = "/v1.0/current/user", method = RequestMethod.GET, params = {"filter"})
-    public ResponseListDTO search(@RequestParam("filter") String filterJSon) {
+    public ResponseListDTO searchOrganizations(@RequestParam("filter") String filterJSon) {
 
     	SearchFilterDTO filter = JSonUtil.fromJSon(filterJSon, SearchFilterDTO.class);
         ResponseListDTO response = getService().getActiveOrganizationsByUser(filter);
