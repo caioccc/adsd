@@ -12,6 +12,10 @@ import br.com.leucotron.livre.service.OrganizationService;
 import br.com.leucotron.livre.util.JSonUtil;
 import br.com.leucotron.livre.util.NullAwareBeanUtils;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
@@ -46,6 +50,17 @@ public class OrganizationController extends CrudBaseController<Organization, Int
     @Override
     protected OrganizationService getService() {
         return service;
+    }
+    
+    @ApiOperation(value = "View a list of organization active in user current")
+    @RequestMapping(value = "/v1.0/current/user", method = RequestMethod.GET, params = {"filter"})
+    public ResponseListDTO search(@RequestParam("filter") String filterJSon) {
+
+    	SearchFilterDTO filter = JSonUtil.fromJSon(filterJSon, SearchFilterDTO.class);
+        ResponseListDTO response = getService().getActiveOrganizationsByUser(filter);
+        response.setItems(toListDTO(response.getItems()));
+
+        return response;
     }
 
 
