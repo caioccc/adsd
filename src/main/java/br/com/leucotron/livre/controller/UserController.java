@@ -2,11 +2,9 @@ package br.com.leucotron.livre.controller;
 
 import br.com.leucotron.livre.core.controller.CrudBaseController;
 import br.com.leucotron.livre.core.dto.ResponseListDTO;
-import br.com.leucotron.livre.core.dto.SearchFilterDTO;
 import br.com.leucotron.livre.core.exception.BusinessException;
 import br.com.leucotron.livre.dto.AssociatedSearchFilterDTO;
 import br.com.leucotron.livre.dto.AssociatedUserDTO;
-import br.com.leucotron.livre.dto.OrganizationDTO;
 import br.com.leucotron.livre.dto.UserDTO;
 import br.com.leucotron.livre.model.Organization;
 import br.com.leucotron.livre.model.User;
@@ -26,10 +24,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
-import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 

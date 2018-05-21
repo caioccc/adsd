@@ -35,7 +35,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .anyRequest().authenticated()
 	        .and()
 	        .addFilterBefore(new LoginFilter("/login"), UsernamePasswordAuthenticationFilter.class)
-////            .addFilterBefore(new JJWTRefreshAuthenticationFilter("/refresh-access"), UsernamePasswordAuthenticationFilter.class)
             .addFilterBefore(new AuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 	}
 }

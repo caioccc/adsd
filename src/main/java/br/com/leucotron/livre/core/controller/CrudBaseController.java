@@ -1,7 +1,6 @@
 package br.com.leucotron.livre.core.controller;
 
 import br.com.leucotron.livre.core.dto.ModelDTO;
-import br.com.leucotron.livre.core.exception.RestException;
 import br.com.leucotron.livre.core.model.Model;
 import br.com.leucotron.livre.core.service.CrudService;
 import br.com.leucotron.livre.util.MessageUtil;
@@ -10,7 +9,6 @@ import br.com.leucotron.livre.util.RestMessage;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -80,7 +78,7 @@ public abstract class CrudBaseController<M extends Model<T>, T extends Serializa
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     })
     @PutMapping("/v1.0/{id}")
-    public ResponseEntity<D> update(@PathVariable T id, @RequestBody D modelDTO, @RequestHeader("Accept-Language") Locale locale) {
+    public ResponseEntity<D> update(@Valid @PathVariable T id, @RequestBody D modelDTO, @RequestHeader("Accept-Language") Locale locale) {
         try {
             getService().update(id, toModel(modelDTO));
             return ok(modelDTO);
