@@ -112,7 +112,7 @@ public interface SearchBaseRepository<M extends Model<T>, T extends Serializable
                             return buildEqualsPredicateToCriteria(condition, root, criteriaQuery, criteriaBuilder);
                     }
                 } catch (NullPointerException ex) {
-                    return null;
+                    return buildEqualsPredicateToCriteria(condition, root, criteriaQuery, criteriaBuilder);
                 }
             }
 
