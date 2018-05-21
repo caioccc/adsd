@@ -19,7 +19,6 @@ public class ProjectDTO extends ModelDTO {
     @NotNull
     private String name;
 
-    @NotNull
     private String description;
 
     @NotNull

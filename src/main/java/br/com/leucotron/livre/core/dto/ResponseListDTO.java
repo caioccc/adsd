@@ -7,7 +7,7 @@ import java.util.List;
  * 
  * @author Virtus
  */
-public class ResponseListDTO {
+public class ResponseListDTO extends ModelDTO {
 	
 	/**
 	 * Total of pages.
