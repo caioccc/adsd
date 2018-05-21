@@ -1,5 +1,7 @@
 package br.com.leucotron.livre.service;
 
+import br.com.leucotron.livre.core.dto.ResponseListDTO;
+import br.com.leucotron.livre.core.dto.SearchFilterDTO;
 import br.com.leucotron.livre.core.exception.BusinessException;
 import br.com.leucotron.livre.core.service.CrudService;
 import br.com.leucotron.livre.model.Project;
@@ -8,11 +10,13 @@ import br.com.leucotron.livre.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.Date;
 
 @Service
 public class ProjectService extends CrudService<Project, Integer> {
+
+    private static final String NOT_VALID_ID_ORGANIZATION = "NotNull.projectDTO.idOrganization";
+    private static final String NOT_VALID_USER_LOGIN = "NotValid.userDTO.login";
 
     /**
      * Role repository.
@@ -33,50 +37,42 @@ public class ProjectService extends CrudService<Project, Integer> {
         return repository;
     }
 
-    /**
-     * Inserts the model.
-     *
-     * @param model
-     * 		Model.
-     * @throws BusinessException
-     * 		If some rule is not acceptable.
-     */
-    @Transactional
-    public Project insert(Project model) throws BusinessException {
-        validateInsert(model);
-
-        User user = userService.findByLogin(getCurrentUser()).get(0);
-        if (user == null) {
-            throw new BusinessException("NotValid.userDTO.login");
-        }
-        model.setDateUpdate(new Date());
-        model.setUser(user);
-
-        return getRepository().save(model);
+    public ResponseListDTO searchByOrganization(Integer idOrganization, SearchFilterDTO filter) {
+        return getRepository().searchByOrganization(filter, idOrganization);
     }
 
-    /**
-     * Updates the model.
-     *
-     * @param id
-     * 		ID.
-     * @param model
-     * 		Model.
-     * @throws BusinessException
-     * 		If some rule is not acceptable.
-     */
-    @Transactional
-    public void update(Integer id, Project model) throws BusinessException {
-        validateUpdate(model);
+    @Override
+    public Project processModelUpdate(Project project) throws BusinessException {
+        return processProjectBeforeSaving(project);
+    }
 
+    @Override
+    public Project processModelInsert(Project project) throws BusinessException {
+        return processProjectBeforeSaving(project);
+    }
+
+    @Override
+    public void validateInsert(Project project) throws BusinessException {
+        if (project.getOrganization() == null) {
+            throw new BusinessException(NOT_VALID_ID_ORGANIZATION);
+        }
+    }
+
+    @Override
+    public void validateUpdate(Project project) throws BusinessException {
+        if (project.getOrganization() == null) {
+            throw new BusinessException(NOT_VALID_ID_ORGANIZATION);
+        }
+    }
+
+    private Project processProjectBeforeSaving(Project project) throws BusinessException {
         User user = userService.findByLogin(getCurrentUser()).get(0);
         if (user == null) {
-           throw new BusinessException("NotValid.userDTO.login");
+            throw new BusinessException(NOT_VALID_USER_LOGIN);
         }
-        model.setDateUpdate(new Date());
-        model.setUser(user);
-
-        getRepository().save(model);
+        project.setDateUpdate(new Date());
+        project.setUser(user);
+        return project;
     }
 
 }

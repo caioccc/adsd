@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 /**
- * Model for table: User.
+ * Model for table: Project.
  *
  * @author Virtus
  */
@@ -39,6 +39,9 @@ public class Project extends Model<Integer> {
     @Column(name = "tags")
     private String tags;
 
+    /**
+     * Status.
+     */
     @Column(name = "status")
     private boolean status;
 
@@ -56,18 +59,27 @@ public class Project extends Model<Integer> {
     private User user;
 
     /**
+     * Organization.
+     */
+    @OneToOne()
+    @JoinColumn(name = "idorganization")
+    private Organization organization;
+
+    /**
      * Constructor.
      */
     public Project() {
     }
 
-    public Project(String name, String description, String tags, boolean status, Date dateUpdate, User user) {
+    public Project(String name, String description, String tags, boolean status, Date dateUpdate, User user,
+                   Organization organization) {
         this.name = name;
         this.description = description;
         this.tags = tags;
         this.status = status;
         this.dateUpdate = dateUpdate;
         this.user = user;
+        this.organization = organization;
     }
 
     public Integer getIdProject() {
@@ -124,6 +136,14 @@ public class Project extends Model<Integer> {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public Organization getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(Organization organization) {
+        this.organization = organization;
     }
 
     /**

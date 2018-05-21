@@ -1,11 +1,11 @@
 package br.com.leucotron.livre.core.exception;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @AllArgsConstructor
 public class RestException extends RuntimeException {
+
     @Getter
     private String message;
 
@@ -13,6 +13,10 @@ public class RestException extends RuntimeException {
     private Object[] args;
 
     public RestException() {
+    }
+
+    public RestException(String message) {
+        this.message = message;
     }
 
     /**

@@ -78,7 +78,7 @@ public abstract class CrudBaseController<M extends Model<T>, T extends Serializa
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     })
     @PutMapping("/v1.0/{id}")
-    public ResponseEntity<D> update(@PathVariable T id, @RequestBody D modelDTO, @RequestHeader("Accept-Language") Locale locale) {
+    public ResponseEntity<D> update(@Valid @PathVariable T id, @RequestBody D modelDTO, @RequestHeader("Accept-Language") Locale locale) {
         try {
             getService().update(id, toModel(modelDTO));
             return ok(modelDTO);

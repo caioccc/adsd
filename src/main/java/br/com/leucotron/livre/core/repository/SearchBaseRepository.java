@@ -37,26 +37,12 @@ public interface SearchBaseRepository<M extends Model<T>, T extends Serializable
      * @return Result.
      */
     default ResponseListDTO search(SearchFilterDTO searchFilter) {
-        Page<M> result;
-
-        if (searchFilter.getFilters().size() > 0) {
-            result = searchFilter(searchFilter);
-        } else if (!searchFilter.getColumn().isEmpty()) {
-            result = this.findAll(
-                    getSpecification(searchFilter.getSearch()),
-                    new PageRequest(searchFilter.getCurrentPage() - 1, searchFilter.getPageSize(), Sort.Direction.fromString(searchFilter.getSort()), searchFilter.getColumn()));
-        } else {
-            result = this.findAll(
-                    getSpecification(searchFilter.getSearch()),
-                    new PageRequest(searchFilter.getCurrentPage() - 1, searchFilter.getPageSize()));
-        }
-
+        List<Condition> conditions = new ArrayList<>();
+        Page<M> result = searchFilter(searchFilter, conditions);
         return new ResponseListDTO(result.getTotalPages(), result.getContent());
     }
 
-    default Page<M> searchFilter(SearchFilterDTO searchFilter) {
-
-        List<Condition> conditions = new ArrayList<>();
+    default Page<M> searchFilter(SearchFilterDTO searchFilter, List<Condition> conditions) {
 
         searchFilter.getFilters().forEach((filter) -> {
             conditions.add(new Condition.Builder().
@@ -68,48 +54,43 @@ public interface SearchBaseRepository<M extends Model<T>, T extends Serializable
 
         if (!searchFilter.getColumn().isEmpty()) {
             return this.findAll(
-                    getSpecificationFilter(conditions),
+                    getSpecificationFilter(conditions, searchFilter.getSearch()),
                     new PageRequest(searchFilter.getCurrentPage() - 1, searchFilter.getPageSize(),
                             Sort.Direction.fromString(searchFilter.getSort()), searchFilter.getColumn())
             );
         }
 
         return this.findAll(
-                getSpecificationFilter(conditions),
+                getSpecificationFilter(conditions, searchFilter.getSearch()),
                 new PageRequest(searchFilter.getCurrentPage() - 1, searchFilter.getPageSize())
         );
     }
 
-    default Specification<M> getSpecification(String text) {
-        if (!text.contains("%")) {
-            text = "%" + text + "%";
-        }
-        final String finalText = text;
-        return new Specification<M>() {
-            @Override
-            public Predicate toPredicate(Root<M> root, CriteriaQuery<?> cq, CriteriaBuilder builder) {
-                return builder.or(root.getModel().getDeclaredSingularAttributes().stream().filter(a -> {
-                            if (a.getJavaType().getSimpleName().equalsIgnoreCase("string")) {
-                                return true;
-                            } else {
-                                return false;
-                            }
-                        }).map(a -> builder.like(root.get(a.getName()), finalText)
-                        ).toArray(Predicate[]::new)
-                );
-            }
-        };
-    }
-
-    default Specification<M> getSpecificationFilter(List<Condition> conditions) {
+    default Specification<M> getSpecificationFilter(List<Condition> conditions, final String search) {
         return new Specification<M>() {
 
             @Override
             public Predicate toPredicate(Root<M> root, CriteriaQuery<?> cq, CriteriaBuilder builder) {
                 List<Predicate> predicates = buildPredicates(root, cq, builder);
+
+                if(search != null) {
+                    predicates.add(searchAllFields(root, cq, builder));
+                }
+
                 return predicates.size() > 1
                         ? builder.and(predicates.toArray(new Predicate[predicates.size()]))
                         : predicates.get(0);
+            }
+
+            private Predicate searchAllFields(Root<M> root, CriteriaQuery<?> cq, CriteriaBuilder builder) {
+                return builder.or(root.getModel().getDeclaredSingularAttributes().stream().filter(a -> {
+                    if (a.getJavaType().getSimpleName().equalsIgnoreCase("string")) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }).map(a -> builder.like(root.get(a.getName()), "%" + search + "%")
+                ).toArray(Predicate[]::new) );
             }
 
             private List<Predicate> buildPredicates(Root<M> root, CriteriaQuery criteriaQuery, CriteriaBuilder criteriaBuilder) {

@@ -16,11 +16,17 @@ public class ProjectDTO extends ModelDTO {
      */
     private Integer id;
 
+    @NotNull
     private String name;
 
+    @NotNull
     private String description;
 
+    @NotNull
     private boolean status;
+
+    @NotNull
+    private Integer idOrganization;
 
     private String tags;
 
@@ -82,5 +88,13 @@ public class ProjectDTO extends ModelDTO {
 
     public void setUser(String user) {
         this.user = user;
+    }
+
+    public Integer getIdOrganization() {
+        return idOrganization;
+    }
+
+    public void setIdOrganization(Integer idOrganization) {
+        this.idOrganization = idOrganization;
     }
 }
