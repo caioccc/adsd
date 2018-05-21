@@ -2,7 +2,6 @@ package br.com.leucotron.livre.controller;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-import org.apache.commons.httpclient.HttpStatus;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,8 +14,6 @@ import br.com.leucotron.livre.LivreApplication;
 import br.com.leucotron.livre.util.FunctionalTest;
 import br.com.leucotron.livre.util.RandomString;
 import io.restassured.http.ContentType;
-import io.restassured.response.ExtractableResponse;
-import io.restassured.response.Response;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = LivreApplication.class)
