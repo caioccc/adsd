@@ -1,22 +1,15 @@
 package br.com.leucotron.livre.service;
 
 import br.com.leucotron.livre.core.dto.ResponseListDTO;
-import br.com.leucotron.livre.core.dto.SearchFilterDTO;
 import br.com.leucotron.livre.core.exception.BusinessException;
 import br.com.leucotron.livre.core.service.CrudService;
 import br.com.leucotron.livre.dto.AssociatedSearchFilterDTO;
-import br.com.leucotron.livre.dto.AssociatedUserDTO;
 import br.com.leucotron.livre.model.User;
 import br.com.leucotron.livre.repository.UserRepository;
 import br.com.leucotron.livre.util.CryptoUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -66,8 +59,12 @@ public class UserService extends CrudService<User, Integer> {
         return getRepository().login(username, CryptoUtil.encrypt(password));
     }
 
-    public ResponseListDTO getAllUsersWithAssociated(Integer id, AssociatedSearchFilterDTO filterDTO){
+    public ResponseListDTO getAllUsersWithAssociated(Integer id, AssociatedSearchFilterDTO filterDTO) {
         return getRepository().getAllUsersWithAssociated(id, filterDTO);
+    }
+
+    public List<User> findByLogin(String login) {
+        return getRepository().findByLogin(login);
     }
 
     @Override
@@ -75,8 +72,7 @@ public class UserService extends CrudService<User, Integer> {
         if (model.getLogin().equals("") || model.getLogin().isEmpty()) {
             throw new BusinessException("NotNull.userDTO.login");
         }
-        List<User> users = getRepository().findByLogin(model.getLogin());
-        if (!users.isEmpty()) {
+        if (!findByLogin(model.getLogin()).isEmpty()) {
             throw new BusinessException("NotValid.userDTO.login");
         }
         super.validateInsert(model);
@@ -88,8 +84,8 @@ public class UserService extends CrudService<User, Integer> {
             throw new BusinessException("NotNull.userDTO.login");
         }
         List<User> users = getRepository().findByLogin(model.getLogin());
-        for (User user: users) {
-            if((!user.getId().equals(model.getId()))){
+        for (User user : users) {
+            if ((!user.getId().equals(model.getId()))) {
                 throw new BusinessException("NotValid.userDTO.login");
             }
         }
