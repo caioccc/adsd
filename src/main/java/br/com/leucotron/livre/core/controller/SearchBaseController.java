@@ -73,14 +73,14 @@ public abstract class SearchBaseController<M extends Model<T>, T extends Seriali
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     })
     @RequestMapping(value = "/v1.0", method = RequestMethod.GET)
-    public ResponseListDTO search() {
+    public ResponseEntity<ModelDTO> search() {
         SearchFilterDTO filter = new SearchFilterDTO();
         filter.setCurrentPage(1);
         filter.setPageSize(10);
         ResponseListDTO response = getService().search(filter);
         response.setItems(toListDTO(response.getItems()));
 
-        return response;
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     /**
@@ -97,12 +97,12 @@ public abstract class SearchBaseController<M extends Model<T>, T extends Seriali
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     })
     @RequestMapping(value = "/v1.0", method = RequestMethod.GET, params = {"filter"})
-	public ResponseListDTO search(@RequestParam("filter") String filterJSon) {
+	public ResponseEntity<ModelDTO> search(@RequestParam("filter") String filterJSon) {
 		SearchFilterDTO filter = JSonUtil.fromJSon(filterJSon, SearchFilterDTO.class);
 		ResponseListDTO response = getService().search(filter);
 		response.setItems(toListDTO(response.getItems()));
 
-		return response;
+		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
     /**
