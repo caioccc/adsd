@@ -1,6 +1,7 @@
 package br.com.leucotron.livre.controller;
 
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.equalTo;
 
 import java.util.ArrayList;
@@ -67,7 +68,7 @@ public class SelectOrganizationActiveControllerTest extends FunctionalTest {
 		}
 		
 		this.getAuthRestAssured().param(FILTER, jsonObj.toString()).contentType(ContentType.JSON).when().get(URL_SELECT_ORGANIZATION_ACTIVE).then()
-				.statusCode(200).and().body("items[0].name",equalTo(ORG_NAME));
+				.statusCode(200).and().body("items.size()",is(1));
 		
 		
 		
