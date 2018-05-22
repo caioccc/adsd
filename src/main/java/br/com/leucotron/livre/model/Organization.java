@@ -58,7 +58,6 @@ public class Organization extends Model<Integer> {
     @JoinTable(name = "user_organization", joinColumns = @JoinColumn(name = "idorganization", referencedColumnName = "idorganization"), inverseJoinColumns = @JoinColumn(name = "iduser", referencedColumnName = "iduser"))
     private List<User> users;
 
-
     public Organization() {
     }
 
