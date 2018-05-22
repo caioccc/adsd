@@ -5,7 +5,6 @@ import br.com.leucotron.livre.core.exception.BusinessException;
 import br.com.leucotron.livre.model.Project;
 import br.com.leucotron.livre.util.FunctionalTest;
 import br.com.leucotron.livre.util.JsonUtil;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -28,40 +27,6 @@ public class ProjectServiceTest extends FunctionalTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
-
-    @Ignore
-    public void insertProjectWithoutOrganization() throws BusinessException {
-
-        thrown.expect(BusinessException.class);
-        thrown.expectMessage("NotNull.projectDTO.idOrganization");
-
-        projectService.insert(new Project(
-                JsonUtil.PROJECT_NAME,
-                JsonUtil.PROJECT_DESCRIPTION,
-                JsonUtil.PROJECT_TAGS,
-                JsonUtil.PROJECT_STATUS,
-                new Date(),
-                userService.findByLogin("admin@leucotron.com.br").get(0), null
-        ));
-
-    }
-
-    @Ignore
-    public void updateProjectWithoutOrganization() throws BusinessException {
-
-        thrown.expect(BusinessException.class);
-        thrown.expectMessage("NotNull.projectDTO.idOrganization");
-
-        projectService.update(1, new Project(
-                JsonUtil.PROJECT_NAME,
-                JsonUtil.PROJECT_DESCRIPTION,
-                JsonUtil.PROJECT_TAGS,
-                JsonUtil.PROJECT_STATUS,
-                new Date(),
-                userService.findByLogin("admin@leucotron.com.br").get(0), null
-        ));
-
-    }
 
     @Test
     public void insertProjectWithoutUser() throws BusinessException {
