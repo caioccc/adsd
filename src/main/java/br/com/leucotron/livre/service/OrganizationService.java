@@ -1,11 +1,16 @@
 package br.com.leucotron.livre.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Service;
+
+import br.com.leucotron.livre.core.dto.ResponseListDTO;
+import br.com.leucotron.livre.core.dto.SearchFilterDTO;
 import br.com.leucotron.livre.core.exception.BusinessException;
 import br.com.leucotron.livre.core.service.CrudService;
 import br.com.leucotron.livre.model.Organization;
 import br.com.leucotron.livre.repository.OrganizationRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 /**
  * CRUD service of the model: Organization.
@@ -30,6 +35,20 @@ public class OrganizationService extends CrudService<Organization, Integer> {
     protected OrganizationRepository getRepository() {
         return repository;
     }
+    
+    /**
+	 * Search the template by entering in the filter 
+	 * if the organization is active and belongs to the logged in user.
+
+	 * @return Instances founded.
+	 */
+	public ResponseListDTO getActiveOrganizationsByUser(SearchFilterDTO filter) {
+		
+    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String login = auth.getName();
+       
+		return getRepository().getOrganizationActiveByUserCurrent(login, filter);
+	}
 
 
     @Override
