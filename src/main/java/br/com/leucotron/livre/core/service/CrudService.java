@@ -57,9 +57,9 @@ public abstract class CrudService<M extends Model<T>, T extends Serializable> ex
      */
     @Transactional
     public M insert(M model) throws BusinessException {
-        validateInsert(model);
-
         model = processModelInsert(model);
+
+        validateInsert(model);
 
         return getRepository().save(model);
     }
@@ -94,9 +94,10 @@ public abstract class CrudService<M extends Model<T>, T extends Serializable> ex
      */
     @Transactional
     public void update(T id, M model) throws BusinessException {
-        validateUpdate(model);
 
         model = processModelUpdate(model);
+
+        validateUpdate(model);
 
         getRepository().save(model);
     }

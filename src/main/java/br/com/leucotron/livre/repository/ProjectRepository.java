@@ -28,4 +28,6 @@ public interface ProjectRepository extends CrudBaseRepository<Project, Integer> 
         Page<Project> result = searchFilter(searchFilter, conditions);
         return new ResponseListDTO(result.getTotalPages(), result.getContent());
     }
+
+    public List<Project> findByOrganizationIdOrganizationAndName(Integer idOrganization, String name);
 }
