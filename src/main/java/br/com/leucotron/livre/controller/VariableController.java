@@ -56,9 +56,9 @@ public class VariableController  extends CrudBaseController<Variable, Integer, V
 	            @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
 	    })
 	    @RequestMapping(value = "/v1.0", method = RequestMethod.GET, params = {"filter"})
-	    public ResponseListDTO search(@PathVariable Integer idOrganization, @RequestParam("filter") String filterJSon) {
+	    public ResponseListDTO search(@PathVariable Integer idOrganization, @PathVariable Integer idProject, @RequestParam("filter") String filterJSon) {
 	        SearchFilterDTO filter = JSonUtil.fromJSon(filterJSon, SearchFilterDTO.class);
-	        ResponseListDTO response = getService().searchByOrganization(idOrganization, filter);
+	        ResponseListDTO response = getService().searchByVariable(idProject, filter);
 	        response.setItems(toListDTO(response.getItems()));
 
 	        return response;

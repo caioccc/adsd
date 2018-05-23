@@ -5,11 +5,7 @@ import java.util.Date;
 import javax.validation.constraints.NotNull;
 
 import br.com.leucotron.livre.core.dto.ModelDTO;
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter
-@Setter
 public class VariableDTO  extends ModelDTO {
 	
 
