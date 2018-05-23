@@ -11,12 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class ProjectService extends CrudService<Project, Integer> {
 
     private static final String NOT_VALID_ID_ORGANIZATION = "NotNull.projectDTO.idOrganization";
     private static final String NOT_VALID_USER_LOGIN = "NotValid.userDTO.login";
+    private static final String NOT_VALID_PROJECT_NAME = "NotValid.project.name";
 
     /**
      * Role repository.
@@ -55,6 +57,8 @@ public class ProjectService extends CrudService<Project, Integer> {
     public void validateInsert(Project project) throws BusinessException {
         if (project.getOrganization() == null) {
             throw new BusinessException(NOT_VALID_ID_ORGANIZATION);
+        } else if (repository.findByOrganizationIdOrganizationAndName(project.getOrganization().getId(), project.getName()).size() > 0) {
+            throw new BusinessException(NOT_VALID_PROJECT_NAME);
         }
     }
 
@@ -63,11 +67,19 @@ public class ProjectService extends CrudService<Project, Integer> {
         if (project.getOrganization() == null) {
             throw new BusinessException(NOT_VALID_ID_ORGANIZATION);
         }
+        List<Project> projects = repository.findByOrganizationIdOrganizationAndName(project.getOrganization().getId(), project.getName());
+        if (projects.size() > 0) {
+            if (projects.get(0).getId() != project.getId()) {
+                throw new BusinessException(NOT_VALID_PROJECT_NAME);
+            }
+        }
     }
 
     private Project processProjectBeforeSaving(Project project) throws BusinessException {
-        User user = userService.findByLogin(getCurrentUser()).get(0);
-        if (user == null) {
+        User user;
+        try {
+            user = userService.findByLogin(getCurrentUser()).get(0);
+        } catch (NullPointerException ex) {
             throw new BusinessException(NOT_VALID_USER_LOGIN);
         }
         project.setDateUpdate(new Date());

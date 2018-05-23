@@ -41,10 +41,10 @@ CREATE TABLE `project` (
   `iduser` integer NOT NULL,
   `idorganization` integer NOT NULL,
   `name` varchar(255) NOT NULL,
-  `description` varchar(255) NOT NULL,
+  `description` varchar(255),
   `dateupdate` datetime NOT NULL,
   `status` bool NOT NULL,
-  `tags` text,
+  `tags` varchar(255),
   FOREIGN KEY (`iduser`) REFERENCES `user` (`iduser`),
   FOREIGN KEY (`idorganization`) REFERENCES `organization` (`idorganization`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
