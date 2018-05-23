@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import br.com.leucotron.livre.core.dto.ResponseListDTO;
 import br.com.leucotron.livre.core.dto.SearchFilterDTO;
@@ -13,6 +14,7 @@ import br.com.leucotron.livre.model.User;
 import br.com.leucotron.livre.model.Variable;
 import br.com.leucotron.livre.repository.VariableRepository;
 
+@Service
 public class VariableService extends CrudService<Variable, Integer> {
 
     private static final String NOT_VALID_ID_PROJECT = "NotNull.variableDTO.idProject";
