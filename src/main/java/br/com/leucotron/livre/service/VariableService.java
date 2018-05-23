@@ -72,7 +72,7 @@ public class VariableService extends CrudService<Variable, Integer> {
         	throw new BusinessException(USER_NOT_PERMISSION_CREATE_VARIABLE);
         }
         
-        List<Variable> variables = repository.findByProjectIdProjectAndName(variable.getProject().getOrganization().getId(), variable.getName());
+        List<Variable> variables = repository.findByProjectIdProjectAndName(variable.getProject().getId(), variable.getName());
         if (variables.size() > 0) {
             if (variables.get(0).getId() != variable.getId()) {
                 throw new BusinessException(NOT_VALID_VARIABLE_NAME);

@@ -54,7 +54,7 @@ CREATE TABLE `variable` (
   `iduser` integer NOT NULL,
   `idproject` integer NOT NULL,
   `name` varchar(255) NOT NULL,
-  `description` varchar(255) NOT NULL,
+  `description` varchar(255) ,
   `dateupdate` datetime NOT NULL,
   `type` varchar(255) NOT NULL,
   `tags` text,
