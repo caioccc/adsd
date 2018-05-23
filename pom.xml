@@ -198,7 +198,7 @@
 				<configuration>
 					<url>jdbc:mariadb://localhost:3306/livre</url>
 					<user>root</user>
-					<password>livradmin</password>
+					<password>root</password>
 					<schemas>
 						<schema>livre</schema>
 					</schemas>
