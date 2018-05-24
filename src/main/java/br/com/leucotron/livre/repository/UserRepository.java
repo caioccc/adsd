@@ -1,20 +1,20 @@
 package br.com.leucotron.livre.repository;
 
-import br.com.leucotron.livre.core.dto.ResponseListDTO;
-import br.com.leucotron.livre.core.repository.CrudBaseRepository;
-import br.com.leucotron.livre.dto.AssociatedSearchFilterDTO;
-import br.com.leucotron.livre.dto.AssociatedUserDTO;
-import br.com.leucotron.livre.model.User;
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.Query;
 
-import java.io.Serializable;
-import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.List;
+import br.com.leucotron.livre.core.dto.ResponseListDTO;
+import br.com.leucotron.livre.core.repository.CrudBaseRepository;
+import br.com.leucotron.livre.dto.AssociatedSearchFilterDTO;
+import br.com.leucotron.livre.dto.AssociatedUserDTO;
+import br.com.leucotron.livre.model.User;
 
 /**
  * CRUD Repository for entity: User.
@@ -33,7 +33,7 @@ public interface UserRepository extends CrudBaseRepository<User, Integer> {
     @Query(value = "SELECT * FROM user U WHERE UPPER(U.login) = UPPER(?1) AND password = ?2", nativeQuery = true)
     User login(String username, String encryptedPassword);
 
-    List<User> findByLogin(Serializable serializable);
+    List<User> findByLogin(String login);
 
     @Query(value = "SELECT * FROM " +
             "(SELECT user.iduser, user.name AS name, user.login, user.role, " +
@@ -74,4 +74,7 @@ public interface UserRepository extends CrudBaseRepository<User, Integer> {
 
         return new ResponseListDTO(result.getTotalPages(), associatedUserDTOS);
     }
+    
+    public boolean existsByLoginAndOrganizationsIdOrganization(String login, Integer idOrganization);
+    
 }

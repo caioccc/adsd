@@ -48,3 +48,16 @@ CREATE TABLE `project` (
   FOREIGN KEY (`iduser`) REFERENCES `user` (`iduser`),
   FOREIGN KEY (`idorganization`) REFERENCES `organization` (`idorganization`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `variable` (
+  `idvariable` integer NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `iduser` integer NOT NULL,
+  `idproject` integer NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` varchar(255) ,
+  `dateupdate` datetime NOT NULL,
+  `type` varchar(255) NOT NULL,
+  `tags` text,
+  FOREIGN KEY (`iduser`) REFERENCES `user` (`iduser`),
+  FOREIGN KEY (`idproject`) REFERENCES `project` (`idproject`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
