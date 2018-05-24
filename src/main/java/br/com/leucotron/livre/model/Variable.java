@@ -19,8 +19,8 @@ import br.com.leucotron.livre.core.model.Model;
  */
 @Entity(name = "variable")
 public class Variable extends Model<Integer> {
-	
-	/**
+
+    /**
      * User ID.
      */
     @Id
@@ -45,14 +45,13 @@ public class Variable extends Model<Integer> {
      */
     @Column(name = "tags")
     private String tags;
-    
+
     /**
      * type.
      */
     @Column(name = "type")
     private String type;
 
-  
 
     /**
      * Date for Created and Update.
@@ -81,7 +80,7 @@ public class Variable extends Model<Integer> {
     }
 
     public Variable(String name, String description, String tags, String type, Date dateUpdate, User user,
-                   Project project) {
+                    Project project) {
         this.name = name;
         this.description = description;
         this.tags = tags;
@@ -132,39 +131,39 @@ public class Variable extends Model<Integer> {
     }
 
     public Integer getIdVariable() {
-		return idVariable;
-	}
+        return idVariable;
+    }
 
-	public void setIdVariable(Integer idVariable) {
-		this.idVariable = idVariable;
-	}
+    public void setIdVariable(Integer idVariable) {
+        this.idVariable = idVariable;
+    }
 
-	public String getType() {
-		return type;
-	}
+    public String getType() {
+        return type;
+    }
 
-	public void setType(String type) {
-		this.type = type;
-	}
+    public void setType(String type) {
+        this.type = type;
+    }
 
-	public Project getProject() {
-		return project;
-	}
+    public Project getProject() {
+        return project;
+    }
 
-	public void setProject(Project project) {
-		this.project = project;
-	}
+    public void setProject(Project project) {
+        this.project = project;
+    }
 
-	@Override
-	public Integer getId() {
-		return this.idVariable;
-	}
+    @Override
+    public Integer getId() {
+        return this.idVariable;
+    }
 
-	@Override
-	public void setId(Integer id) {
-		this.idVariable = id;
-		
-	}
+    @Override
+    public void setId(Integer id) {
+        this.idVariable = id;
+
+    }
 
 
 }
