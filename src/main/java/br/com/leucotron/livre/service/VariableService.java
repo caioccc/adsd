@@ -10,6 +10,7 @@ import br.com.leucotron.livre.core.dto.ResponseListDTO;
 import br.com.leucotron.livre.core.dto.SearchFilterDTO;
 import br.com.leucotron.livre.core.exception.BusinessException;
 import br.com.leucotron.livre.core.service.CrudService;
+import br.com.leucotron.livre.dto.VariableDTO;
 import br.com.leucotron.livre.model.User;
 import br.com.leucotron.livre.model.Variable;
 import br.com.leucotron.livre.repository.VariableRepository;
@@ -52,17 +53,22 @@ public class VariableService extends CrudService<Variable, Integer> {
     public Variable processModelInsert(Variable variable) throws BusinessException {
         return processProjectBeforeSaving(variable);
     }
-
+  
     @Override
     public void validateInsert(Variable variable) throws BusinessException {
         if (variable.getProject() == null) {
             throw new BusinessException(NOT_VALID_ID_PROJECT);
-        } else if(variable.getUser().getOrganizations().stream().filter(o -> o.getId() == variable.getProject().getOrganization().getId()).findFirst().isPresent()) {
-        	throw new BusinessException(USER_NOT_PERMISSION_CREATE_VARIABLE);
         }else if (repository.findByProjectIdProjectAndName(variable.getProject().getId(), variable.getName()).size() > 0) {
             throw new BusinessException(NOT_VALID_VARIABLE_NAME);
         }
     }
+    
+    public void validateIdOrganizationAssocietedUser(VariableDTO variableDTO) throws BusinessException {
+       if(!userService.getRepository().existsByLoginAndOrganizationsIdOrganization(getCurrentUser(),variableDTO.getIdOrganization())) {
+        	throw new BusinessException(USER_NOT_PERMISSION_CREATE_VARIABLE);
+        }
+    }
+    
 
     @Override
     public void validateUpdate(Variable variable) throws BusinessException {

@@ -21,6 +21,9 @@ public class VariableDTO  extends ModelDTO {
 
     @NotNull
     private Integer idProject;
+    
+    //@NotNull
+    private Integer idOrganization;
 
     private String tags;
 
@@ -90,6 +93,14 @@ public class VariableDTO  extends ModelDTO {
 
 	public void setUser(String user) {
 		this.user = user;
+	}
+
+	public Integer getIdOrganization() {
+		return idOrganization;
+	}
+
+	public void setIdOrganization(Integer idOrganization) {
+		this.idOrganization = idOrganization;
 	}
     
 }
