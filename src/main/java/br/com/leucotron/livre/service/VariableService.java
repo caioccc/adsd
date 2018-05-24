@@ -74,10 +74,10 @@ public class VariableService extends CrudService<Variable, Integer> {
     public void validateUpdate(Variable variable) throws BusinessException {
         if (variable.getProject() == null) {
             throw new BusinessException(NOT_VALID_ID_PROJECT);
-        }else if(variable.getUser().getOrganizations().stream().filter(o -> o.getId() == variable.getProject().getOrganization().getId()).findFirst().isPresent()) {
-        	throw new BusinessException(USER_NOT_PERMISSION_CREATE_VARIABLE);
+        }else if(repository.findByProjectIdProjectAndName(variable.getProject().getId(), variable.getName()).size() > 0) {
+        	throw new BusinessException(NOT_VALID_VARIABLE_NAME);
         }
-        
+
         List<Variable> variables = repository.findByProjectIdProjectAndName(variable.getProject().getId(), variable.getName());
         if (variables.size() > 0) {
             if (variables.get(0).getId() != variable.getId()) {

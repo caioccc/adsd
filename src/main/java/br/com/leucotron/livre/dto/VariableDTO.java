@@ -22,7 +22,6 @@ public class VariableDTO  extends ModelDTO {
     @NotNull
     private Integer idProject;
     
-    //@NotNull
     private Integer idOrganization;
 
     private String tags;
