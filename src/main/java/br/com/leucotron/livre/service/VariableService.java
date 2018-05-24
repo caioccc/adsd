@@ -64,7 +64,7 @@ public class VariableService extends CrudService<Variable, Integer> {
     }
     
     public void validateIdOrganizationAssocietedUser(VariableDTO variableDTO) throws BusinessException {
-       if(!userService.getRepository().existsByLoginAndOrganizationsIdOrganization(getCurrentUser(),variableDTO.getIdOrganization())) {
+       if(userService.getRepository().existsByLoginAndOrganizationsIdOrganization(getCurrentUser(),variableDTO.getIdOrganization())) {
         	throw new BusinessException(USER_NOT_PERMISSION_CREATE_VARIABLE);
         }
     }

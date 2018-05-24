@@ -61,25 +61,7 @@ public class VariableController  extends CrudBaseController<Variable, Integer, V
 			return super.insert(modelDTO, locale);
 		}
 	    
-//	    @ApiOperation(value = "Add an item")
-//	    @ApiResponses(value = {
-//	            @ApiResponse(code = 201, message = "Successfully created object"),
-//	            @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
-//	            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
-//	            @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
-//	    })
-//	    @PostMapping("/v1.0")
-//	    public ResponseEntity<VariableDTO> insert(@Valid @RequestBody VariableDTO modelDTO, @RequestHeader("Accept-Language") Locale locale) {
-//	        try {
-//	        	getService().validateIdOrganizationAssocietedUser(modelDTO);
-//	        	Variable model = getService().insert(toModel(modelDTO));
-//	            return created(toDTO(model));
-//	        } catch (Exception e) {
-//	            return notAcceptable(locale, e);
-//	        }
-//	    }
-	    
-	    
+
 	    /**
 	     * Searchs the Variable by Project with the filter.
 	     *
