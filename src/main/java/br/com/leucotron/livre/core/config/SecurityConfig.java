@@ -32,7 +32,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers(HttpMethod.GET, "/configuration/security/**").permitAll()
             .antMatchers(HttpMethod.GET, "/webjars/**").permitAll()
             .antMatchers(HttpMethod.GET, "/swagger-ui.html/**").permitAll()
-            .antMatchers("/organizations/**").permitAll()
             .anyRequest().authenticated()
 	        .and()
 	        .addFilterBefore(new LoginFilter("/login"), UsernamePasswordAuthenticationFilter.class)
