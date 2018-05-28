@@ -27,6 +27,8 @@ public class JsonUtil {
     public static final String VARIABLE_TYPE = "GLOBAL";
     public static final String TYPE = "type";
     public static final String ID_PROJECT = "idProject";
+    public static final String ID_USER = "idUser";
+    public static final String ASSOCIATED = "associated";
 
 
     public static JSONObject createJsonObject() {

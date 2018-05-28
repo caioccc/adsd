@@ -4,6 +4,7 @@ import br.com.leucotron.livre.LivreApplication;
 import br.com.leucotron.livre.dto.VariableDTO;
 import br.com.leucotron.livre.model.Organization;
 import br.com.leucotron.livre.model.Project;
+import br.com.leucotron.livre.model.User;
 import br.com.leucotron.livre.model.Variable;
 import br.com.leucotron.livre.repository.OrganizationRepository;
 import br.com.leucotron.livre.repository.ProjectRepository;
@@ -14,6 +15,8 @@ import br.com.leucotron.livre.util.JsonUtil;
 import br.com.leucotron.livre.util.MapperUtil;
 import br.com.leucotron.livre.util.RandomString;
 import io.restassured.http.ContentType;
+import io.restassured.response.ExtractableResponse;
+import io.restassured.response.Response;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,6 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import springfox.documentation.spring.web.json.Json;
 
 import java.util.Date;
 import java.util.concurrent.ThreadLocalRandom;
@@ -162,7 +166,29 @@ public class VariableControllerTest extends FunctionalTest {
     }
 
     private Organization createOrganization() {
-        return organizationRepository.save(new Organization("Organization", true, null, "key1234"));
+        final String URL = "/users/v1.0/organizations";
+        Organization org =  organizationRepository.save(new Organization("Organization", true, null, "key1234"));
+        User user = userService.findByLogin("admin@leucotron.com.br").get(0);
+
+        JSONArray jsonArray = null;
+        JSONObject jsonUser;
+        try {
+            jsonUser = new JSONObject()
+                    .put(JsonUtil.ID_USER, user.getId())
+                    .put(JsonUtil.NAME, user.getName())
+                    .put(JsonUtil.ASSOCIATED, false);
+            jsonArray = new JSONArray().put(jsonUser);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        this.getAuthRestAssured()
+                .contentType(ContentType.JSON)
+                .body(jsonArray.toString())
+                .when()
+                .put(URL + "/" + org.getId())
+                .then()
+                .statusCode(HttpStatus.OK.value());
+        return org;
     }
 
     private Project createProject() {
