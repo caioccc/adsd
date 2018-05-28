@@ -166,8 +166,8 @@ public class VariableControllerTest extends FunctionalTest {
     }
 
     private Organization createOrganization() {
-        final String URL = "/users/v1.0/organizations";
-        Organization org =  organizationRepository.save(new Organization("Organization", true, null, "key1234"));
+        final String URL_ORG = "/users/v1.0/organizations";
+        Organization org = organizationRepository.save(new Organization("Organization" + GENERATOR.nextString(), true, null, "key1234"));
         User user = userService.findByLogin("admin@leucotron.com.br").get(0);
 
         JSONArray jsonArray = null;
@@ -176,16 +176,17 @@ public class VariableControllerTest extends FunctionalTest {
             jsonUser = new JSONObject()
                     .put(JsonUtil.ID_USER, user.getId())
                     .put(JsonUtil.NAME, user.getName())
-                    .put(JsonUtil.ASSOCIATED, false);
+                    .put(JsonUtil.ASSOCIATED, true);
             jsonArray = new JSONArray().put(jsonUser);
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        System.out.println(jsonArray.toString());
         this.getAuthRestAssured()
                 .contentType(ContentType.JSON)
                 .body(jsonArray.toString())
                 .when()
-                .put(URL + "/" + org.getId())
+                .put(URL_ORG + "/" + org.getId())
                 .then()
                 .statusCode(HttpStatus.OK.value());
         return org;
