@@ -163,7 +163,7 @@ public class VariableControllerTest extends FunctionalTest {
     private Organization createOrganization() {
         User user = userService.findByLogin("admin@leucotron.com.br").get(0);
         Organization organization = new Organization("Organization" + GENERATOR.nextString(),
-                true, null, "key1234");
+                false, null, "key1234");
         organization = organizationRepository.save(organization);
         List<User> listUsers = new ArrayList<>();
         listUsers.add(user);
