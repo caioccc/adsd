@@ -23,6 +23,11 @@ public class JsonUtil {
     public static final String FILTER = "filter";
     public static final String TOTAL_PAGES = "totalPages";
     public static final String ITEMS = "items";
+    public static final String VARIABLE_NAME = "getDigits";
+    public static final String VARIABLE_TYPE = "GLOBAL";
+    public static final String TYPE = "type";
+    public static final String ID_PROJECT = "idProject";
+
 
     public static JSONObject createJsonObject() {
         return new JSONObject();
