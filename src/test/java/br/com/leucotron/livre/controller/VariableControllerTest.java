@@ -20,6 +20,7 @@ import org.json.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -59,7 +60,7 @@ public class VariableControllerTest extends FunctionalTest {
                 .post(String.format(URL, project.getOrganization().getIdOrganization(),
                         project.getIdProject(), ""))
                 .then()
-                .statusCode(org.springframework.http.HttpStatus.CREATED.value());
+                .statusCode(HttpStatus.CREATED.value());
     }
 
     @Test
@@ -84,7 +85,7 @@ public class VariableControllerTest extends FunctionalTest {
                 .put(String.format(URL, variable.getProject().getOrganization().getIdOrganization(),
                         variable.getProject().getIdProject(), "/" + variable.getIdVariable()))
                 .then()
-                .statusCode(org.springframework.http.HttpStatus.OK.value())
+                .statusCode(HttpStatus.OK.value())
                 .and()
                 .body(
                         JsonUtil.NAME, equalTo(VARIABLE_UPDATE_NAME),
@@ -104,7 +105,7 @@ public class VariableControllerTest extends FunctionalTest {
                 .get(String.format(URL, variable.getProject().getOrganization().getId(),
                         variable.getProject().getIdProject(), "/" + variable.getIdVariable()))
                 .then()
-                .statusCode(org.springframework.http.HttpStatus.OK.value());
+                .statusCode(HttpStatus.OK.value());
     }
 
     @Test
@@ -119,7 +120,7 @@ public class VariableControllerTest extends FunctionalTest {
                 .get(String.format(URL, variable.getProject().getOrganization().getId(),
                         variable.getProject().getIdProject(), ""))
                 .then()
-                .statusCode(org.springframework.http.HttpStatus.OK.value())
+                .statusCode(HttpStatus.OK.value())
                 .and()
                 .body(
                         JsonUtil.TOTAL_PAGES, equalTo(1)
@@ -137,7 +138,7 @@ public class VariableControllerTest extends FunctionalTest {
                 .delete(String.format(URL, variable.getProject().getOrganization().getId(),
                         variable.getProject().getIdProject(), "/" + variable.getIdVariable()))
                 .then()
-                .statusCode(org.springframework.http.HttpStatus.OK.value());
+                .statusCode(HttpStatus.OK.value());
     }
 
 
