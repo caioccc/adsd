@@ -141,7 +141,6 @@ public class VariableControllerTest extends FunctionalTest {
                 .statusCode(HttpStatus.OK.value());
     }
 
-
     private JSONObject createJsonForList() throws JSONException {
         return JsonUtil.createJsonObject()
                 .put(JsonUtil.CURRENT_PAGE, 1)
