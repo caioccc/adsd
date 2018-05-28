@@ -77,7 +77,8 @@ public class VariableControllerTest extends FunctionalTest {
         variable.setTags(VARIABLE_UPDATE_TAGS);
 
         VariableDTO pd = MapperUtil.mapTo(variable, VariableDTO.class);
-
+        System.out.println(String.format(URL, variable.getProject().getOrganization().getIdOrganization(),
+                variable.getProject().getIdProject(), "/" + variable.getIdVariable()));
         this.getAuthRestAssured()
                 .contentType(ContentType.JSON)
                 .body(pd)
@@ -172,7 +173,8 @@ public class VariableControllerTest extends FunctionalTest {
                         JsonUtil.PROJECT_TAGS,
                         JsonUtil.PROJECT_STATUS,
                         new Date(),
-                        userService.findByLogin("admin@leucotron.com.br").get(0), createOrganization()
+                        userService.findByLogin("admin@leucotron.com.br").get(0),
+                        createOrganization()
                 )
         );
     }
