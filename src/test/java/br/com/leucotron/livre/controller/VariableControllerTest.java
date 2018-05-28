@@ -68,14 +68,22 @@ public class VariableControllerTest extends FunctionalTest {
     }
 
     @Test
-    public void updateVariableAndReturn200() {
+    public void updateVariableAndReturn200() throws JSONException {
 
-        final String VARIABLE_UPDATE_NAME = "Variable " + GENERATOR.nextString();
+        final String VARIABLE_UPDATE_NAME = "Variable" + GENERATOR.nextString();
         final String VARIABLE_UPDATE_DESCRIPTION = "Updated variable test";
         final String VARIABLE_UPDATE_TAGS = ",updated,";
 
-        Variable variable = createVariable();
+        Project project = createProject();
 
+        String idVar = this.getAuthRestAssured()
+                .contentType(ContentType.JSON)
+                .body(createVariableJson(project.getIdProject(), project.getOrganization().getIdOrganization()).toString())
+                .when()
+                .post(String.format(URL, project.getOrganization().getIdOrganization(),
+                        project.getIdProject(), ""))
+                .then().contentType(ContentType.JSON).extract().path("id").toString();
+        Variable variable = variableRepository.findOne(Integer.valueOf(idVar));
         variable.setDescription(VARIABLE_UPDATE_DESCRIPTION);
         variable.setName(VARIABLE_UPDATE_NAME);
         variable.setTags(VARIABLE_UPDATE_TAGS);
