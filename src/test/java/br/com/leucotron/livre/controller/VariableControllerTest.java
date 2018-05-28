@@ -203,7 +203,7 @@ public class VariableControllerTest extends FunctionalTest {
     private Project createProject() {
         Organization organization = createOrganization();
         System.out.println("Org: " + organization.getId().toString());
-        return projectRepository.save(
+        Project project = projectRepository.save(
                 new Project(
                         JsonUtil.PROJECT_NAME,
                         JsonUtil.PROJECT_DESCRIPTION,
@@ -214,6 +214,8 @@ public class VariableControllerTest extends FunctionalTest {
                         organization
                 )
         );
+        System.out.println("Project created: " + project.getName());
+        return project;
     }
 
     private Variable createVariable() {
