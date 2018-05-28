@@ -15,8 +15,6 @@ import br.com.leucotron.livre.util.JsonUtil;
 import br.com.leucotron.livre.util.MapperUtil;
 import br.com.leucotron.livre.util.RandomString;
 import io.restassured.http.ContentType;
-import io.restassured.response.ExtractableResponse;
-import io.restassured.response.Response;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,7 +24,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import springfox.documentation.spring.web.json.Json;
 
 import java.util.Date;
 import java.util.concurrent.ThreadLocalRandom;
@@ -89,8 +86,6 @@ public class VariableControllerTest extends FunctionalTest {
         variable.setTags(VARIABLE_UPDATE_TAGS);
 
         VariableDTO pd = MapperUtil.mapTo(variable, VariableDTO.class);
-        System.out.println(String.format(URL, variable.getProject().getOrganization().getId(),
-                variable.getProject().getId(), "/" + variable.getIdVariable()));
         this.getAuthRestAssured()
                 .contentType(ContentType.JSON)
                 .body(pd)
@@ -189,7 +184,6 @@ public class VariableControllerTest extends FunctionalTest {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        System.out.println(jsonArray.toString());
         this.getAuthRestAssured()
                 .contentType(ContentType.JSON)
                 .body(jsonArray.toString())
@@ -202,10 +196,9 @@ public class VariableControllerTest extends FunctionalTest {
 
     private Project createProject() {
         Organization organization = createOrganization();
-        System.out.println("Org: " + organization.getId().toString());
         Project project = projectRepository.save(
                 new Project(
-                        JsonUtil.PROJECT_NAME,
+                        JsonUtil.PROJECT_NAME + GENERATOR.nextString(),
                         JsonUtil.PROJECT_DESCRIPTION,
                         JsonUtil.PROJECT_TAGS,
                         JsonUtil.PROJECT_STATUS,
@@ -214,13 +207,11 @@ public class VariableControllerTest extends FunctionalTest {
                         organization
                 )
         );
-        System.out.println("Project created: " + project.getName());
         return project;
     }
 
     private Variable createVariable() {
         Project project = createProject();
-        System.out.println("Prject: " + project.getId().toString());
         return variableRepository.save(
                 new Variable(
                         JsonUtil.VARIABLE_NAME + GENERATOR.nextString(),
