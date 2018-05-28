@@ -25,7 +25,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static org.hamcrest.Matchers.equalTo;
@@ -70,22 +72,13 @@ public class VariableControllerTest extends FunctionalTest {
         final String VARIABLE_UPDATE_NAME = "Variable" + GENERATOR.nextString();
         final String VARIABLE_UPDATE_DESCRIPTION = "Updated variable test";
         final String VARIABLE_UPDATE_TAGS = ",updated,";
-
-        Project project = createProject();
-
-        String idVar = this.getAuthRestAssured()
-                .contentType(ContentType.JSON)
-                .body(createVariableJson(project.getIdProject(), project.getOrganization().getIdOrganization()).toString())
-                .when()
-                .post(String.format(URL, project.getOrganization().getIdOrganization(),
-                        project.getIdProject(), ""))
-                .then().contentType(ContentType.JSON).extract().path("id").toString();
-        Variable variable = variableRepository.findOne(Integer.valueOf(idVar));
+        Variable variable = createVariable();
         variable.setDescription(VARIABLE_UPDATE_DESCRIPTION);
         variable.setName(VARIABLE_UPDATE_NAME);
         variable.setTags(VARIABLE_UPDATE_TAGS);
 
         VariableDTO pd = MapperUtil.mapTo(variable, VariableDTO.class);
+        System.out.println(pd.getIdOrganization());
         this.getAuthRestAssured()
                 .contentType(ContentType.JSON)
                 .body(pd)
@@ -169,33 +162,20 @@ public class VariableControllerTest extends FunctionalTest {
     }
 
     private Organization createOrganization() {
-        final String URL_ORG = "/users/v1.0/organizations";
-        Organization org = organizationRepository.save(new Organization("Organization" + GENERATOR.nextString(), true, null, "key1234"));
         User user = userService.findByLogin("admin@leucotron.com.br").get(0);
+        Organization organization = new Organization("Organization" + GENERATOR.nextString(),
+                true, null, "key1234");
+        organization = organizationRepository.save(organization);
+        List<User> listUsers = new ArrayList<>();
+        listUsers.add(user);
+        organization.setUsers(listUsers);
+        return organizationRepository.save(organization);
 
-        JSONArray jsonArray = null;
-        JSONObject jsonUser;
-        try {
-            jsonUser = new JSONObject()
-                    .put(JsonUtil.ID_USER, user.getId())
-                    .put(JsonUtil.NAME, user.getName())
-                    .put(JsonUtil.ASSOCIATED, true);
-            jsonArray = new JSONArray().put(jsonUser);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        this.getAuthRestAssured()
-                .contentType(ContentType.JSON)
-                .body(jsonArray.toString())
-                .when()
-                .put(URL_ORG + "/" + org.getId())
-                .then()
-                .statusCode(HttpStatus.OK.value());
-        return org;
     }
 
     private Project createProject() {
         Organization organization = createOrganization();
+        User user = userService.findByLogin("admin@leucotron.com.br").get(0);
         Project project = projectRepository.save(
                 new Project(
                         JsonUtil.PROJECT_NAME + GENERATOR.nextString(),
@@ -203,7 +183,7 @@ public class VariableControllerTest extends FunctionalTest {
                         JsonUtil.PROJECT_TAGS,
                         JsonUtil.PROJECT_STATUS,
                         new Date(),
-                        userService.findByLogin("admin@leucotron.com.br").get(0),
+                        user,
                         organization
                 )
         );
