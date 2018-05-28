@@ -55,8 +55,6 @@ public class VariableControllerTest extends FunctionalTest {
     public void createVariableAndReturn201() throws JSONException {
 
         Project project = createProject();
-        System.out.println("project id: " + project.getIdProject());
-        System.out.println("org id: " + project.getOrganization().getIdOrganization());
         this.getAuthRestAssured()
                 .contentType(ContentType.JSON)
                 .body(createVariableJson(project.getIdProject(), project.getOrganization().getIdOrganization()).toString())
@@ -80,8 +78,6 @@ public class VariableControllerTest extends FunctionalTest {
 
         VariableDTO pd = MapperUtil.mapTo(variable, VariableDTO.class);
         pd.setIdOrganization(variable.getProject().getOrganization().getIdOrganization());
-        System.out.println("*************************************");
-        System.out.println(pd.getIdOrganization());
         this.getAuthRestAssured()
                 .contentType(ContentType.JSON)
                 .body(pd)
