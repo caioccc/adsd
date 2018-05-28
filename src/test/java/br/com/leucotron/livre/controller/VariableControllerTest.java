@@ -77,14 +77,14 @@ public class VariableControllerTest extends FunctionalTest {
         variable.setTags(VARIABLE_UPDATE_TAGS);
 
         VariableDTO pd = MapperUtil.mapTo(variable, VariableDTO.class);
-        System.out.println(String.format(URL, variable.getProject().getOrganization().getIdOrganization(),
-                variable.getProject().getIdProject(), "/" + variable.getIdVariable()));
+        System.out.println(String.format(URL, variable.getProject().getOrganization().getId(),
+                variable.getProject().getId(), "/" + variable.getIdVariable()));
         this.getAuthRestAssured()
                 .contentType(ContentType.JSON)
                 .body(pd)
                 .when()
-                .put(String.format(URL, variable.getProject().getOrganization().getIdOrganization(),
-                        variable.getProject().getIdProject(), "/" + variable.getIdVariable()))
+                .put(String.format(URL, variable.getProject().getOrganization().getId(),
+                        variable.getProject().getId(), "/" + variable.getIdVariable()))
                 .then()
                 .statusCode(HttpStatus.OK.value())
                 .and()
@@ -166,6 +166,8 @@ public class VariableControllerTest extends FunctionalTest {
     }
 
     private Project createProject() {
+        Organization organization = createOrganization();
+        System.out.println("Org: " + organization.getId().toString());
         return projectRepository.save(
                 new Project(
                         JsonUtil.PROJECT_NAME,
@@ -174,12 +176,14 @@ public class VariableControllerTest extends FunctionalTest {
                         JsonUtil.PROJECT_STATUS,
                         new Date(),
                         userService.findByLogin("admin@leucotron.com.br").get(0),
-                        createOrganization()
+                        organization
                 )
         );
     }
 
     private Variable createVariable() {
+        Project project = createProject();
+        System.out.println("Prject: " + project.getId().toString());
         return variableRepository.save(
                 new Variable(
                         JsonUtil.VARIABLE_NAME + GENERATOR.nextString(),
@@ -188,7 +192,7 @@ public class VariableControllerTest extends FunctionalTest {
                         JsonUtil.VARIABLE_TYPE,
                         new Date(),
                         userService.findByLogin("admin@leucotron.com.br").get(0),
-                        createProject()
+                        project
                 )
         );
     }
