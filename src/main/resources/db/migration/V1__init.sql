@@ -44,7 +44,7 @@ CREATE TABLE `project` (
   `description` varchar(255),
   `dateupdate` datetime NOT NULL,
   `status` bool NOT NULL,
-  `tags` varchar(255),
+  `tags` text,
   FOREIGN KEY (`iduser`) REFERENCES `user` (`iduser`),
   FOREIGN KEY (`idorganization`) REFERENCES `organization` (`idorganization`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
