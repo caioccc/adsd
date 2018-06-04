@@ -24,12 +24,18 @@ public class JsonUtil {
     public static final String TOTAL_PAGES = "totalPages";
     public static final String ITEMS = "items";
     public static final String VARIABLE_NAME = "getDigits";
+    public static final String DIAGRAM_NAME = "Diagram";
+    public static final String DIAGRAM_VERSION = "2018";
+    public static final Long DIAGRAM_START_DATE = 1528123461000l;
+    public static final Long DIAGRAM_END_DATE = 15281234614000l;
     public static final String VARIABLE_TYPE = "GLOBAL";
     public static final String TYPE = "type";
     public static final String ID_PROJECT = "idProject";
     public static final String ID_USER = "idUser";
     public static final String ASSOCIATED = "associated";
-
+    public static final String VERSION = "version";
+    public static final String START_DATE = "startDate";
+    public static final String END_DATE = "endDate";
 
     public static JSONObject createJsonObject() {
         return new JSONObject();
