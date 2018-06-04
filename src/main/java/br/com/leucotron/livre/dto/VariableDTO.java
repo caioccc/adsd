@@ -6,6 +6,12 @@ import javax.validation.constraints.NotNull;
 
 import br.com.leucotron.livre.core.dto.ModelDTO;
 
+/**
+ * Data Transient Object for: Variable.
+ * 
+ * @author virtus
+ *
+ */
 public class VariableDTO extends ModelDTO {
 
 

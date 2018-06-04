@@ -21,7 +21,7 @@ import br.com.leucotron.livre.core.model.Model;
 public class Variable extends Model<Integer> {
 
     /**
-     * User ID.
+     * Variable ID.
      */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

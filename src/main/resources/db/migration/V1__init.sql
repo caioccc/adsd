@@ -61,3 +61,17 @@ CREATE TABLE `variable` (
   FOREIGN KEY (`iduser`) REFERENCES `user` (`iduser`),
   FOREIGN KEY (`idproject`) REFERENCES `project` (`idproject`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `diagram` (
+  `iddiagram` integer NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `iduser` integer NOT NULL,
+  `idproject` integer NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `version` varchar(255) NOT NULL,
+  `dateupdate` datetime NOT NULL,
+  `startdate` datetime NOT NULL,
+  `enddate` datetime NOT NULL,
+  `tags` text,
+  FOREIGN KEY (`iduser`) REFERENCES `user` (`iduser`),
+  FOREIGN KEY (`idproject`) REFERENCES `project` (`idproject`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

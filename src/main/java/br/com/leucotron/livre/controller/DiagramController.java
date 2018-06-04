@@ -21,21 +21,21 @@ import br.com.leucotron.livre.core.dto.ResponseListDTO;
 import br.com.leucotron.livre.core.dto.SearchFilterDTO;
 import br.com.leucotron.livre.core.exception.BusinessException;
 import br.com.leucotron.livre.core.exception.RestException;
-import br.com.leucotron.livre.dto.VariableDTO;
-import br.com.leucotron.livre.model.Variable;
-import br.com.leucotron.livre.service.VariableService;
+import br.com.leucotron.livre.dto.DiagramDTO;
+import br.com.leucotron.livre.model.Diagram;
+import br.com.leucotron.livre.service.DiagramService;
 import br.com.leucotron.livre.util.JSonUtil;
 import br.com.leucotron.livre.util.MessageUtil;
 import br.com.leucotron.livre.util.RestMessage;
 import io.swagger.annotations.Api;
 
 @RestController
-@RequestMapping("/organizations/{idOrganization}/projects/{idProject}/variables")
-@Api(value = "variable", description = "Endpoint for operations in Variables")
-public class VariableController extends CrudBaseController<Variable, Integer, VariableDTO> {
+@RequestMapping("/organizations/{idOrganization}/projects/{idProject}/diagrams")
+@Api(value = "diagram", description = "Endpoint for operations in Diagrams")
+public class DiagramController extends CrudBaseController<Diagram, Integer, DiagramDTO> {
 
     @Autowired
-    private VariableService service;
+    private DiagramService service;
 
     /**
      * (non-Javadoc)
@@ -43,13 +43,13 @@ public class VariableController extends CrudBaseController<Variable, Integer, Va
      * @see CrudBaseController#getService()
      */
     @Override
-    protected VariableService getService() {
+    protected DiagramService getService() {
         return service;
     }
 
     @Override
-    public ResponseEntity<VariableDTO> insert(@Valid @RequestBody VariableDTO modelDTO, @RequestHeader("Accept-Language") Locale locale) {
-        try {
+    public ResponseEntity<DiagramDTO> insert(@Valid @RequestBody DiagramDTO modelDTO, @RequestHeader("Accept-Language") Locale locale) {
+    	try {
             getService().validateIdOrganizationAssocietedUser(modelDTO);
         } catch (BusinessException e) {
             return notAcceptable(locale, e);
@@ -59,7 +59,7 @@ public class VariableController extends CrudBaseController<Variable, Integer, Va
 
 
     @Override
-    public ResponseEntity<VariableDTO> update(@Valid @PathVariable Integer id, @RequestBody VariableDTO modelDTO, @RequestHeader("Accept-Language") Locale locale) {
+    public ResponseEntity<DiagramDTO> update(@Valid @PathVariable Integer id, @RequestBody DiagramDTO modelDTO, @RequestHeader("Accept-Language") Locale locale) {
         try {
             getService().validateIdOrganizationAssocietedUser(modelDTO);
         } catch (BusinessException e) {
@@ -71,7 +71,7 @@ public class VariableController extends CrudBaseController<Variable, Integer, Va
     @RequestMapping(value = "/v1.0", method = RequestMethod.GET, params = {"filter"})
     public ResponseListDTO search(@PathVariable Integer idOrganization, @PathVariable Integer idProject, @RequestParam("filter") String filterJSon) {
         SearchFilterDTO filter = JSonUtil.fromJSon(filterJSon, SearchFilterDTO.class);
-        ResponseListDTO response = getService().searchByVariable(idProject, filter);
+        ResponseListDTO response = getService().searchByDiagram(idProject, filter);
         response.setItems(toListDTO(response.getItems()));
 
         return response;
